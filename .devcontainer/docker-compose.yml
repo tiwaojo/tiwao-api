@@ -1,0 +1,72 @@
+version: "3.8"
+name: tiwao-api
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../..:/workspaces:cached
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
+    depends_on:
+      - mongodb
+      # - db-secondary
+    # network_mode: service:db
+    networks:
+      - app-tier
+
+  mongodb:
+    container_name: mongodb
+    image: bitnami/mongodb:latest
+    restart: unless-stopped
+    volumes:
+      - mongodb-data:/bitnami/mongodb:rw
+      # - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    env_file:
+      - ../.env
+    networks:
+      - app-tier
+    # healthcheck:
+    #   test: ["executable", "arg"]
+    #   test: echo 'db.runCommand("ping").ok' | mongo 10.10.10.60:27017/test --quiet
+    #   interval: 1m30s
+    #   timeout: 30s
+    #   retries: 5
+    #   start_period: 30s
+  
+  db-secondary:
+    container_name: db-secondary
+    restart: unless-stopped
+    depends_on:
+      - mongodb # depends on name of service
+    environment:
+        - MONGODB_REPLICA_SET_MODE=secondary
+        - MONGODB_ADVERTISED_HOSTNAME=db-secondary # omit if scalling
+        - MONGODB_INITIAL_PRIMARY_HOST=mongodb
+        - MONGODB_INITIAL_PRIMARY_PORT_NUMBER=27017
+        - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=root_password
+        - MONGODB_REPLICA_SET_KEY=replicasetkey123
+    image: bitnami/mongodb:latest
+  
+  db-arbiter:
+    image: 'bitnami/mongodb:latest'
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+    environment:
+      - MONGODB_REPLICA_SET_MODE=arbiter
+      - MONGODB_INITIAL_PRIMARY_HOST=mongodb
+      - MONGODB_INITIAL_PRIMARY_PORT_NUMBER=27017
+      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=root_password
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
+
+volumes:
+  mongodb-data:
+
+networks:
+  app-tier:
+    driver: bridge
