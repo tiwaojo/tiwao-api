@@ -27,7 +27,7 @@ services:
       - mongodb-data:/bitnami/mongodb:rw
       # - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
     env_file:
-      - ../.env
+      - ../.env.dev
     networks:
       - app-tier
     # healthcheck:

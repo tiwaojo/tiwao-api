@@ -58,6 +58,10 @@ The application runs on `http://localhost:4000`. You can send GraphQL queries an
     - It's the best way to build a production-ready, self-documenting GraphQL API that can use data from any source
     - It's designed to help you build and serve your GraphQL API with little to no configuration
 
+So the entire flow of types across your application will be as follows:
+1. Prisma will generate types/api based off of your database schema to interact with database.
+2. Pothos will use those types to expose GraphQL types via an API.
+3. GraphQL Codegen will read your GraphQL schema and generate types for your frontend codebase representing what is available via the API and how to interact with it.
 ### Validation
 Note other derivatives/alternatives are aviailable. [Custom Validation](https://www.prisma.io/docs/orm/prisma-client/queries/custom-validation)
 - [joi validator](https://joi.dev/)
@@ -65,6 +69,25 @@ Note other derivatives/alternatives are aviailable. [Custom Validation](https://
 ## Bugs
 GraphQL Cannot return null for non-nullable field User.createdAt.
 - This is because a field has a constraint failed. Check the error message for more details as well as your primary keys and `@unique` constraints.
+- 1-1 relation is broken. Documentation point to how to use with postgreSQL but not MongoDB. Cannot find any resources on how to fix this. [Stackoverflow issue](https://stackoverflow.com/questions/78038901/prismamongo-cant-delete-model-with-relations-the-change-you-are-trying-to) [Prisma 1-1 relation](https://www.prisma.io/docs/orm/prisma-schema/data-model/relations/one-to-one-relations#mongodb)
+    - resolving to making 1-1 fields 1-m fields
+
+### mongodb
+drop all collections in a database
+```sh
+db.getCollectionNames().forEach(function(collection) {
+   db[collection].drop();
+});
+```
+
+### Pothos
+- File structure is as is due to recommendations from Pothos.
+    - The prisma client should not be put into context. [link](https://pothos-graphql.dev/docs/plugins/prisma#:~:text=It%20is%20strongly,Context)
+### Nexus
+- [intro](https://www.prisma.io/blog/using-graphql-nexus-with-a-database-pmyl3660ncst)
+- [Example](https://blog.reilly.dev/building-typesafe-full-stack-app-w-apollo-server-4-railway-prisma-pothos-next-ts-part-1-setting-up-the-server#heading-add-root-mutation-andamp-resolver-for-user-type)
+### Prisma
+[Prisma Client API reference](https://www.prisma.io/docs/orm/reference/prisma-client-reference#upsert)
 
 ## Testing
 

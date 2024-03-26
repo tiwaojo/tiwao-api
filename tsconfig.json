@@ -8,7 +8,7 @@
     "outDir": "dist",
     "sourceMap": true,
     "esModuleInterop": true,
-    "strictNullChecks": false,
+    // "strictNullChecks": false,
     "typeRoots": [
       "./src/resolvers/generated/nexus"
     ]

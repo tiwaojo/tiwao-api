@@ -1,0 +1,317 @@
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.This scalar is serialized to a string in ISO 8601 format and parsed from a string in ISO 8601 format.
+"""
+scalar DateTime
+
+type Education {
+  description: String
+  endDate: DateTime!
+  fieldOfStudy: String!
+  id: ID!
+  institution: String!
+  startDate: DateTime!
+}
+
+input EducationInput {
+  """The description of the education"""
+  description: String
+
+  """The end date of the education"""
+  endDate: DateTime!
+
+  """The field of study of the education"""
+  fieldOfStudy: String!
+
+  """"""
+  id: ID
+
+  """The institution of the education"""
+  institution: String!
+
+  """The start date of the education"""
+  startDate: DateTime!
+}
+
+type Experience {
+  company: String
+  description: String
+  endDate: DateTime!
+  id: ID!
+  imgSrc: String
+  role: String
+  startDate: DateTime!
+  title: String!
+  tools: [String!]!
+  type: String!
+  url: String!
+}
+
+input ExperienceInput {
+  """The company of the experience. Applies to WORK experience only"""
+  company: String
+
+  """The description of the experience"""
+  description: String
+
+  """The end date of the experience"""
+  endDate: DateTime!
+
+  """The id of the experience"""
+  id: String!
+
+  """The image url of the experience"""
+  imgSrc: String
+
+  """The role of the experience. Applies to WORK experience only"""
+  role: String
+
+  """The start date of the experience"""
+  startDate: DateTime!
+
+  """The title of the experience"""
+  title: String!
+
+  """The tools used to achieve the experience"""
+  tools: [String!]!
+
+  """The type of the experience. Can be either WORK or PROJECT"""
+  type: ExperienceTypeEnum! = PROJECT
+
+  """
+  The web url of where the experience documenting the experience can be found. Applies to PROJECT experience only
+  """
+  url: String!
+  userId: ID
+}
+
+enum ExperienceTypeEnum {
+  """Project experience"""
+  PROJECT
+
+  """Work experience"""
+  WORK
+}
+
+type Location {
+  city: String!
+  country: String!
+  id: ID!
+  province: String!
+}
+
+input LocationInput {
+  city: String!
+  country: String!
+
+  """"""
+  id: ID
+  province: String!
+}
+
+"""The mutation root type."""
+type Mutation {
+  createUser(input: UserInput!): User!
+  deleteExperience(
+    """The experience id"""
+    id: ID!
+  ): Experience!
+  deleteSocial(
+    """The social id"""
+    id: ID!
+  ): Social
+  deleteUser(
+    """The user id"""
+    id: ID!
+  ): User
+
+  """update skills to a user"""
+  updateSkills(
+    """The location to update"""
+    skills: [String!]!
+
+    """The user id"""
+    userId: String!
+  ): User!
+
+  """update education to a user"""
+  upsertEducation(
+    """The education to update"""
+    education: EducationInput!
+
+    """The user id"""
+    userId: String!
+  ): Education!
+
+  """update experience to a user"""
+  upsertExperience(
+    """The experience to update"""
+    experience: ExperienceInput!
+
+    """The user id"""
+    userId: String!
+  ): Experience!
+
+  """update experiences of a user"""
+  upsertExperiences(
+    """The experiences to update"""
+    experiences: [ExperienceInput!]
+
+    """The user id"""
+    userId: String!
+  ): [Experience!]!
+  upsertLocation(
+    """The location to update"""
+    input: LocationInput!
+
+    """The user id"""
+    userId: String!
+  ): Location!
+
+  """update social to a user"""
+  upsertSocial(
+    """The social to update"""
+    social: SocialInput!
+
+    """The user id"""
+    userId: String!
+  ): Social!
+}
+
+"""The query root type."""
+type Query {
+  """Get all education of a user"""
+  getEducation(
+    """The id of the education"""
+    id: ID!
+
+    """The start date of the experience"""
+    userId: ID!
+  ): Education
+
+  """Get an experience by its id"""
+  getExperience(
+    """The id of the experience"""
+    id: ID!
+
+    """The user id of the experience"""
+    userId: ID!
+  ): Experience
+
+  """Get all experiences of a user"""
+  getExperiences(
+    """The end date of the experience"""
+    endDate: DateTime = "2024-03-26T08:15:08.806Z"
+
+    """The type of the experience"""
+    experienceType: String = "PROJECT"
+
+    """The start date of the experience"""
+    startDate: DateTime = "2024-03-26T08:15:08.806Z"
+
+    """The user id of the experience"""
+    userId: ID!
+  ): [Experience!]
+
+  """Get all locations"""
+  getLocations(
+    """The user id of the location"""
+    userId: ID!
+  ): [Location!]!
+
+  """Get all skills"""
+  getSkills(
+    """The user id of the skill"""
+    userId: ID!
+  ): [User!]!
+
+  """Get all socials of a user"""
+  getSocialById(
+    """The id of the social"""
+    id: ID!
+
+    """The start date of the experience"""
+    userId: ID!
+  ): Social @deprecated(reason: "Use getSocials instead")
+
+  """Get all socials"""
+  getSocials: [Social!]!
+
+  """Get a user by its id"""
+  getUser(
+    """The id of the user"""
+    id: ID!
+  ): User
+
+  """Get a user by its email"""
+  getUserByEmail(
+    """The email of the user"""
+    email: String! = "employ@tiwaojo.com"
+  ): User
+
+  """Get all users"""
+  getUsers: [User!]!
+}
+
+"""Social media links"""
+type Social {
+  id: ID!
+  platform: String!
+  url: String!
+}
+
+input SocialInput {
+  """The id of the social platform object"""
+  id: String!
+
+  """The social platform the user is present on"""
+  platform: String!
+
+  """The url of the social platform"""
+  url: String!
+  userId: ID
+}
+
+type User {
+  about: String
+  education: Education
+  email: String!
+  experiences: [Experience!]!
+  firstName: String!
+  id: ID!
+  lastName: String!
+  location: Location
+  skills: [String!]!
+  socials: [Social!]!
+  title: String!
+}
+
+input UserInput {
+  about: String
+
+  """The education of the user"""
+  education: EducationInput
+
+  """The email of the user"""
+  email: String!
+
+  """The experiences of the user"""
+  experiences: [ExperienceInput!]!
+
+  """The first name of the user"""
+  firstName: String!
+
+  """The last name of the user"""
+  lastName: String!
+
+  """The location of the user"""
+  location: LocationInput
+
+  """The skills of the user"""
+  skills: [String!]!
+
+  """The socials of the user"""
+  socials: [SocialInput!]
+
+  """The title of the user"""
+  title: String!
+}

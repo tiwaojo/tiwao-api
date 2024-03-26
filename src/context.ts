@@ -1,7 +1,6 @@
 import { PrismaClient} from "@prisma/client";
-import { UserCreateSchema } from "./generated/yup-validate/schemas";
 
-const prisma = new PrismaClient({
+export const prisma = new PrismaClient({
   errorFormat: "pretty",
   // log: ['query', 'info', 'warn'],
   // Resource:https://www.prisma.io/docs/orm/prisma-client/observability-and-logging/logging
@@ -47,17 +46,6 @@ prisma.$extends({
   query: {
     user: {
       async create({ args, query }) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        await UserCreateSchema.validate(
-          {
-            ...args.data,
-            email: args.data.email.match(emailRegex),
-            firstName: args.data.firstName,
-            lastName: args.data.lastName,
-          },
-          { abortEarly: false }
-        );
-        console.log("UserCreateSchema.deps", UserCreateSchema.deps);
         return query(args);
       },
     },
