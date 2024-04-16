@@ -74,8 +74,7 @@ export const UserInput = builder.inputType("UserInput", {
 
 export const SocialInput = builder.inputType("SocialInput", {
   fields: (t) => ({
-    id: t.string({
-      required: true,
+    id: t.id({
       description: "The id of the social platform object",
       validate: { uuid: true },
     }),

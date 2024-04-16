@@ -1,3 +1,8 @@
+type AuthPayload {
+  token: String!
+  userId: ID!
+}
+
 """
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.This scalar is serialized to a string in ISO 8601 format and parsed from a string in ISO 8601 format.
 """
@@ -123,6 +128,13 @@ type Mutation {
     """The user id"""
     id: ID!
   ): User
+  getUserToken(
+    """The user email"""
+    email: String
+
+    """The secret key"""
+    id: ID!
+  ): AuthPayload!
 
   """update skills to a user"""
   updateSkills(
@@ -158,7 +170,7 @@ type Mutation {
 
     """The user id"""
     userId: String!
-  ): [Experience!]!
+  ): [Experience!]! @deprecated(reason: "Use upsertExperience instead")
   upsertLocation(
     """The location to update"""
     input: LocationInput!
@@ -182,7 +194,7 @@ type Query {
   """Get all education of a user"""
   getEducation(
     """The id of the education"""
-    id: ID!
+    id: ID
 
     """The start date of the experience"""
     userId: ID!
@@ -200,13 +212,13 @@ type Query {
   """Get all experiences of a user"""
   getExperiences(
     """The end date of the experience"""
-    endDate: DateTime = "2024-03-26T08:15:08.806Z"
+    endDate: DateTime = "2024-04-11T21:06:44.209Z"
 
     """The type of the experience"""
     experienceType: String = "PROJECT"
 
     """The start date of the experience"""
-    startDate: DateTime = "2024-03-26T08:15:08.806Z"
+    startDate: DateTime = "2024-04-11T21:06:44.209Z"
 
     """The user id of the experience"""
     userId: ID!
@@ -224,17 +236,17 @@ type Query {
     userId: ID!
   ): [User!]!
 
-  """Get all socials of a user"""
-  getSocialById(
+  """Get single social of a user"""
+  getSocial(
     """The id of the social"""
     id: ID!
-
-    """The start date of the experience"""
-    userId: ID!
   ): Social @deprecated(reason: "Use getSocials instead")
 
   """Get all socials"""
-  getSocials: [Social!]!
+  getSocials(
+    """The user id of the social"""
+    userId: ID!
+  ): [Social!]!
 
   """Get a user by its id"""
   getUser(
@@ -261,7 +273,7 @@ type Social {
 
 input SocialInput {
   """The id of the social platform object"""
-  id: String!
+  id: ID
 
   """The social platform the user is present on"""
   platform: String!

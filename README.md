@@ -87,7 +87,17 @@ db.getCollectionNames().forEach(function(collection) {
 - [intro](https://www.prisma.io/blog/using-graphql-nexus-with-a-database-pmyl3660ncst)
 - [Example](https://blog.reilly.dev/building-typesafe-full-stack-app-w-apollo-server-4-railway-prisma-pothos-next-ts-part-1-setting-up-the-server#heading-add-root-mutation-andamp-resolver-for-user-type)
 ### Prisma
-[Prisma Client API reference](https://www.prisma.io/docs/orm/reference/prisma-client-reference#upsert)
+- [Prisma Client API reference](https://www.prisma.io/docs/orm/reference/prisma-client-reference#upsert)
+
+### Authentication & Authorization
+- [reference - basic](https://github.com/mandiwise/basic-apollo-auth-demo)
+- [JWT V API](https://softwareengineering.stackexchange.com/a/419604)
+- [Apollo Server Auth](https://www.apollographql.com/docs/apollo-server/security/authentication/#in-resolvers)
+- [Prisma graphql Auth](https://github.com/prisma/prisma-examples/blob/latest/typescript/graphql-auth/src/permissions/index.ts)
+
+### Postman
+- [Postman - GraphQL](https://learning.postman.com/docs/sending-requests/supported-api-frameworks/graphql/)
+- [Testing Queries](https://youtu.be/kygb3sf3Nhc)
 
 ## Testing
 

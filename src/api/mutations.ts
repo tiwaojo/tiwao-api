@@ -1,5 +1,5 @@
 import { ExperienceType } from "@prisma/client";
-import { builder } from "../builder";
+import { AuthPayloadType, builder } from "../builder";
 import { prisma } from "../context";
 import {
   EducationInput,
@@ -8,6 +8,9 @@ import {
   SocialInput,
   UserInput,
 } from "../schema/input";
+import { APP_SECRET, HASHED_APP_SECRET } from "../utils";
+import { sign } from "jsonwebtoken";
+import { compare } from "bcryptjs";
 
 builder.mutationField("createUser", (t) =>
   t.prismaField({
@@ -25,11 +28,11 @@ builder.mutationField("createUser", (t) =>
     // },
     type: "User",
     // authz: {
-      // rules: {
-      //   canCreateUser: ({ ctx }) => {
-      //     return ctx.ctx.user?.role === "ADMIN";
-      //   },
-      // },
+    // rules: {
+    //   canCreateUser: ({ ctx }) => {
+    //     return ctx.ctx.user?.role === "ADMIN";
+    //   },
+    // },
     // },
     args: {
       input: t.arg({
@@ -75,24 +78,23 @@ builder.mutationField("createUser", (t) =>
           about: args.input.about,
           experiences: {
             createMany: {
-              data:
-                args.input.experiences?.map((exp) => {
-                  return {
-                    // ...exp,
-                    company: exp.company,
-                    description: exp.description,
-                    imgSrc: exp.imgSrc,
-                    role: exp.role,
-                    tools: {
-                      set: exp.tools,
-                    },
-                    type: exp.type as ExperienceType,
-                    title: exp.title,
-                    startDate: new Date(exp.startDate),
-                    endDate: new Date(exp.endDate),
-                    url: exp.url,
-                  };
-                }) ,
+              data: args.input.experiences?.map((exp) => {
+                return {
+                  // ...exp,
+                  company: exp.company,
+                  description: exp.description,
+                  imgSrc: exp.imgSrc,
+                  role: exp.role,
+                  tools: {
+                    set: exp.tools,
+                  },
+                  type: exp.type as ExperienceType,
+                  title: exp.title,
+                  startDate: new Date(exp.startDate),
+                  endDate: new Date(exp.endDate),
+                  url: exp.url,
+                };
+              }),
             },
           },
           education: {
@@ -144,18 +146,20 @@ builder.mutationField("deleteUser", (t) =>
     },
     nullable: true,
     resolve: async (root, __, args) => {
-      return await prisma.user.delete({
-        where: {
-          // ...root,
-          id: String(args.id),
-        },
-      }).then((ret) => {
-        console.log(ret);
-      }
-      ).catch((err) => {
-        console.error("error: ", err.message);
-        return err.message;
-      });
+      return await prisma.user
+        .delete({
+          where: {
+            // ...root,
+            id: String(args.id),
+          },
+        })
+        .then((ret) => {
+          console.log(ret);
+        })
+        .catch((err) => {
+          console.error("error: ", err.message);
+          return err.message;
+        });
     },
   })
 );
@@ -251,6 +255,7 @@ builder.mutationField("upsertExperiences", (t) =>
   t.prismaField({
     type: ["Experience"],
     description: "update experiences of a user",
+    deprecationReason: "Use upsertExperience instead",
     args: {
       experiences: t.arg({
         description: "The experiences to update",
@@ -272,8 +277,8 @@ builder.mutationField("upsertExperiences", (t) =>
         },
       }),
     },
-    resolve: async (_, __, args, { ctx }) => {
-      return await ctx.prisma.user
+    resolve: async (_, __, args) => {
+      return await prisma.user
         .update({
           where: {
             id: args.userId,
@@ -628,18 +633,68 @@ builder.mutationField("deleteSocial", (t) =>
       }),
     },
     nullable: true,
-    resolve: async (_, __, args,) => {
-      return await prisma.social.delete({
-        where: {
-          id: args.id as string,
+    resolve: async (_, __, args) => {
+      return await prisma.social
+        .delete({
+          where: {
+            id: args.id as string,
+          },
+        })
+        .then((ret) => {
+          console.log(ret);
+        })
+        .catch((err) => {
+          console.error("error: ", err.message);
+          return err.message;
+        });
+    },
+  })
+);
+
+// User sends a secret and email to get the user id and set the token.
+// if the secret is correct and the email is correct, then return the user id of the admin.
+// if the secret is correct and the email is incorrect, then return the user id of the guest.
+builder.mutationField("getUserToken", (t) =>
+  t.field({
+    type: "AuthPayload",
+    args: {
+      id: t.arg.id({
+        description: "The secret key",
+        required: true,
+        validate: {
+          type: "string",
         },
-      }).then((ret) => {
-        console.log(ret);
-      }
-      ).catch((err) => {
-        console.error("error: ", err.message);
-        return err.message;
+      }),
+      email: t.arg.string({
+        description: "The user email",
+        validate: {
+          type: "string",
+        },
+      }),
+    },
+    resolve: async (_, args) => {
+      const user = await prisma.user.findUnique({
+        where: {
+          email: args.email as string,
+        },
       });
+
+      // compare the secret key with the APP_SECRET
+      const hashedAppSecret = await HASHED_APP_SECRET();
+      
+      const isSecretValid = await compare(args.id as string, hashedAppSecret); // Compares the hashed secret key with the APP_SECRET
+      if (!isSecretValid) {
+        throw new Error("Invalid secret key");
+      }      
+      if (!user) {
+        throw new Error(`No user found for email: ${args.email}`);
+      }
+
+      const payload: AuthPayloadType = {
+        token: sign({ userId: user.id, email: args.email }, APP_SECRET),
+        user: user.id ,
+      };
+      return payload;
     },
   })
 );

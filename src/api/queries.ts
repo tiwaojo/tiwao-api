@@ -7,15 +7,13 @@ builder.queryField("getUsers", (t) =>
   t.prismaField({
     type: ["User"],
     description: "Get all users",
-    resolve: async (
-      query
-      // root,
-      // args,
-      //  ctx,
-      //  info
-    ) => {
-      return await prisma.user.findMany({ ...query, orderBy: { id: "asc" } });
-    },
+    // authz: {
+    //   rules: ["isPromethus"]
+    // },
+    resolve: async (query) =>
+      {
+        return await prisma.user.findMany({ ...query, orderBy: { id: "asc" } });
+      },
   })
 );
 
@@ -196,37 +194,44 @@ builder.queryField("getEducation", (t) =>
       }),
       id: t.arg.id({
         description: "The id of the education",
-        required: true,
+        required: false,
       }),
     },
     nullable: true,
-    resolve: async (query, _root, { userId, id }) => {
+    resolve: async (query, _root, { userId,id }) => {
       return await prisma.education.findUnique({
-        where: { userId: userId as string, id: id as string },
+        where: { userId: userId as string,id: id as string },
       });
     },
   })
 );
 
-builder.queryField("getSocialById", (t) =>
+builder.queryField("getSocial", (t) =>
   t.prismaField({
     type: "Social",
-    description: "Get all socials of a user",
+    description: "Get single social of a user",
     deprecationReason: "Use getSocials instead",
     args: {
-      userId: t.arg.id({
-        description: "The start date of the experience",
-        required: true,
-      }),
+      // userId: t.arg.id({
+      //   description: "The start date of the experience",
+      //   required: true,
+      // }),
       id: t.arg.id({
         description: "The id of the social",
         required: true,
       }),
+      // platform: t.arg.string({
+      //   description: "The platform of the social",
+      //   required: true,
+      // }),
     },
     nullable: true,
-    resolve: async (query, _root, { userId, id }) => {
+    resolve: async (query, _root, { id }) => {
       return await prisma.social.findUnique({
-        where: { userId: userId as string, id: id as string },
+        where: {
+          // platform: platform as string,
+          id: id as string,
+        },
       });
     },
   })
@@ -236,8 +241,18 @@ builder.queryField("getSocials", (t) =>
   t.prismaField({
     type: ["Social"],
     description: "Get all socials",
-    resolve: async (query) => {
-      return await prisma.social.findMany({ ...query, orderBy: { id: "asc" } });
+    args: {
+      userId: t.arg.id({
+        description: "The user id of the social",
+        required: true,
+      }),
+    },
+    resolve: async (query, _, args) => {
+      return await prisma.social.findMany({
+        ...query,
+        where: { userId: args.userId as string },
+        orderBy: { id: "asc" },
+      });
     },
   })
 );

@@ -49,27 +49,27 @@ export const ExperienceType = builder.prismaObject("Experience", {
     tools: t.exposeStringList("tools"),
     company: t.exposeString("company", {
       nullable: true,
-      validate: {
-        refine: (val) => {
-          if (val && !["WORK"].includes(ExperienceEnumType.kind)) {
-            console.error("Company is only required for WORK experience");
-            return false;
-          }
-          return true;
-        },
-      },
+      // validate: {
+      //   refine: (val) => {
+      //     if (val && !["WORK"].includes(ExperienceEnumType.kind)) {
+      //       console.error("Company is only required for WORK experience");
+      //       return false;
+      //     }
+      //     return true;
+      //   },
+      // },
     }),
     role: t.exposeString("role", {
       nullable: true,
-      validate: {
-        refine: (val) => {
-          if (val && !["WORK"].includes(ExperienceEnumType.kind)) {
-            console.error("Company is only required for WORK experience");
-            return false;
-          }
-          return true;
-        },
-      },
+      // validate: {
+      //   refine: (val) => {
+      //     if (val && !["WORK"].includes(ExperienceEnumType.kind)) {
+      //       console.error("Company is only required for WORK experience");
+      //       return false;
+      //     }
+      //     return true;
+      //   },
+      // },
     }),
   }),
 });
@@ -122,4 +122,52 @@ export const ExperienceEnumType = builder.enumType("ExperienceTypeEnum", {
       value: "PROJECT",
     },
   } as const, // so the values can be inferred
+});
+
+// export const Mutation = builder.mutationType({
+//   fields: (t) => ({
+//     signupUser: t.field({
+//       type: AuthPayload,
+//       args: {
+//         data: t.arg({
+//           type: builder.inputType("SignupInput", {
+//             fields: (t) => ({
+//               firstName: t.string(),
+//               lastName: t.string(),
+//               email: t.string(),
+//               password: t.string(),
+//             }),
+//           }),
+//         }),
+//       },
+//       resolve: async (_parent, { data }, { prisma }) => {
+//         const user = await prisma.user.create({
+//           data: {
+//             firstName: data.firstName,
+//             lastName: data.lastName,
+//             email: data.email,
+//             password: data.password,
+//           },
+//         });
+//         return {
+//           token: "token",
+//           user,
+//         };
+//       },
+//     }),
+//   }),
+// });
+
+// Resourse: https://pothos-graphql.dev/docs/guide/objects
+
+builder.objectType("AuthPayload", {  
+  fields: (t) => ({
+    token: t.exposeString("token",{
+      // resolve: (parent) => parent.token,
+    }),
+    userId: t.field({
+      type: "ID",
+      resolve: (parent) =>parent.user.id,
+    }),
+  }),
 });

@@ -3,8 +3,8 @@ import { builder } from "./builder";
 import { writeFileSync } from "fs";
 import { printSchema, lexicographicSortSchema } from "graphql";
 
-import "./api"; // queries and mutations
-// import "./schema"; // types
+import "./api/mutations"; // queries and mutations
+import "./api/queries"; // queries and mutations
 import "./schema/types"; // types
 import path from "node:path";
 

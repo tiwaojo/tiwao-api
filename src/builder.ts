@@ -2,10 +2,17 @@ import SchemaBuilder from "@pothos/core";
 import PrismaPlugin from "@pothos/plugin-prisma";
 import ValidationPlugin from '@pothos/plugin-validation';
 import WithInputPlugin from '@pothos/plugin-with-input';
-import AuthzPlugin from '@pothos/plugin-authz';
 import type PrismaTypes from "@pothos/plugin-prisma/generated";
 import { DateTimeISOResolver } from "graphql-scalars";
 import { prisma, GraphQLContext } from "./context";
+import { Prisma } from "@prisma/client";
+
+// Adding custom AuthPayload object type using SchemaTypes
+// resource: https://pothos-graphql.dev/docs/guide/objects#using-schematypes
+export interface AuthPayloadType {
+  token: string;
+  user: PrismaTypes["User"]["Shape"]["id"];
+}
 
 export const builder = new SchemaBuilder<{
   Scalars: {
@@ -14,20 +21,20 @@ export const builder = new SchemaBuilder<{
       Output: Date;
     };
   };
+  
+  PrismaTypes: PrismaTypes;
+  Objects: { AuthPayload: AuthPayloadType };
   Context: {
     ctx: GraphQLContext;
   };
-  PrismaTypes: PrismaTypes;
-  // AuthZRule: keyof typeof rules;
-  // AuthTypes: {
-  //   User: {
-  //     Role: "ADMIN" | "USER";
-  //   };
-  // };
 }>({
-  plugins: [PrismaPlugin, ValidationPlugin, WithInputPlugin, AuthzPlugin],
+  plugins: [ ValidationPlugin, WithInputPlugin,PrismaPlugin ],
   prisma: {
-    client: prisma,    
+    client: prisma,  
+    // Because the prisma client is loaded dynamically, we need to explicitly provide the some information about the prisma schema
+    // Adding context: https://pothos-graphql.dev/docs/plugins/prisma#set-up-the-builder
+    dmmf: Prisma.dmmf, 
+    filterConnectionTotalCount: true, 
   },
   withInput: {
     typeOptions: {

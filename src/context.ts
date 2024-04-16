@@ -1,4 +1,6 @@
-import { PrismaClient} from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
+import { type IncomingMessage} from "http";
+// import { AuthPayloadType } from "./builder";
 
 export const prisma = new PrismaClient({
   errorFormat: "pretty",
@@ -20,8 +22,8 @@ export const prisma = new PrismaClient({
   ],
 });
 
-prisma.$on("query", (e) => {
-  console.log("Query: " + e.query);
+prisma.$on("info", (e) => {
+  console.log("Query: " + e.message);
 });
 
 // Computed fields
@@ -53,9 +55,20 @@ prisma.$extends({
 });
 
 export interface GraphQLContext {
-  prisma: PrismaClient;
+  // prisma: PrismaClient;
+  req: IncomingMessage;
 }
 
-export const createContext: GraphQLContext = {
-  prisma: prisma,
-};
+// export const createContext = async (req: IncomingMessage) => ({
+//   // return {
+//     req
+//     // prisma,
+//   // } as GraphQLContext;
+// })
+
+export function createContext(req: IncomingMessage) {
+  return {
+    req,
+    // prisma,
+  } as GraphQLContext;
+}
