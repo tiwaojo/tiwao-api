@@ -11,7 +11,7 @@ async function main() {
       firstName: "Alice",
       lastName: "Smith",
       email: "alice@example.com",
-      title: "Software Engineer",
+      title: "Senior Platform Engineer",
       about: null,
       education: {
         create: {
@@ -50,29 +50,29 @@ async function main() {
   });
 
   await prisma.user.upsert({
-    where: { email: "bob@example.com" },
+    where: { email: "bob@burger.com" },
     update: {},
     create: {
       firstName: "Bob",
-      lastName: "Example",
-      email: "bob@example.com",
-      title: "Software Denier",
-      about: "I am a software denier.",
+      lastName: "Belcher",
+      email: "bob@burger.com",
+      title: "Software Developer",
+      about: "If I were a spice, I'd be flour",
       location: {
         create: {
-          city: "Birmingham",
-          province: "West Midlands",
-          country: "United Kingdom",
+          city: "Seymour's Bay",
+          province: "New Jersey",
+          country: "United States Of America",
         },
       },
       education: {
         create: {
           fieldOfStudy: "BSc Computer Science",
-          institution: "University of Wirstorshire",
+          institution: "University of Worcestershire",
           startDate: new Date("2017-09-01"),
           endDate: new Date("2020-06-01"),
           description:
-            "I studied Computer Science at the University of Birmingham.",
+            "I studied Computer Science at the University of Worcestershire.",
           // other fields...
         },
       },
@@ -92,7 +92,7 @@ async function main() {
             startDate: new Date("2019-06-01"),
             endDate: new Date("2020-06-01"),
             title: "Software Developer",
-            company: "Acme Corp",
+            company: "Dunder Mifflin",
             description: "I worked as a software developer at Dunder Mifflin.",
             url: "https://www.dundermifflin.com",
             type: "WORK",
@@ -102,11 +102,10 @@ async function main() {
           {
             startDate: new Date("2020-06-01"),
             endDate: new Date("2021-06-01"),
-            title: "Senior Software Developer",
-            company: "Acme Corp",
+            title: "Big Burger App",
             description:
-              "I worked as a senior software developer at Acme Corp.",
-            url: "https://www.acme.com",
+              "I worked on a burger application using a layered architecture",
+            url: "https://www.buns.com",
             type: "PROJECT",
             // other fields...
           },

@@ -1,6 +1,7 @@
 {
-    "recommendations": [
-        "abians.prisma-generate-uml",
-        "graphql.vscode-graphql"
-    ]
+  "recommendations": [
+    "ms-azuretools.vscode-azurefunctions",
+    "abians.prisma-generate-uml",
+    "graphql.vscode-graphql"
+  ]
 }

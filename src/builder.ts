@@ -11,7 +11,7 @@ import { Prisma } from "@prisma/client";
 // resource: https://pothos-graphql.dev/docs/guide/objects#using-schematypes
 export interface AuthPayloadType {
   token: string;
-  user: PrismaTypes["User"]["Shape"]["id"];
+  expiry: Date;
 }
 
 export const builder = new SchemaBuilder<{

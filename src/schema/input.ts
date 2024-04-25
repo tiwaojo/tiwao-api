@@ -76,7 +76,7 @@ export const SocialInput = builder.inputType("SocialInput", {
   fields: (t) => ({
     id: t.id({
       description: "The id of the social platform object",
-      validate: { uuid: true },
+      validate: { type: "string" },
     }),
     platform: t.field({
       type: "String",
@@ -94,9 +94,6 @@ export const SocialInput = builder.inputType("SocialInput", {
         maxLength: 255,
         url: true,
       },
-    }),
-    userId: t.field({
-      type: "ID",
     }),
   }),
 });
@@ -153,11 +150,6 @@ export const EducationInput = builder.inputType("EducationInput", {
 
 export const ExperienceInput = builder.inputType("ExperienceInput", {
   fields: (t) => ({
-    id: t.string({
-      description: "The id of the experience",
-      validate: { uuid: true },
-      required: true
-    }),
     type: t.field({
       required: true,
       type: ExperienceEnumType,
@@ -270,8 +262,7 @@ export const ExperienceInput = builder.inputType("ExperienceInput", {
 
 export const LocationInput = builder.inputType("LocationInput", {
   fields: (t) => ({
-    id: t.id({ description: "", validate: { uuid: true }}),
-    // userId: t.id({ description: "", }),
+    id: t.id({ description: "", }),
     city: t.field({
       type: "String",
       required: true,
@@ -296,7 +287,5 @@ export const LocationInput = builder.inputType("LocationInput", {
         maxLength: 50,
       },
     }),
-    // t.field(Location.userId);
-    // },
   }),
 });

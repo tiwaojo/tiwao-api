@@ -2,6 +2,8 @@ import Zod from "zod";
 import { builder } from "../builder";
 import { prisma } from "../context";
 import { ExperienceType } from "@prisma/client";
+import { GraphQLError } from "graphql";
+import { cacheControlFromInfo } from '@apollo/cache-control-types';
 
 builder.queryField("getUsers", (t) =>
   t.prismaField({
@@ -10,10 +12,11 @@ builder.queryField("getUsers", (t) =>
     // authz: {
     //   rules: ["isPromethus"]
     // },
-    resolve: async (query) =>
-      {
-        return await prisma.user.findMany({ ...query, orderBy: { id: "asc" } });
-      },
+    resolve: async (query,_,__,___,info) => {
+      const cacheControl = cacheControlFromInfo(info)
+      cacheControl.setCacheHint({ maxAge: 60, scope: 'PRIVATE' });
+      return await prisma.user.findMany({ ...query, orderBy: { id: "asc" } });
+    },
   })
 );
 
@@ -162,7 +165,10 @@ builder.queryField("getExperience", (t) =>
     args: {
       id: t.arg.id({
         description: "The id of the experience",
-        required: true,
+        validate: {
+          type: "string",
+        },
+        required: false,
       }),
       userId: t.arg.id({
         description: "The user id of the experience",
@@ -172,13 +178,28 @@ builder.queryField("getExperience", (t) =>
     nullable: true,
     // validate: [
     //   (args) => !!args.id || !!args.userId,
-    //   { message: "Must provide either phone number or email address" },
+    //   { message: "Must provide either userId or id" },
     // ],
-    resolve: async (query, root, { id, userId }) => {
-      return await prisma.experience.findUnique({
-        ...query,
-        where: { id: id as string, userId: userId as string },
-      });
+    resolve: async (query, root, { userId, id }) => {
+      return await prisma.experience
+        .findFirst({
+          ...query,
+          where: {
+            userId: userId as string,
+            id: id as string,
+          },
+        })
+        .catch(() => {
+          throw new GraphQLError(
+            `The requested resource was not found. Please check your arguments`,
+            {
+              extensions: {
+                code: "NOT_FOUND",
+                http: { status: 404 },
+              },
+            }
+          );
+        });
     },
   })
 );
@@ -191,17 +212,28 @@ builder.queryField("getEducation", (t) =>
       userId: t.arg.id({
         description: "The start date of the experience",
         required: true,
-      }),
-      id: t.arg.id({
-        description: "The id of the education",
-        required: false,
+        validate: {
+          type: "string",
+        },
       }),
     },
     nullable: true,
-    resolve: async (query, _root, { userId,id }) => {
-      return await prisma.education.findUnique({
-        where: { userId: userId as string,id: id as string },
-      });
+    resolve: async (query, _root, { userId }) => {
+      return await prisma.education
+        .findUnique({
+          where: { userId: userId as string },
+        })
+        .catch(() => {
+          throw new GraphQLError(
+            `User is not authenticated or invalid argument`,
+            {
+              extensions: {
+                code: "Bad Request",
+                http: { status: 400 },
+              },
+            }
+          );
+        });
     },
   })
 );
@@ -212,27 +244,35 @@ builder.queryField("getSocial", (t) =>
     description: "Get single social of a user",
     deprecationReason: "Use getSocials instead",
     args: {
-      // userId: t.arg.id({
-      //   description: "The start date of the experience",
-      //   required: true,
-      // }),
       id: t.arg.id({
         description: "The id of the social",
         required: true,
       }),
-      // platform: t.arg.string({
-      //   description: "The platform of the social",
-      //   required: true,
-      // }),
+      userId: t.arg.id({
+        description: "The user id associated with the social",
+        required: true,
+      }),
     },
     nullable: true,
-    resolve: async (query, _root, { id }) => {
-      return await prisma.social.findUnique({
-        where: {
-          // platform: platform as string,
-          id: id as string,
-        },
-      });
+    resolve: async (query, _root, { id, userId }) => {
+      return await prisma.social
+        .findFirst({
+          where: {
+            id: id as string,
+            userId: userId as string,
+          },
+        })
+        .catch(() => {
+          throw new GraphQLError(
+            `The requested resource has been deprecated. Please use getSocials instead.`,
+            {
+              extensions: {
+                code: "NOT_FOUND",
+                http: { status: 404 },
+              },
+            }
+          );
+        });
     },
   })
 );
@@ -246,53 +286,133 @@ builder.queryField("getSocials", (t) =>
         description: "The user id of the social",
         required: true,
       }),
+      platform: t.arg.string({
+        description: "The platform of the social",
+        required: false,
+      }),
+      url: t.arg.string({
+        description: "The url of the social",
+        required: false,
+      }),
     },
     resolve: async (query, _, args) => {
       return await prisma.social.findMany({
         ...query,
-        where: { userId: args.userId as string },
+        where: {
+          userId: args.userId as string,
+          OR: [
+            {
+              platform: {
+                equals: args.platform as string,
+              },
+            },
+            {
+              url: {
+                contains: args.url as string,
+              },
+            },
+          ],
+        },
         orderBy: { id: "asc" },
       });
     },
   })
 );
 
-builder.queryField("getSkills", (t) =>
-  t.prismaField({
-    type: ["User"],
-    description: "Get all skills",
-    args: {
-      userId: t.arg.id({
-        description: "The user id of the skill",
-        required: true,
-      }),
-    },
-    resolve: async (query, _, args) => {
-      return await prisma.user.findMany({
-        ...query,
-        where: { id: args.userId as string },
-        orderBy: { id: "asc" },
-      });
-    },
-  })
+builder.queryField(
+  "getSkills",
+  (t) =>
+    t.stringList({
+      description: "Get all skills",
+      args: {
+        userId: t.arg.id({
+          description: "The user id of the skill",
+          required: true,
+        }),
+      },
+      resolve: async (query, { userId }) => {
+        return await prisma.user
+          .findUnique({
+            ...query,
+            where: { id: userId as string },
+            // orderBy: { id: "asc" },
+            // select: {
+            //   skills: true,
+            // },
+          })
+          .then((skills) => {
+            return skills?.skills || [];
+          });
+      },
+    })
+  // t.prismaField({
+  //   type: ["String"],
+  //   description: "Get all skills",
+  //   args: {
+  //     userId: t.arg.id({
+  //       description: "The user id of the skill",
+  //       required: true,
+  //     }),
+  //   },
+  //   resolve: async (query, _, args) => {
+  //     return await prisma.user.findMany({
+  //       ...query,
+  //       where: { id: args.userId as string },
+  //       orderBy: { id: "asc" },
+  //       select: {
+  //         skills: true,
+  //     }});
+  //   },
+  // })
 );
 
-builder.queryField("getLocations", (t) =>
+builder.queryField("getLocation", (t) =>
   t.prismaField({
-    type: ["Location"],
+    type: "Location",
     description: "Get all locations",
     args: {
       userId: t.arg.id({
         description: "The user id of the location",
         required: true,
       }),
+      city: t.arg.string({
+        description: "The city of the location",
+        required: false,
+      }),
+      country: t.arg.string({
+        description: "The country of the location",
+        required: false,
+      }),
+      id: t.arg.id({
+        description: "The user id of the location",
+        required: false,
+      }),
     },
+    nullable: true,
     resolve: async (query, _, args) => {
-      return await prisma.location.findMany({
-        where: { userId: args.userId as string },
-        ...query,
-        orderBy: { id: "asc" },
-      });
+      return await prisma.location
+        .findFirst({
+          ...query,
+          where: {
+            userId: args.userId as string,
+            OR: [
+              { id: args.id as string },
+              { city: args.city as string },
+              { country: args.country as string },
+            ],
+          },
+        })
+        .catch(() => {
+          throw new GraphQLError(
+            `The requested resource was not found. Please check your arguments`,
+            {
+              extensions: {
+                code: "NOT_FOUND",
+                http: { status: 404 },
+              },
+            }
+          );
+        });
     },
   })
 );

@@ -1,6 +1,6 @@
 import { builder } from "../builder";
 
-export const UserType = builder.prismaObject("User", {
+builder.prismaObject("User", {
   findUnique: (User) => ({
     id: User.id,
   }),
@@ -28,7 +28,7 @@ export const UserType = builder.prismaObject("User", {
   }),
 });
 
-export const ExperienceType = builder.prismaObject("Experience", {
+builder.prismaObject("Experience", {
   fields: (t) => ({
     id: t.exposeID("id"),
     type: t.exposeString("type"),
@@ -74,7 +74,7 @@ export const ExperienceType = builder.prismaObject("Experience", {
   }),
 });
 
-export const EducationType = builder.prismaObject("Education", {
+builder.prismaObject("Education", {
   findUnique: (Education) => ({ id: Education.id }),
   fields: (t) => ({
     id: t.exposeID("id"),
@@ -92,7 +92,7 @@ export const EducationType = builder.prismaObject("Education", {
   }),
 });
 
-export const SocialType = builder.prismaObject("Social", {
+builder.prismaObject("Social", {
   description: "Social media links",
   fields: (t) => ({
     id: t.exposeID("id"),
@@ -101,7 +101,7 @@ export const SocialType = builder.prismaObject("Social", {
   }),
 });
 
-export const Locationtype = builder.prismaObject("Location", {
+builder.prismaObject("Location", {
   // findUnique: (Location) => Location.id,
   fields: (t) => ({
     id: t.exposeID("id"),
@@ -165,9 +165,13 @@ builder.objectType("AuthPayload", {
     token: t.exposeString("token",{
       // resolve: (parent) => parent.token,
     }),
-    userId: t.field({
-      type: "ID",
-      resolve: (parent) =>parent.user.id,
+    expiry: t.expose("expiry", {
+      type: "DateTime",
+      nullable: true,
     }),
+    // userId: t.field({
+    //   type: "ID",
+    //   resolve: (parent) =>parent.user.id,
+    // }),
   }),
 });

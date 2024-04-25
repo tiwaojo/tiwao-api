@@ -80,6 +80,9 @@ db.getCollectionNames().forEach(function(collection) {
 });
 ```
 
+## References
+https://learn.microsoft.com/en-us/azure/app-service/tutorial-nodejs-mongodb-app
+
 ### Pothos
 - File structure is as is due to recommendations from Pothos.
     - The prisma client should not be put into context. [link](https://pothos-graphql.dev/docs/plugins/prisma#:~:text=It%20is%20strongly,Context)
@@ -88,6 +91,8 @@ db.getCollectionNames().forEach(function(collection) {
 - [Example](https://blog.reilly.dev/building-typesafe-full-stack-app-w-apollo-server-4-railway-prisma-pothos-next-ts-part-1-setting-up-the-server#heading-add-root-mutation-andamp-resolver-for-user-type)
 ### Prisma
 - [Prisma Client API reference](https://www.prisma.io/docs/orm/reference/prisma-client-reference#upsert)
+### Apollo
+- [Caching](https://www.apollographql.com/docs/apollo-server/performance/caching#setting-cache-hints)
 
 ### Authentication & Authorization
 - [reference - basic](https://github.com/mandiwise/basic-apollo-auth-demo)

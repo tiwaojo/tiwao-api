@@ -21,7 +21,8 @@
 				"ms-vscode.vscode-typescript-next",
 				"Prisma.prisma",
 				"dbaeumer.vscode-eslint",
-				"esbenp.prettier-vscode"
+				"esbenp.prettier-vscode",
+				"ms-azuretools.vscode-azurefunctions"
 			]
 		}
 	},
@@ -29,7 +30,9 @@
 		"ghcr.io/devcontainers-contrib/features/pnpm:2": {},
 		"ghcr.io/devcontainers-contrib/features/prettier:1": {},
 		// "ghcr.io/devcontainers-contrib/features/prisma:2": {},
-		"ghcr.io/joshuanianji/devcontainer-features/mount-pnpm-store:1": {}
+		"ghcr.io/joshuanianji/devcontainer-features/mount-pnpm-store:1": {},
+		"ghcr.io/devcontainers/features/azure-cli": {},
+		"ghcr.io/jlaundry/devcontainer-features/azure-functions-core-tools": {}
 	},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [3000, 27017],
