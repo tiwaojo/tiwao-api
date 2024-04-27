@@ -14,7 +14,7 @@
   },
   "extensions": {
     "http": {
-      "routePrefix": "tiwao-graphql-api",
+      "routePrefix": "",
       "maxConcurrentRequests": 100
     }
   }

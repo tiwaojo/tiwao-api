@@ -6,7 +6,6 @@ import { GraphQLError } from "graphql";
 const isPromethus = rule()(async (parent, args, ctx: GraphQLContext) => {
   const user = await verifyToken(ctx);
 
-
   if (user) {
     return Boolean(user);
   }
@@ -14,7 +13,7 @@ const isPromethus = rule()(async (parent, args, ctx: GraphQLContext) => {
   return new GraphQLError("User is not authenticated", {
     extensions: {
       code: "UNAUTHENTICATED",
-      http: { status: 401 },
+      http: { status: 403 },
     },
   });
 });

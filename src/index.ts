@@ -6,37 +6,50 @@ import { createContext, GraphQLContext } from "./context";
 import { applyMiddleware } from "graphql-middleware";
 import permissions from "./permissions";
 import { initContextCache } from "@pothos/core";
+import { InMemoryLRUCache } from "@apollo/utils.keyvaluecache";
+import {
+  ApolloServerPluginLandingPageLocalDefault,
+  ApolloServerPluginLandingPageProductionDefault,
+} from "@apollo/server/plugin/landingPage/default";
+
+// Create an instance of ApolloServer
+// More options can be found here: https://www.apollographql.com/docs/apollo-server/api/apollo-server/#options
+export const server = new ApolloServer<GraphQLContext>({
+  schema: applyMiddleware(schema, permissions),
+  status400ForVariableCoercionErrors: true,
+  includeStacktraceInErrorResponses: process.env.NODE_ENV === "development",
+  cache: new InMemoryLRUCache({
+    // resource: https://www.apollographql.com/docs/apollo-server/performance/cache-backends
+    // ~100MiB
+    maxSize: Math.pow(2, 20) * 100,
+    // 5 minutes (in seconds)
+    ttl: 300,
+  }),
+  plugins: [
+    process.env.NODE_ENV === "development"
+      ? ApolloServerPluginLandingPageLocalDefault()
+      : ApolloServerPluginLandingPageProductionDefault({}),
+    {
+      // requestDidStart() {
+      //   return {
+      //     willSendResponse({ response }) {
+      //       if (response.extensions?.cacheControl) {
+      //         response.http.headers.set(
+      //           "Cache-Control",
+      //           response.extensions.cacheControl.toString()
+      //         );
+      //       }
+      //     },
+      //   };
+      // },
+    },
+  ],
+});
 
 export async function startApolloServer() {
-  // Create an instance of ApolloServer
-  // More options can be found here: https://www.apollographql.com/docs/apollo-server/api/apollo-server/#options
-  const server = new ApolloServer<GraphQLContext>({
-    schema: applyMiddleware(schema, permissions),
-    introspection: process.env.NODE_ENV === "development",
-    status400ForVariableCoercionErrors: true,
-    includeStacktraceInErrorResponses: process.env.NODE_ENV === "development",
-    // formatError: (formattedError) => {
-    //   // Return a different error message
-    //   if (
-    //     formattedError.extensions?.code ===
-    //     ApolloServerErrorCode.GRAPHQL_VALIDATION_FAILED
-    //   ) {
-    //     return {
-    //       ...formattedError,
-    //       message: "Your query doesn't match the schema. Try double-checking it!",
-    //     };
-    //   }
-  
-    //   // Otherwise return the formatted error. This error can also
-    //   // be manipulated in other ways, as long as it's returned.
-    //   return formattedError;
-    // }
-  });
-
-  // Authentication resource: https://www.apollographql.com/docs/apollo-server/security/authentication/
   const { url } = await startStandaloneServer(server, {
-    context: async ({ req,res }) => {
-      const context = await createContext(req,res);
+    context: async ({ req, res }) => {
+      const context = await createContext(req, res);
       return {
         ...initContextCache(),
         ...context,
@@ -44,14 +57,15 @@ export async function startApolloServer() {
     },
     listen: {
       port: 4000,
-      // path: "/graphql",
-      // host: 'localhost',
     },
   });
   console.log(`
-    🚀  Server is running!
-    📭  Query at ${url}
-  `);
+  🚀  Server is running!
+  📭  Query at ${url}
+`);
 }
 
-startApolloServer();
+if (process.env.NODE_ENV === "development") {
+  startApolloServer();
+}
+

@@ -1,5 +1,6 @@
+import { HttpRequest } from "@azure/functions";
 import { PrismaClient } from "@prisma/client";
-import { ServerResponse, type IncomingMessage} from "http";
+import { ServerResponse, type IncomingMessage } from "http";
 // import { AuthPayloadType } from "./builder";
 
 export const prisma = new PrismaClient({
@@ -56,8 +57,8 @@ prisma.$extends({
 
 export interface GraphQLContext {
   // prisma: PrismaClient;
-  req: IncomingMessage;
-  res: ServerResponse;
+  req: HttpRequest | IncomingMessage ;
+  res?: ServerResponse;
 }
 
 // export const createContext = async (req: IncomingMessage) => ({
@@ -67,10 +68,12 @@ export interface GraphQLContext {
 //   // } as GraphQLContext;
 // })
 
-export function createContext(req: IncomingMessage,res: ServerResponse) {  
+export function createContext(
+  req: HttpRequest | IncomingMessage,
+  res?: ServerResponse
+) {
   return {
     req,
-    res
-    // prisma,
+    res,
   } as GraphQLContext;
 }

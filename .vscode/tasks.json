@@ -2,37 +2,44 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "type": "shell",
+      "label": "pnpm build (functions)",
+      "command": "pnpm run build",
+      "dependsOn": "pnpm clean (functions)",
+      "problemMatcher": "$tsc"
+    },
+    {
+      "type": "shell",
+      "label": "pnpm install (functions)",
+      "command": "pnpm install"
+    },
+    {
+      "type": "shell",
+      "label": "pnpm prune (functions)",
+      "command": "pnpm prune --production",
+      "dependsOn": "pnpm build (functions)",
+      "problemMatcher": []
+    },
+    {
+      "type": "shell",
+      "label": "pnpm clean (functions)",
+      "command": "pnpm run clean",
+      "dependsOn": "pnpm install (functions)"
+    },
+    {
+      "type": "npm",
+      "script": "start",
+      "problemMatcher": [],
+      "label": "npm: start",
+      "detail": "func start"
+    },
+    {
       "type": "func",
       "label": "func: host start",
       "command": "host start",
       "problemMatcher": "$func-node-watch",
       "isBackground": true,
-      "dependsOn": "npm build (functions)"
-    },
-    {
-      "type": "shell",
-      "label": "npm build (functions)",
-      "command": "npm run build",
-      "dependsOn": "npm clean (functions)",
-      "problemMatcher": "$tsc"
-    },
-    {
-      "type": "shell",
-      "label": "npm install (functions)",
-      "command": "npm install"
-    },
-    {
-      "type": "shell",
-      "label": "npm prune (functions)",
-      "command": "npm prune --production",
-      "dependsOn": "npm build (functions)",
-      "problemMatcher": []
-    },
-    {
-      "type": "shell",
-      "label": "npm clean (functions)",
-      "command": "npm run clean",
-      "dependsOn": "npm install (functions)"
+      "dependsOn": "pnpm build (functions)"
     }
   ]
 }

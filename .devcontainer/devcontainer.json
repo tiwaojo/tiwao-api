@@ -22,7 +22,8 @@
 				"Prisma.prisma",
 				"dbaeumer.vscode-eslint",
 				"esbenp.prettier-vscode",
-				"ms-azuretools.vscode-azurefunctions"
+				"ms-azuretools.vscode-azurefunctions",
+				"Azurite.azurite"
 			]
 		}
 	},
