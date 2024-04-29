@@ -23,7 +23,8 @@
 				"dbaeumer.vscode-eslint",
 				"esbenp.prettier-vscode",
 				"ms-azuretools.vscode-azurefunctions",
-				"Azurite.azurite"
+				"Azurite.azurite",
+				"ms-azuretools.vscode-cosmosdb"
 			]
 		}
 	},

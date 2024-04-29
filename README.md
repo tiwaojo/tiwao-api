@@ -99,10 +99,13 @@ https://learn.microsoft.com/en-us/azure/app-service/tutorial-nodejs-mongodb-app
 - [JWT V API](https://softwareengineering.stackexchange.com/a/419604)
 - [Apollo Server Auth](https://www.apollographql.com/docs/apollo-server/security/authentication/#in-resolvers)
 - [Prisma graphql Auth](https://github.com/prisma/prisma-examples/blob/latest/typescript/graphql-auth/src/permissions/index.ts)
+- [MSAL Node](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-node) - For authenticating w/ Azure AD
 
 ### Postman
 - [Postman - GraphQL](https://learning.postman.com/docs/sending-requests/supported-api-frameworks/graphql/)
 - [Testing Queries](https://youtu.be/kygb3sf3Nhc)
+- [Extending expiry token time](https://community.postman.com/t/is-it-possible-to-extend-the-expiry-time-of-a-token/44841/3) - Useful at a later time
+
 
 ## Testing
 

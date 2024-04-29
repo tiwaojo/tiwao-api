@@ -122,3 +122,12 @@ enum ExperienceType {
   WORK
   PROJECT
 }
+
+/// Represents the roles a user can have in the application
+/// `PROMETHUS`: Represents the role of a prometheus user. This user has full access to the application
+/// `GUEST`: Represents the role of a guest user. This user has limited access to the application
+/// TODO: Implement in the future
+enum Role {
+  PROMETHUS
+  GUEST
+}

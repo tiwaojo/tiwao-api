@@ -6,5 +6,7 @@
     "azureFunctions.projectRuntime": "~4",
     "debug.internalConsoleOptions": "neverOpen",
     "azureFunctions.projectLanguageModel": 4,
-    "azureFunctions.preDeployTask": "npm prune (functions)"
+    "azureFunctions.preDeployTask": "npm prune (functions)",
+    "appService.defaultWebAppToDeploy": "/subscriptions/0b76229a-7e52-48ca-bb6d-faa570ac1a5b/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/tiwao-api",
+    "appService.deploySubpath": "."
 }

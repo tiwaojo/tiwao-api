@@ -31,6 +31,7 @@
       "script": "start",
       "problemMatcher": [],
       "label": "npm: start",
+      "dependsOn": "pnpm build (functions)",
       "detail": "func start"
     },
     {
@@ -39,7 +40,18 @@
       "command": "host start",
       "problemMatcher": "$func-node-watch",
       "isBackground": true,
-      "dependsOn": "pnpm build (functions)"
+      "dependsOn": "pnpm build (functions)",
+      "options": {
+        "env": {
+          "DATABASE_URL":"mongodb://tiwao:password@mongodb:27017/tiwao_db?retryWrites=true&w=majority",
+          "MONGODB_ROOT_PASSWORD":"root_password",
+"MONGODB_USERNAME":"tiwao",
+"MONGODB_PASSWORD":"password",
+"MONGODB_DATABASE":"tiwao_db",
+"MONGODB_ENABLE_JOURNAL":"true",
+"MONGODB_REPLICA_SET_MODE":"primary",
+        }
+      }
     }
   ]
 }

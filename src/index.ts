@@ -9,7 +9,7 @@ import { initContextCache } from "@pothos/core";
 import { InMemoryLRUCache } from "@apollo/utils.keyvaluecache";
 import {
   ApolloServerPluginLandingPageLocalDefault,
-  ApolloServerPluginLandingPageProductionDefault,
+  // ApolloServerPluginLandingPageProductionDefault,
 } from "@apollo/server/plugin/landingPage/default";
 
 // Create an instance of ApolloServer
@@ -26,9 +26,10 @@ export const server = new ApolloServer<GraphQLContext>({
     ttl: 300,
   }),
   plugins: [
-    process.env.NODE_ENV === "development"
-      ? ApolloServerPluginLandingPageLocalDefault()
-      : ApolloServerPluginLandingPageProductionDefault({}),
+    // process.env.NODE_ENV === "development"
+    //   ? 
+    ApolloServerPluginLandingPageLocalDefault(),
+      // : ApolloServerPluginLandingPageProductionDefault({}),
     {
       // requestDidStart() {
       //   return {
@@ -56,7 +57,8 @@ export async function startApolloServer() {
       };
     },
     listen: {
-      port: 4000,
+      port: Number(process.env.PORT),
+      path: "/graphql",
     },
   });
   console.log(`
@@ -65,7 +67,4 @@ export async function startApolloServer() {
 `);
 }
 
-if (process.env.NODE_ENV === "development") {
-  startApolloServer();
-}
-
+startApolloServer();

@@ -6,6 +6,7 @@
       "type": "node",
       "request": "attach",
       "port": 9229,
+      "envFile": "${workspaceFolder}/.env.dev",
       "preLaunchTask": "func: host start"
     }
   ]

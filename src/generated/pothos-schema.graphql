@@ -1,5 +1,5 @@
 type AuthPayload {
-  expiry: DateTime
+  """JWT token"""
   token: String!
 }
 
@@ -127,7 +127,7 @@ type Mutation {
   ): String
   getUserToken(
     """The user email"""
-    email: String
+    email: String!
     expiry_date: DateTime
 
     """The secret key"""
@@ -210,13 +210,13 @@ type Query {
   """Get all experiences of a user"""
   getExperiences(
     """The end date of the experience"""
-    endDate: DateTime = "2024-04-27T03:50:27.909Z"
+    endDate: DateTime = "2024-04-29T03:13:12.217Z"
 
     """The type of the experience"""
     experienceType: String = "PROJECT"
 
     """The start date of the experience"""
-    startDate: DateTime = "2024-04-27T03:50:27.909Z"
+    startDate: DateTime = "2024-04-29T03:13:12.217Z"
 
     """The user id of the experience"""
     userId: ID!
@@ -246,7 +246,10 @@ type Query {
   """Get single social of a user"""
   getSocial(
     """The id of the social"""
-    id: ID!
+    id: ID
+
+    """The platform associated with the social account"""
+    platform: String
 
     """The user id associated with the social"""
     userId: ID!

@@ -469,7 +469,11 @@ builder.mutationField("upsertSocial", (t) =>
             userId: args.userId as string,
             id: args.social.id as string,
           },
-          update: { userId: args.userId as string,platform: args.social.platform, url: args.social.url},
+          update: {
+            userId: args.userId as string,
+            platform: args.social.platform,
+            url: args.social.url,
+          },
           create: {
             userId: args.userId as string,
             platform: args.social.platform,
@@ -478,7 +482,7 @@ builder.mutationField("upsertSocial", (t) =>
         })
         .catch((e) => {
           console.log(e);
-          
+
           throw new GraphQLError(
             `The desired operation failed or the requested resource does not exist. Please check your arguments`,
             {
@@ -543,6 +547,7 @@ builder.mutationField("getUserToken", (t) =>
       }),
       email: t.arg.string({
         description: "The user email",
+        required: true,
         validate: {
           type: "string",
         },
@@ -556,6 +561,9 @@ builder.mutationField("getUserToken", (t) =>
       const user = await prisma.user.findUnique({
         where: {
           email: args.email as string,
+        },
+        select: {
+          id: true,
         },
       });
 
@@ -574,18 +582,18 @@ builder.mutationField("getUserToken", (t) =>
       }
       const today = new Date();
 
-      const expiry_date =
-        args.expiry_date || new Date(today.setDate(today.getDate() + 14));
-
-      // Set a header for the token to expire in 14 days
-      // ctx.req.headers["set-cookie"]?.push(`token_expiry=${expiry_date}; Expires=${expiry_date}; path=/profile Secure`);
-      // ctx.res.setHeader('Set-Cookie', [`token_expiry=${expiry_date}`, `Expires=${expiry_date}`, `Secure`, "SameSite=None"]);
-      // ctx.res.setHeader('Set-Cookie', [`token_expiry=${expiry_date}`, `Expires=${expiry_date}`, `path=/profile`, `Secure`, "SameSite=None"]);
+      const expiry_date = args.expiry_date || new Date(today.getDate() + 14);
+      const diffInSec =
+        Math.abs(expiry_date.getTime() - today.getTime()) / 1000;
 
       const payload: AuthPayloadType = {
-        token: sign({ userId: user.id, email: args.email }, APP_SECRET),
-        expiry: expiry_date,
+        token: sign({ userId: user.id, email: args.email }, APP_SECRET, {
+          expiresIn: Math.round(diffInSec),
+          // expiresIn: 60,
+        }),
       };
+      console.log(payload);
+
       return payload;
     },
   })

@@ -3,7 +3,7 @@ import { builder } from "../builder";
 import { prisma } from "../context";
 import { ExperienceType } from "@prisma/client";
 import { GraphQLError } from "graphql";
-import { cacheControlFromInfo } from '@apollo/cache-control-types';
+import { cacheControlFromInfo } from "@apollo/cache-control-types";
 
 builder.queryField("getUsers", (t) =>
   t.prismaField({
@@ -12,9 +12,9 @@ builder.queryField("getUsers", (t) =>
     // authz: {
     //   rules: ["isPromethus"]
     // },
-    resolve: async (query,_,__,___,info) => {
-      const cacheControl = cacheControlFromInfo(info)
-      cacheControl.setCacheHint({ maxAge: 60, scope: 'PRIVATE' });
+    resolve: async (query, _, __, ___, info) => {
+      const cacheControl = cacheControlFromInfo(info);
+      cacheControl.setCacheHint({ maxAge: 60, scope: "PRIVATE" });
       return await prisma.user.findMany({ ...query, orderBy: { id: "asc" } });
     },
   })
@@ -246,7 +246,11 @@ builder.queryField("getSocial", (t) =>
     args: {
       id: t.arg.id({
         description: "The id of the social",
-        required: true,
+        required: false,
+      }),
+      platform: t.arg.string({
+        description: "The platform associated with the social account",
+        required: false,
       }),
       userId: t.arg.id({
         description: "The user id associated with the social",
@@ -254,11 +258,11 @@ builder.queryField("getSocial", (t) =>
       }),
     },
     nullable: true,
-    resolve: async (query, _root, { id, userId }) => {
+    resolve: async (query, _root, { id, userId, platform }) => {
       return await prisma.social
         .findFirst({
           where: {
-            id: id as string,
+            OR: [{ id: id as string, platform: platform as string }],
             userId: userId as string,
           },
         })

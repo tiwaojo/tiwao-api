@@ -9,13 +9,17 @@ import { initContextCache } from "@pothos/core";
 import { server } from "../src";
 import { createContext } from "../src/context";
 
-
-export default startServerAndCreateHandler(server, {
-  context: async ({ req }: AzureFunctionsContextFunctionArgument) => {
-    const context = await createContext(req);
-    return {
-      ...initContextCache(),
-      ...context,
-    };
-  },
-});
+if (process.env.NODE_ENV === "development") {
+  startServerAndCreateHandler(server, {
+    context: async ({
+      req,
+      context,
+    }: AzureFunctionsContextFunctionArgument) => {
+      const ctx = await createContext(req, context.res);
+      return {
+        ...initContextCache(),
+        ...ctx,
+      };
+    },
+  });
+}

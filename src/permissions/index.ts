@@ -52,7 +52,7 @@ export default shield(
     },
   },
   {
-    fallbackRule: allow,
+    fallbackRule: deny,
     allowExternalErrors: true,
   }
 );

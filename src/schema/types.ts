@@ -102,7 +102,6 @@ builder.prismaObject("Social", {
 });
 
 builder.prismaObject("Location", {
-  // findUnique: (Location) => Location.id,
   fields: (t) => ({
     id: t.exposeID("id"),
     city: t.exposeString("city"),
@@ -160,18 +159,8 @@ export const ExperienceEnumType = builder.enumType("ExperienceTypeEnum", {
 
 // Resourse: https://pothos-graphql.dev/docs/guide/objects
 
-builder.objectType("AuthPayload", {  
+builder.objectType("AuthPayload", {
   fields: (t) => ({
-    token: t.exposeString("token",{
-      // resolve: (parent) => parent.token,
-    }),
-    expiry: t.expose("expiry", {
-      type: "DateTime",
-      nullable: true,
-    }),
-    // userId: t.field({
-    //   type: "ID",
-    //   resolve: (parent) =>parent.user.id,
-    // }),
+    token: t.exposeString("token", { description: "JWT token" }),
   }),
 });

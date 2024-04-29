@@ -1,15 +1,14 @@
 /* global use, db */
 // MongoDB Playground
 // Use Ctrl+Space inside a snippet or a string literal to trigger completions.
-
-const database = process.env.MONGO_INITDB_DATABASE || 'myDb';
-const collection = 'tiwao-collection';
+// const database = process.env.MONGODB_DATABASE;
+// const collection = 'tiwao-collection';
 
 // Create a new database.
-use(database);
+use("tiwao_db"); // Create new database or switch to it if it already exists
 
 // Create a new collection.
-db.createCollection(collection);
+// db.createCollection(collection);
 
 // The prototype form to create a collection:
 /* db.createCollection( <name>,
