@@ -39,10 +39,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: npm install and build
-        # env:
-        #     DATABASE_URL: ${{secrets.}}
-        #     APP_SECRET: ${{secrets.}}
+      - name: Pnpm install and build
         run: |
           pnpm install
           pnpm run prisma:generate
@@ -50,7 +47,7 @@ jobs:
           pnpm run codegen --if-present
 
       - name: Zip artifact for deployment
-        run: zip release.zip ./dist/* -r
+        run: zip release.zip ./* -r -x .git/\* .github/\* .vscode/\* node_modules/\* .env
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -90,4 +87,5 @@ jobs:
           app-name: 'tiwao-api'
           slot-name: 'Production'
           package: .
+          startup-command: 'node dist/index.js'
           
