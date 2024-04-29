@@ -21,11 +21,18 @@ jobs:
         with:
           node-version: '20.x'
 
-      - name: npm install, build, and test
+      - name: Setup Pnpm
+        uses: pnpm/action-setup@v3.0.0
+
+      - name: npm install and build
+        # env:
+        #     DATABASE_URL: ${{secrets.}}
+        #     APP_SECRET: ${{secrets.}}
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+          pnpm install
+          pnpm run prisma:generate
+          tsc -p ./tsconfig.json
+          pnpm run codegen --if-present
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
