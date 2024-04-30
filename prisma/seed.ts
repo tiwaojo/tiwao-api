@@ -1,4 +1,4 @@
-import { PrismaClient } from "../src/generated/client";
+import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 // Seed the database with some initial data
