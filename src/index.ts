@@ -67,7 +67,7 @@ async function startApolloServer() {
       };
     },
     listen: {
-      port: Number(process.env.PORT),
+      port: process.env.PORT as number | undefined,
       path: "/graphql",
       // host: "tiwao-api.azurewebsites.net",
     },
