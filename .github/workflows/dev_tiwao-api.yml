@@ -86,8 +86,8 @@ jobs:
         with:
           app-name: 'tiwao-api'
           slot-name: 'Production'
-          # package: .
-          startup-command: 'node dist/src/index.js'
+          package: .
+          # startup-command: 'node dist/src/index.js'
           # clean: true
           # restart: true
           
