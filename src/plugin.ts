@@ -2,23 +2,23 @@ import { ApolloServerPlugin } from "@apollo/server";
 
 export default {
   async serverWillStart(service) {
-    service.logger.info("Server starting!");
+    service.logger.info("Server Starting!");
     return {
-      async renderLandingPage() {
-        return {
-          html() {
-            `<h1>My Custom Landing Page</h1>`;
-          },
-        };
-      },
+      // async renderLandingPage() {
+      //   return {
+      //     html() {
+      //       `<h1>My Custom Landing Page</h1>`;
+      //     },
+      //   };
+      // },
       async serverWillStop() {
-        console.log("Server stopping!");
+        service.logger.info("Server Stoping!");
       },
     };
   },
   // Fires whenever a GraphQL request is received from a client.
   async requestDidStart(requestContext) {
-    console.log(
+    requestContext.logger.info(
       ("Addressing request: " + requestContext.request.http?.body) as string
     );
 
@@ -34,11 +34,14 @@ export default {
       },
 
       async didEncounterSubsequentErrors(requestContext, errors) {
-        console.error(
+        requestContext.logger.error(
           `an error happened in response to ${requestContext.operationName} ` +
-            requestContext.request.query
+            requestContext.request.query +
+            " with variables " +
+            JSON.stringify(requestContext.request.variables) +
+            "\n\n" +
+            errors
         );
-        console.error(errors);
       },
 
       // Fires whenever Apollo Server will validate a
@@ -48,18 +51,18 @@ export default {
       },
 
       responseForOperation(requestContext) {
-        console.log(
-          "responseForOperation",
-          requestContext.response.http.status
+        requestContext.logger.info(
+          "responseForOperation" + requestContext.response.http.status
         );
       },
 
-      didEncounterErrors(requestContext) {
-        console.error(
-          "an error happened in response to query " +
-            requestContext.request.query
+      async didEncounterErrors(requestContext) {
+        requestContext.logger.warn(
+          "an error was encountered in response to query " +
+            requestContext.request.query +
+            "\n\n" +
+            requestContext.errors
         );
-        console.log(requestContext.errors);
       },
 
       // async willSendResponse({ response }) {
