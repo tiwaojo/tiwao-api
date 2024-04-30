@@ -5,7 +5,7 @@ import WithInputPlugin from '@pothos/plugin-with-input';
 import type PrismaTypes from "@pothos/plugin-prisma/generated";
 import { DateTimeISOResolver } from "graphql-scalars";
 import { prisma, GraphQLContext } from "./context";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "./generated/client";
 
 // Adding custom AuthPayload object type using SchemaTypes
 // resource: https://pothos-graphql.dev/docs/guide/objects#using-schematypes
