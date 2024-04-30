@@ -82,12 +82,12 @@ jobs:
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
-        uses: azure/webapps-deploy@v3
+        uses: azure/webapps-deploy@v2
         with:
           app-name: 'tiwao-api'
           slot-name: 'Production'
-          package: .
+          # package: .
           startup-command: 'node dist/src/index.js'
-          clean: true
-          restart: true
+          # clean: true
+          # restart: true
           
