@@ -1,6 +1,6 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-// import { ApolloServerErrorCode } from "@apollo/server/errors";
+import { ApolloServerErrorCode } from "@apollo/server/errors";
 import { schema } from "./schema";
 import { createContext, GraphQLContext } from "./context";
 import { applyMiddleware } from "graphql-middleware";
@@ -11,6 +11,8 @@ import {
   ApolloServerPluginLandingPageLocalDefault,
   // ApolloServerPluginLandingPageProductionDefault,
 } from "@apollo/server/plugin/landingPage/default";
+import plugin from "./plugin";
+import logger  from "./logging";
 
 // Create an instance of ApolloServer
 // More options can be found here: https://www.apollographql.com/docs/apollo-server/api/apollo-server/#options
@@ -29,25 +31,33 @@ export const server = new ApolloServer<GraphQLContext>({
     // process.env.NODE_ENV === "development"
     //   ? 
     ApolloServerPluginLandingPageLocalDefault(),
-      // : ApolloServerPluginLandingPageProductionDefault({}),
-    {
-      // requestDidStart() {
-      //   return {
-      //     willSendResponse({ response }) {
-      //       if (response.extensions?.cacheControl) {
-      //         response.http.headers.set(
-      //           "Cache-Control",
-      //           response.extensions.cacheControl.toString()
-      //         );
-      //       }
-      //     },
-      //   };
-      // },
-    },
+    // : ApolloServerPluginLandingPageProductionDefault({}),
+    plugin,
   ],
+  logger: logger,
+  formatError: (formattedError, error) => {
+    // Return a different error message
+    if (
+      formattedError.extensions?.code ===
+      ApolloServerErrorCode.GRAPHQL_VALIDATION_FAILED
+    ) {
+      return {
+        ...formattedError,
+        message: "Your query doesn't match the schema. Try double-checking it!",
+      };
+    }
+
+    if (formattedError.message.startsWith('Database Error: ')) {
+      return { message: `Internal server error\n${error}` };
+    }
+
+    // Otherwise return the formatted error. This error can also
+    // be manipulated in other ways, as long as it's returned.
+    return formattedError;
+  },
 });
 
-export async function startApolloServer() {
+async function startApolloServer() {
   const { url } = await startStandaloneServer(server, {
     context: async ({ req, res }) => {
       const context = await createContext(req, res);
