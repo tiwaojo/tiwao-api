@@ -74,7 +74,7 @@ jobs:
         run: unzip release.zip
       
       - name: Login to Azure
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_382D7A793900417184BACBF7FBFAF6B5 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_8BB2C62F360441D78C9E4C04A4400F09 }}
@@ -82,7 +82,7 @@ jobs:
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
+        uses: azure/webapps-deploy@v3
         with:
           app-name: 'tiwao-api'
           slot-name: 'Production'

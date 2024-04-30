@@ -1,16 +1,16 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { ApolloServerErrorCode } from "@apollo/server/errors";
-import { schema } from "./schema";
-import { createContext, GraphQLContext } from "./context";
 import { applyMiddleware } from "graphql-middleware";
-import permissions from "./permissions";
 import { initContextCache } from "@pothos/core";
 import { InMemoryLRUCache } from "@apollo/utils.keyvaluecache";
 import {
   ApolloServerPluginLandingPageLocalDefault,
   // ApolloServerPluginLandingPageProductionDefault,
 } from "@apollo/server/plugin/landingPage/default";
+import permissions from "./permissions";
+import { schema } from "./schema";
+import { createContext, GraphQLContext } from "./context";
 import plugin from "./plugin";
 import logger  from "./logging";
 
@@ -69,6 +69,7 @@ async function startApolloServer() {
     listen: {
       port: Number(process.env.PORT),
       path: "/graphql",
+      host: "tiwao-api.azurewebsites.net",
     },
   });
   console.log(`
@@ -76,5 +77,14 @@ async function startApolloServer() {
   📭  Query at ${url}
 `);
 }
+
+// TODO: Add Application Insights. Note this is resource isn't a part of the Azure Free Services
+// Resource: https://learn.microsoft.com/en-us/azure/azure-monitor/app/javascript-sdk?tabs=npmpackage
+// const appInsights = new ApplicationInsights({ config: {
+//   connectionString: 'YOUR_CONNECTION_STRING' 
+//   /* ...Other Configuration Options... */
+// } });
+// appInsights.loadAppInsights();
+// appInsights.trackPageView();
 
 startApolloServer();
