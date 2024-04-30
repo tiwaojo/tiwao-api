@@ -1,5 +1,5 @@
 import { HttpRequest } from "@azure/functions";
-import { PrismaClient } from "./generated/client";
+import { PrismaClient } from "@prisma/client";
 import { ServerResponse, type IncomingMessage } from "http";
 // import { AuthPayloadType } from "./builder";
 

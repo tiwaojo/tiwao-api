@@ -1,7 +1,7 @@
 import Zod from "zod";
 import { builder } from "../builder";
 import { prisma } from "../context";
-import { ExperienceType } from "../generated/client";
+import { ExperienceType } from "@prisma/client";
 import { GraphQLError } from "graphql";
 import { cacheControlFromInfo } from "@apollo/cache-control-types";
 

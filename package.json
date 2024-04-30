@@ -6,7 +6,7 @@
   "main": "dist/graphql/index.js",
   "scripts": {
     "dev": "npx dotenv -e .env.dev -- ts-node-dev --no-notify --respawn --transpile-only src/index.ts",
-    "build": "npx dotenv -e .env.dev -- tsc -p ./tsconfig.json && pnpm run codegen",
+    "build": "npm run prisma:generate && tsc -p ./tsconfig.json && npm run codegen",
     "clean": "rimraf dist",
     "prestart": "pnpm run clean && pnpm run prisma:generate && pnpm run build",
     "dev:func": "pnpm run prestart && npx dotenv -e .env.dev --  func start",
@@ -16,7 +16,7 @@
     "codegen": "graphql-codegen --config codegen.ts",
     "seed": "npx dotenv -e .env.dev -- ts-node-dev --transpile-only prisma/seed.ts",
     "seed:stage": "pnpm run prisma:push-stage && npx dotenv -e .env.stage -- ts-node-dev --transpile-only prisma/seed.ts",
-    "prisma:generate": "prisma generate",
+    "prisma:generate": "prisma generate --no-engine",
     "prisma:migrate": "prisma migrate dev",
     "prisma:push-dev": "npx dotenv -e .env.dev -- prisma db push",
     "prisma:push-stage": "npx dotenv -e .env.stage -- prisma db push",

@@ -6,7 +6,7 @@ import { initContextCache } from "@pothos/core";
 import { InMemoryLRUCache } from "@apollo/utils.keyvaluecache";
 import {
   ApolloServerPluginLandingPageLocalDefault,
-  // ApolloServerPluginLandingPageProductionDefault,
+  ApolloServerPluginLandingPageProductionDefault,
 } from "@apollo/server/plugin/landingPage/default";
 import permissions from "./permissions";
 import { schema } from "./schema";
@@ -28,10 +28,10 @@ export const server = new ApolloServer<GraphQLContext>({
     ttl: 300,
   }),
   plugins: [
-    // process.env.NODE_ENV === "development"
-    //   ? 
-    ApolloServerPluginLandingPageLocalDefault(),
-    // : ApolloServerPluginLandingPageProductionDefault({}),
+    process.env.NODE_ENV === "development"
+      ? 
+    ApolloServerPluginLandingPageLocalDefault()
+    : ApolloServerPluginLandingPageProductionDefault({}),
     plugin,
   ],
   logger: logger,

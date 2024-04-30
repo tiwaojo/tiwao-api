@@ -1,4 +1,4 @@
-import { ExperienceType } from "../generated/client";
+import { ExperienceType } from "@prisma/client";
 import { AuthPayloadType, builder } from "../builder";
 import { prisma } from "../context";
 import {
