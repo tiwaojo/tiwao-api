@@ -38,16 +38,11 @@ export default shield(
       upsertExperience: isPromethus,
       upsertExperiences: isPromethus,
       deleteExperience: isPromethus,
-
       upsertEducation: isPromethus,
-
       upsertSocial: isPromethus,
       deleteSocial: isPromethus,
-
       updateSkills: isPromethus,
-
       upsertLocation: isPromethus,
-
       getUserToken: allow,
     },
   },

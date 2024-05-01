@@ -588,11 +588,10 @@ builder.mutationField("getUserToken", (t) =>
 
       const payload: AuthPayloadType = {
         token: sign({ userId: user.id, email: args.email }, APP_SECRET, {
-          expiresIn: Math.round(diffInSec),
-          // expiresIn: 60,
+          expiresIn:
+            process.env.NODE_ENV === "development" ? 60 : Math.round(diffInSec),
         }),
       };
-      console.log(payload);
 
       return payload;
     },

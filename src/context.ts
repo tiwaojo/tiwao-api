@@ -21,6 +21,7 @@ export const prisma = new PrismaClient({
       level: "warn",
     },
   ],
+  datasourceUrl: process.env.DATABASE_URL,
 });
 
 prisma.$on("info", (e) => {
