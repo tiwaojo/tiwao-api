@@ -1,7 +1,7 @@
 import Zod from "zod";
 import { builder } from "../builder";
 import { prisma } from "../context";
-import { ExperienceType } from "@prisma/client";
+import { ExperienceType, Role } from "@prisma/client";
 import { GraphQLError } from "graphql";
 import { cacheControlFromInfo } from "@apollo/cache-control-types";
 
@@ -9,13 +9,42 @@ builder.queryField("getUsers", (t) =>
   t.prismaField({
     type: ["User"],
     description: "Get all users",
-    // authz: {
-    //   rules: ["isPromethus"]
-    // },
     resolve: async (query, _, __, ___, info) => {
+      // resource: https://www.apollographql.com/docs/apollo-server/api/plugin/cache-control/
       const cacheControl = cacheControlFromInfo(info);
       cacheControl.setCacheHint({ maxAge: 60, scope: "PRIVATE" });
+      // cacheControl.cacheHint.policyIfCacheable();
       return await prisma.user.findMany({ ...query, orderBy: { id: "asc" } });
+    },
+  })
+);
+
+builder.queryField("getUsersByRole", (t) =>
+  t.prismaField({
+    type: ["User"],
+    description: "Get all users by their role",
+    args: {
+      role: t.arg.string({
+        description: "The role of the user",
+        required: true,
+        validate: {
+          schema: Zod.enum(["GUEST", "PROMETHUS"], {
+            invalid_type_error:
+              "Invalid role. Role must be either GUEST or PROMETHUS.",
+          }),
+        },
+      }),
+    },
+    resolve: async (query, _, { role }, ___, info) => {
+      const cacheControl = cacheControlFromInfo(info);
+      cacheControl.setCacheHint({ maxAge: 60, scope: "PRIVATE" });
+      return await prisma.user.findMany({
+        ...query,
+        where: {
+          role: role as Role,
+        },
+        orderBy: { id: "asc" },
+      });
     },
   })
 );
@@ -25,17 +54,32 @@ builder.queryField("getUser", (t) =>
     type: "User",
     args: {
       id: t.arg.id({ description: "The id of the user", required: true }),
+      firstName: t.arg.string({
+        description: "The users first name",
+        required: false,
+      }),
+      lastName: t.arg.string({
+        description: "The users last name",
+        required: false,
+      }),
     },
     nullable: true,
-    description: "Get a user by its id",
-    resolve: async (query, root, { id }) => {
-      return await prisma.user.findUnique({
+    description: "Get a user by its id or their first and last name",
+    resolve: async (query, root, { id, firstName, lastName }) => {
+      return await prisma.user.findFirst({
         ...query,
-        where: { id: id as string },
+        where: {
+          OR: [
+            { id: id as string },
+            { firstName: firstName as string },
+            { lastName: lastName as string },
+          ],
+        },
         select: {
           id: true,
           email: true,
           firstName: true,
+          role: true,
           lastName: true,
           title: true,
           about: true,
@@ -53,7 +97,7 @@ builder.queryField("getUserByEmail", (t) =>
     args: {
       email: t.arg.string({
         description: "The email of the user",
-        defaultValue: "employ@tiwaojo.com",
+        defaultValue: "bob@burger.com",
         required: true,
         validate: {
           email: true,
@@ -65,7 +109,9 @@ builder.queryField("getUserByEmail", (t) =>
     resolve: async (query, _parent, { email }) => {
       return await prisma.user.findUnique({
         ...query,
-        where: { email: email },
+        where: {
+          email: email,
+        },
         // select: {
         //   experiences: true,
         //   id: true,
@@ -334,15 +380,13 @@ builder.queryField(
           required: true,
         }),
       },
-      resolve: async (query, { userId }) => {
+      resolve: async (query, { userId }, _, info) => {
+        cacheControlFromInfo(info).cacheHint.policyIfCacheable();
+        cacheControlFromInfo(info).setCacheHint({ maxAge: 60, scope: "PUBLIC" });
         return await prisma.user
           .findUnique({
             ...query,
             where: { id: userId as string },
-            // orderBy: { id: "asc" },
-            // select: {
-            //   skills: true,
-            // },
           })
           .then((skills) => {
             return skills?.skills || [];

@@ -13,6 +13,7 @@ async function main() {
       email: "alice@example.com",
       title: "Senior Platform Engineer",
       about: null,
+      role:"GUEST",
       education: {
         create: {
           fieldOfStudy: "BSc Computer Science",
@@ -58,6 +59,7 @@ async function main() {
       email: "bob@burger.com",
       title: "Software Developer",
       about: "If I were a spice, I'd be flour",
+      role:"GUEST",
       location: {
         create: {
           city: "Seymour's Bay",

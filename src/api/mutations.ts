@@ -561,13 +561,16 @@ builder.mutationField("getUserToken", (t) =>
       const user = await prisma.user.findUnique({
         where: {
           email: args.email as string,
+          NOT: {
+            role: "GUEST",
+          },
         },
         select: {
           id: true,
         },
       });
 
-      // compare the secret key with the APP_SECRET
+      // retrieve our app secret key with the APP_SECRET
       const hashedAppSecret = await HASHED_APP_SECRET();
 
       const isSecretValid = await compare(
@@ -589,7 +592,7 @@ builder.mutationField("getUserToken", (t) =>
       const payload: AuthPayloadType = {
         token: sign({ userId: user.id, email: args.email }, APP_SECRET, {
           expiresIn:
-            process.env.NODE_ENV === "development" ? 60 : Math.round(diffInSec),
+            process.env.NODE_ENV === "development" ? 320 : Math.round(diffInSec),
         }),
       };
 

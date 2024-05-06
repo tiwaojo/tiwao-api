@@ -1,4 +1,4 @@
-import { not, rule, shield, allow, deny } from "graphql-shield";
+import { rule, shield, allow, deny } from "graphql-shield";
 import { GraphQLContext } from "../context";
 import { verifyToken } from "../utils";
 import { GraphQLError } from "graphql";
@@ -24,9 +24,9 @@ export default shield(
     Query: {
       getUsers: isPromethus,
       getUser: isPromethus,
-      getUserByEmail: isPromethus,
+      getUserByEmail: allow,
       getExperiences: allow,
-      getExperience: not(isPromethus),
+      getExperience: allow,
       getEducation: isPromethus,
       getSocial: isPromethus,
       getSocials: allow,
@@ -47,7 +47,7 @@ export default shield(
     },
   },
   {
-    fallbackRule: deny,
+    fallbackRule: allow,
     allowExternalErrors: true,
   }
 );

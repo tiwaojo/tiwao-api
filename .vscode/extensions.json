@@ -2,6 +2,10 @@
   "recommendations": [
     "ms-azuretools.vscode-azurefunctions",
     "abians.prisma-generate-uml",
-    "graphql.vscode-graphql"
+    "graphql.vscode-graphql",
+    "ms-azuretools.vscode-cosmosdb",
+    "azurite.azurite",
+    "ms-azuretools.vscode-azureresourcegroups",
+    "cweijan.vscode-redis-client"
   ]
 }

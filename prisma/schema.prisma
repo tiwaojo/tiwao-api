@@ -32,6 +32,8 @@ model User {
   title       String       @unique
   /// `email`: The email of the user
   email       String       @unique
+  /// `role`: The role of the user. This can be either `PROMETHUS` or `GUEST`
+  role        Role         @default(GUEST)
   /// `about`(optional): A brief description of the user
   about       String?
   /// `location`(optional): The location of the user. This can be a city, a country, or a province

@@ -210,13 +210,13 @@ type Query {
   """Get all experiences of a user"""
   getExperiences(
     """The end date of the experience"""
-    endDate: DateTime = "2024-05-01T10:47:19.167Z"
+    endDate: DateTime = "2024-05-06T08:23:27.833Z"
 
     """The type of the experience"""
     experienceType: String = "PROJECT"
 
     """The start date of the experience"""
-    startDate: DateTime = "2024-05-01T10:47:19.167Z"
+    startDate: DateTime = "2024-05-06T08:23:27.833Z"
 
     """The user id of the experience"""
     userId: ID!
@@ -267,20 +267,32 @@ type Query {
     userId: ID!
   ): [Social!]!
 
-  """Get a user by its id"""
+  """Get a user by its id or their first and last name"""
   getUser(
+    """The users first name"""
+    firstName: String
+
     """The id of the user"""
     id: ID!
+
+    """The users last name"""
+    lastName: String
   ): User
 
   """Get a user by its email"""
   getUserByEmail(
     """The email of the user"""
-    email: String! = "employ@tiwaojo.com"
+    email: String! = "bob@burger.com"
   ): User
 
   """Get all users"""
   getUsers: [User!]!
+
+  """Get all users by their role"""
+  getUsersByRole(
+    """The role of the user"""
+    role: String!
+  ): [User!]!
 }
 
 """Social media links"""

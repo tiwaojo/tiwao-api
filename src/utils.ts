@@ -47,10 +47,11 @@ export async function verifyToken(ctx: GraphQLContext) {
       where: {
         id: verifiedToken.userId,
         email: verifiedToken.email,
+        role: "PROMETHUS"
       },
     });
 
-    if (userCount > 0) {
+    if (userCount) {
       errCode = 200;
     }
 
