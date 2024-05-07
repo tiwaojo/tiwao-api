@@ -127,6 +127,38 @@ async function main() {
       },
     },
   });
+ 
+  await prisma.user.upsert({
+    where: { email: "employ@tiwaojo.com" },
+    update: {},
+    create: {
+      firstName: "Tiwaloluwa",
+      lastName: "Ojo",
+      email: "employ@tiwaojo.com",
+      title: "Software Engineer",
+      about: "A recent graduate in software engineering from Ontario Tech University with a passion for building scalable and reliable software solutions. I am a self-motivated individual who is always looking to learn new technologies and improve my skills. I am currently looking for a full-time software engineering position where I can apply my skills and knowledge to solve real-world problems",
+      role:"PROMETHUS",
+      location: {
+        create: {
+          city: "Toronto",
+          province: "Ontario",
+          country: "Canada",
+        },
+      },
+      // socials: {
+      //   create: [
+      //     {
+      //       platform: "github",
+      //       url: "https://github.com/tiwaojo"
+      //     },
+      //     {
+      //       platform: "linkedin",
+      //       url: "https://www.linkedin.com/in/tiwaloluwa-ojo"
+      //     },
+      //   ],
+      // },
+    },
+  });
 }
 
 main()

@@ -198,7 +198,7 @@ builder.queryField("getExperiences", (t) =>
             },
           ],
         },
-        orderBy: { startDate: "asc" },
+        orderBy: { startDate: "asc",title: "asc"},
       });
     },
   })
