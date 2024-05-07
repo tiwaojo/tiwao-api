@@ -1,0 +1,3325 @@
+{
+	"info": {
+		"_postman_id": "2a4e3fad-6f35-48f1-aeba-8552bc7e8fa4",
+		"name": "Portfolio API",
+		"description": "## Mutations\n\n---\n\nThe following http endpoints are perform `write operations`. They will mostly return `Unauthorized` errors if used as only the api author is expected to use them.\n\n## Queries\n\n---\n\nThe following graphql endpoints are for performing `read operations`. They can be interacted with. Use the following mock user info in the users section below for testing.\n\n### Users\n\n``` json\n{\n      \"firstName\": \"Bob\",\n      \"lastName\": \"Belcher\",\n      \"email\": \"bob@burger.com\"\n}\n{\n      \"firstName\": \"Alice\",\n      \"lastName\": \"Smith\",\n      \"email\": \"alice@example.com\"\n}\n\n ```",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "33741736-2a4e3fad-6f35-48f1-aeba-8552bc7e8fa4"
+	},
+	"item": [
+		{
+			"name": "mutations",
+			"item": [
+				{
+					"name": "createUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the correct Content-Type header\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.equal(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response body contains an 'errors' array\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Errors array is not empty\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array').with.lengthOf.at.least(1, \"Errors array should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"The 'errors' array contains objects with required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.errors).to.be.an('array').that.is.not.empty;",
+									"    ",
+									"    responseData.errors.forEach(function(error) {",
+									"        pm.expect(error).to.be.an('object');",
+									"        pm.expect(error.message).to.exist.and.to.be.a('string');",
+									"        pm.expect(error.locations).to.exist.and.to.be.an('array');",
+									"        pm.expect(error.extensions).to.exist.and.to.be.an('object');",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "fb792bfc-4cb4-47db-b20a-29dbfd7e4275"
+							}
+						}
+					],
+					"id": "086cdcde-538a-4e09-9993-21e9b0ebba37",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation createUser ($input: UserInput!) {\n    createUser (input: $input) {\n        about\n        email\n        firstName\n        id\n        lastName\n        skills\n        title\n    }\n}",
+								"variables": "{\n  \"input\": {\n    \"firstName\": \"Sara\",\n    \"lastName\": \"Reynolds\",\n    \"email\": \"sara@example.com\",\n    \"title\": \"Software Boomer\",\n    \"about\": \"I am a software boomer.\",\n    \"experiences\": [\n      {\n        \"startDate\": \"2019-06-01T00:00:00.000Z\",\n        \"endDate\": \"2020-06-01T00:00:00.000Z\",\n        \"title\": \"5th Law of Motion\",\n        \"description\": \"A fifth law of motion designed for comedic relief\",\n        \"url\": \"https://www.doomcorp.com\",\n        \"type\": \"PROJECT\",\n        \"tools\": [\n          \"React\",\n          \"Node.js\",\n          \"GraphQL\"\n        ]\n      },\n      {\n        \"startDate\": \"2019-06-01T00:00:00.000Z\",\n        \"endDate\": \"2020-06-01T00:00:00.000Z\",\n        \"title\": \"Senior Software Dmeeveloper\",\n        \"company\": \"\",\n        \"description\": \"I worked as a senior software developer at Acme Corp., contributing to the ACME Physics Engine used by high value clients\",\n        \"url\": \"https://www.acme.com\",\n        \"type\": \"WORK\",\n        \"tools\": [\n          \"React\",\n          \"Node.js\",\n          \"GraphQL\"\n        ]\n      }\n    ],\n    \"education\": {\n      \"fieldOfStudy\": \"BSc Computer Science\",\n      \"institution\": \"University of Wirstorshire\",\n      \"startDate\": \"2020-06-01T00:00:00.000Z\",\n      \"endDate\": \"2021-06-01T00:00:00.000Z\",\n      \"description\": \"I studied Computer Science at the University of Birmingham.\"\n    },\n    \"socials\": [\n      {\n        \"platform\": \"xbook\",\n        \"url\": \"https://xbook.com/bob\"\n      },\n      {\n        \"platform\": \"InstagramX\",\n        \"url\": \"https://ig.com/bob\"\n      }\n    ],\n    \"location\": {\n      \"city\": \"Birmingham\",\n      \"province\": \"West Midlands\",\n      \"country\": \"United Kingdom\"\n    },\n    \"skills\": [\n      \"Java\",\n      \"Google Cloud\",\n      \"Python\",\n      \"React\",\n      \"Node.js\",\n      \"Docker\",\n      \"Kubernetes\",\n      \"AWS\"\n    ]\n  }\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "d9d9ebb1-c8ab-4dda-9c11-6d27b13b3b1a",
+							"name": "createUser",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
+									"host": [
+										"tiwao-api",
+										"azure-api",
+										"net"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "2881942c-4575-440a-890b-cbcbabb56355"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "8a29d675-e6b8-4f6c-a6ab-d5383484420b"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "cd3c0952-e2a0-4aa7-bf92-8327ab525cb6"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "941c8b19-5d2e-499d-8e47-d3df35dc4206"
+								},
+								{
+									"key": "Content-Length",
+									"value": "274",
+									"uuid": "f926eb98-9145-442e-8256-d6cb23ab9e55"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"112-/gz6L2VTDXRAZtBRAj/Fm9N4pd0\"",
+									"uuid": "a386c87c-354d-4e97-8b8d-2a686e6b2c5e"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 18 Apr 2024 06:50:49 GMT",
+									"uuid": "6e11c9ff-f1c7-4f1c-ad59-2e7f90b2b095"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "26a6a594-5788-4fb2-9396-32a580ccf342"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "3e5202ee-9bd0-4dcb-864b-17ed35e64808"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"createUser\": {\n            \"about\": \"I am a software boomer.\",\n            \"email\": \"sara@example.com\",\n            \"firstName\": \"Sara\",\n            \"id\": \"6620c2c95607d97724c1ceb9\",\n            \"lastName\": \"Reynolds\",\n            \"skills\": [\n                \"Java\",\n                \"Google Cloud\",\n                \"Python\",\n                \"React\",\n                \"Node.js\",\n                \"Docker\",\n                \"Kubernetes\",\n                \"AWS\"\n            ],\n            \"title\": \"Software Boomer\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "deleteExperience",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5fb90b37-d305-4fb5-866d-7f25d009db17",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"  pm.expect(responseData.data).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Errors array is not empty\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData.errors).to.be.an('array').and.to.have.lengthOf.at.least(1, \"Errors array should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content type is application/json\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "aab97cfd-3cde-4c22-b63a-40815afe6179",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation deleteExperience ($id: ID!) {\n    deleteExperience (id: $id)\n}",
+								"variables": "{\n  \"id\": \"66220d4d1374adcbde428988\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "b416bfd4-dd59-409d-9c0a-5acfd5eaa2e5",
+							"name": "deleteExperience",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
+									"host": [
+										"tiwao-api",
+										"azure-api",
+										"net"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "74923d08-c831-4b3d-8535-98ffc084786b"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "4350a6ba-0782-4b47-9ed8-9821ec2b0f3a"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "30d01d15-9853-4c79-a9a3-55781808a1e2"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "84fe2773-f2db-4a0b-9abf-6f3042ef129b"
+								},
+								{
+									"key": "Content-Length",
+									"value": "89",
+									"uuid": "2f3f6f1e-bab5-40b7-82ff-9647c64f4786"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"59-MTpa1N7xcCQgzUlspOdSW9ZR2IE\"",
+									"uuid": "50f46899-77dd-4f31-9b99-e8b7ba7598c0"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 07:59:55 GMT",
+									"uuid": "77803f17-6613-49d2-b66b-ceb0674eac05"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "0f1372f8-7ed1-49e9-864c-435a38a22819"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "841c85e4-77bd-48f0-85fa-b86ca902b296"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"deleteExperience\": \"WORK experience of New Experience Title has been deleted\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "deleteSocial",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ab0c1872-9ec7-4c34-94c2-d87352118df4",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields - errors and data\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"  pm.expect(responseData.data).to.exist.and.to.be.an('object');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the data object\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.data).to.exist.and.to.be.an('object');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content-Type header is set to application/json\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.equal(\"application/json\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "e8f41926-3538-4b47-af3c-4aac6a5a34a6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation deleteSocial ($id: ID!) {\n    deleteSocial (id: $id) \n}",
+								"variables": "{\n  \"id\": \"6620c2c95607d97724c1cebe\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "1a61ba42-701f-4a30-a14a-b7e5fa4a4017",
+							"name": "deleteSocial",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
+									"host": [
+										"tiwao-api",
+										"azure-api",
+										"net"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "532fb190-7eb4-4870-b9d0-a1793845585c"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "8e2a7948-1c1a-4661-9dd3-811a6cf93b69"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "e51c33ee-b4ca-4878-b5e0-64b719b46b5e"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "b11ec096-5a9b-4a6f-950a-92f4dc60f17b"
+								},
+								{
+									"key": "Content-Length",
+									"value": "85",
+									"uuid": "e524bdf7-c065-41c2-b34e-9d8833154b26"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"55-PaJ3+iYFxUaKqI7VuEGjQxJyPno\"",
+									"uuid": "53c1a9c3-237b-4e09-8b3b-f6c75cc7c069"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 08:02:38 GMT",
+									"uuid": "d824dc20-09f5-45b7-8a0b-0664e7efe367"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "b52edd69-bd08-4910-b763-2d97fe9526d1"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "47086fff-ddd2-4508-be65-46cd3e588864"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"deleteSocial\": \"InstagramX social of https://ig.com/bob has been deleted\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "deleteUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the expected Content-Type header\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the 'errors' array is present in the response\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'message' field in the first error object is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array').with.lengthOf.at.least(1);",
+									"  pm.expect(responseData.errors[0].message).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'data' object is present in the response\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.data).to.exist;",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "d539efdc-ec2d-4c51-b2f5-66ad026da679"
+							}
+						}
+					],
+					"id": "32354e47-3c58-4df0-8216-9bc0a9cb275d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation deleteUser ($id: ID!) {\n    deleteUser (id: $id) \n}",
+								"variables": "{\n  \"id\": \"6620bd9bb8e6ce445def9947\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "a99d67ed-b09a-4536-a34e-66c2fc4f0b3f",
+							"name": "deleteUser",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
+									"host": [
+										"tiwao-api",
+										"azure-api",
+										"net"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "586c6a28-4a0b-4aac-a1ff-7d1b3022f6cc"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "446abe01-1566-44d8-bf78-92c614dbeec5"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "4802e029-d3d8-4890-9fcc-3fd20e074842"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "c53722e4-de9f-4aed-9518-634a285c5580"
+								},
+								{
+									"key": "Content-Length",
+									"value": "60",
+									"uuid": "afcf397f-5087-4c29-a9dc-9b3b7cff74b3"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3c-FZvl5sJWoNoHoe83ccyFDl7IFTg\"",
+									"uuid": "8fa2a10f-813d-40d6-9cf9-cef53614da56"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 18 Apr 2024 06:51:49 GMT",
+									"uuid": "9480cfec-0994-49c9-9ec7-5b428a389c3e"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "9c6e7b34-2582-43d1-8cfd-b05d4cde5a87"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "137e46f1-d226-40bf-8500-3bf826b0a8f5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"deleteUser\": \"User Bob Belcher has been deleted\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getUserToken",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1ed2aaaa-b468-4a56-b3eb-26065852d445",
+								"exec": [
+									"// pm.collectionVariables.set(\"variable_key\", \"variable_value\");\r",
+									"// pm."
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d0b94048-2553-4089-91c5-04e6ceda4b7d",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields - token and expiry\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.data).to.exist.and.to.be.an('object');",
+									"    pm.expect(responseData.data.getUserToken).to.exist.and.to.be.an('object');",
+									"    pm.expect(responseData.data.getUserToken.token).to.exist.and.to.be.a('string');",
+									"    pm.expect(responseData.data.getUserToken.expiry).to.exist.and.to.be.a('string');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Token is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.data.getUserToken.token).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Token should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Expiry is a valid date format\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.data.getUserToken.expiry).to.match(/^\\d{4}-\\d{2}-\\d{2}$/);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response content type is application/json\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "018f39e6-d3e1-4363-ba1c-07ee5ea34179",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation getUserToken ($email: String!, $secret: ID!) {\n    getUserToken (email: $email, secret: $secret) {\n        token\n    }\n}",
+								"variables": "{\n  \"email\": \"bob@burger.com\",\n  \"secret\": \"appsecret321\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSkills",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "31bd0d7e-fbe5-4143-baab-5945801459d7",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the correct Content-Type header\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'message' field in the 'errors' array is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.errors).to.be.an('array');",
+									"    responseData.errors.forEach(function(error) {",
+									"        pm.expect(error.message).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "6c69e614-65af-4090-8a10-7abdf6b5449f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation updateSkills ($skills: [String!]!, $userId: String!, $resetSkills: Boolean) {\n    updateSkills (skills: $skills, userId: $userId, resetSkills: $resetSkills)\n}",
+								"variables": "{\n  \"skills\": [\n    \"Web Assembly\"\n  ],\n  \"resetSkills\": false,\n  \"userId\": \"6620c2c95607d97724c1ceb9\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "522e2861-9eca-4b07-a664-e78c50b7ac56",
+							"name": "setSkills",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
+									"host": [
+										"tiwao-api",
+										"azure-api",
+										"net"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "35ac92ad-e1e5-4c21-a5b7-6ac2cc128f5d"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "bc722631-c147-4fcd-8759-ab85dfd85cc4"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "bb36d452-e312-4579-b7dd-20454051c2fe"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "71f40fa4-dba7-40de-8777-ed731b4ecb61"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52",
+									"uuid": "be993e89-76da-4990-bd32-f0e1b2b0c699"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"34-PUtl/F4siE0OIukY5LED3BFa5hQ\"",
+									"uuid": "9248dba1-20c4-4516-ad61-b644c5b70871"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 08:20:00 GMT",
+									"uuid": "c258eef6-59ce-4416-ac52-52ff6dbc0184"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "e7392ecf-bcd3-45d5-a5ff-ec4bb272e977"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "8dd09b49-1d0a-40c7-8a68-329042d763f5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"updateSkills\": [\n            \"Java\",\n            \"salsa\",\n            \"Python\"\n        ]\n    }\n}"
+						},
+						{
+							"id": "a386ebdc-2472-4109-8721-dfbe59560b0c",
+							"name": "pushSkills",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "9c28d38f-4092-4f1c-99b1-1dc9df59f2fa"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "82485b4b-c517-47a8-853b-30e629467a1a"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "b86527f5-8d4b-485c-b774-bbec47744c70"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "d7f03b9e-ce86-4a65-9419-9971272c43ff"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67",
+									"uuid": "0574fe46-b199-49fe-a2d1-26ba6df3afe0"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-Dx7zrexeqFFEmv2GfWSGnKr9KOI\"",
+									"uuid": "252d44e2-066e-4f02-8955-ef2b6d66dbdc"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 08:21:52 GMT",
+									"uuid": "42ca0bb3-582c-4f25-a06e-3629356fd285"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "25e56215-80d5-4351-849d-a6466f5ca1a7"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "aec5680f-6ee0-46a4-97bd-80a11456ea59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"updateSkills\": [\n            \"Java\",\n            \"salsa\",\n            \"Python\",\n            \"Web Assembly\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "upsertEducation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d3f495e-4645-40ec-a30e-d1d4ac6838aa",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the correct Content-Type header\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.equal(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'message' field in the 'errors' array is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.errors).to.be.an('array');",
+									"    responseData.errors.forEach(function(error) {",
+									"        pm.expect(error.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "b3a4ba66-2846-4cd6-b48a-4651ab1d9dff",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation upsertEducation ($education: EducationInput!, $userId: ID!) {\n    upsertEducation (education: $education, userId: $userId) {\n        description\n        endDate\n        fieldOfStudy\n        id\n        institution\n        startDate\n    }\n}",
+								"variables": "{\n  \"education\": {\n    \"description\": \"\",\n    \"endDate\": \"2021-06-01T00:00:00.000Z\",\n    \"fieldOfStudy\": \"BSc Computer Hardware\",\n    \"institution\": \"University of Wirstorshire\",\n    \"startDate\": \"2020-06-01T00:00:00.000Z\"\n  },\n  \"userId\": \"6620c2c95607d97724c1ceb9\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "43ea6068-dffc-49b3-a3b5-7975b4eacb44",
+							"name": "upsertEducation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
+									"host": [
+										"tiwao-api",
+										"azure-api",
+										"net"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "16a39764-5f1b-414b-a19b-c5e6f591ccef"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "8ccd1dc2-9c74-4a90-bf20-02ce13917d15"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "bced173e-c683-4be7-96a7-1ecb305e32db"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "58691661-5861-4bed-bdf7-9e668dde04d0"
+								},
+								{
+									"key": "Content-Length",
+									"value": "238",
+									"uuid": "799c9799-6083-40d7-a329-4830def61ac0"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ee-zNs90dhFKeCfYurTEqHJtA6On2s\"",
+									"uuid": "356d6d5b-9ea4-431a-9524-0a967130eab3"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 08:44:44 GMT",
+									"uuid": "a034e493-ef96-4642-b3ea-5ce7ef316dcc"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "046cef8e-7d24-4b47-a494-08dd7a083b3b"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "3b10cadc-1272-43c5-8832-4042d25c648d"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"upsertEducation\": {\n            \"description\": \"\",\n            \"endDate\": \"2021-06-01T00:00:00.000Z\",\n            \"fieldOfStudy\": \"BSc Computer Hardware\",\n            \"id\": \"6620c2c95607d97724c1cebc\",\n            \"institution\": \"University of Wirstorshire\",\n            \"startDate\": \"2020-06-01T00:00:00.000Z\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "upsertExperience",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7b0029e3-178e-48c0-8e99-b4fc05e2c84b",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the expected Content-Type header of 'application/json'\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.equal(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'message' field in the first error object is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.errors).to.be.an('array').with.lengthOf.at.least(1);",
+									"  pm.expect(responseData.errors[0].message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "29456b5b-fb38-4238-af3c-62e9d2e2268a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation upsertExperience ($experience: ExperienceInput!, $experienceId: ID!) {\n    upsertExperience (experience: $experience, id: $experienceId) {\n        company\n        description\n        endDate\n        id\n        imgSrc\n        role\n        startDate\n        title\n        tools\n        type\n        url\n    }\n}",
+								"variables": "{\n  \"experience\": {\n    \"url\": \"https://www.url.com\",\n    \"userId\": \"6620c2c95607d97724c1ceb9\",\n    \"title\": \"New Experience Title\",\n    \"description\": \"This experience will be created as it doesn't exist\",\n    \"tools\": [\n      \"Vue\",\n      \"Node.js\",\n      \"GraphQL\"\n    ],\n    \"company\": \"Acme Corp.\",\n    \"type\": \"WORK\",\n    \"startDate\": \"2020-06-01T00:00:00.000Z\",\n    \"endDate\": \"2021-06-01T00:00:00.000Z\"\n  },\n  \"experienceId\": \"6620c2c95607d97724c1ceb6\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "cbdefc4b-5948-4897-b959-79537c80d87f",
+							"name": "updateExperience",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
+									"host": [
+										"tiwao-api",
+										"azure-api",
+										"net"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "570559b7-7923-4004-acbe-44b135a557b4"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "d9f2ab88-85bc-4d10-b129-c979ec25c570"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "73bf65e6-fe12-4515-854e-637d02dad531"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "622bcb7d-01a9-4459-bb59-34547e03242f"
+								},
+								{
+									"key": "Content-Length",
+									"value": "360",
+									"uuid": "53a31da9-b229-4ebe-a843-d28f3fa733d2"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"168-I9gRLElQgIXy3UufnJ2x37n/ZOg\"",
+									"uuid": "6e43e339-ff63-459f-a6e5-a4d0c3ca2cdd"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 06:16:03 GMT",
+									"uuid": "9d32510d-0783-4411-a88c-51a8e9418430"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "32fabb62-edff-4373-a2ff-f1146a8dc023"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "f77c3006-7e7f-4b27-ac14-4f652b767140"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"upsertExperience\": {\n            \"company\": \"Acme Corp.\",\n            \"description\": \"A fifth law of motion designed for comedic relief\",\n            \"endDate\": \"2021-06-01T00:00:00.000Z\",\n            \"id\": \"6620c2c95607d97724c1ceba\",\n            \"imgSrc\": null,\n            \"role\": null,\n            \"startDate\": \"2020-06-01T00:00:00.000Z\",\n            \"title\": \"Experience Title\",\n            \"tools\": [\n                \"Vue\",\n                \"Node.js\",\n                \"GraphQL\"\n            ],\n            \"type\": \"WORK\",\n            \"url\": \"https://www.url.com\"\n        }\n    }\n}"
+						},
+						{
+							"id": "392067f4-3ccf-4d67-934d-f15e812fe4b1",
+							"name": "createExperience",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "c6837148-9641-4c88-9ebf-a957a40aa32e"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "e33ebcec-ca33-497a-b0e7-d2bffd49b8cd"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "2d2f75a2-2079-46cd-a1f1-15afdf049164"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "35096d01-e8c0-46dd-8ce7-fa09a74a05bc"
+								},
+								{
+									"key": "Content-Length",
+									"value": "366",
+									"uuid": "2671cfcd-7b65-492e-9b8e-b4c4c3d3061e"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"16e-CNxPb+FYS5MteuB4fjb/W9pKKhM\"",
+									"uuid": "9649b52e-d4ef-468c-928c-47aa7b776726"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 06:21:01 GMT",
+									"uuid": "62fd32dd-72aa-42a8-a844-bd9bdf62631b"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "ec3ef5de-67f4-4010-bfed-f78b6f4c9455"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "c5bcfa9f-11e4-4907-9031-d3d12784c1af"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"upsertExperience\": {\n            \"company\": \"Acme Corp.\",\n            \"description\": \"This experience will be created as it doesn't exist\",\n            \"endDate\": \"2021-06-01T00:00:00.000Z\",\n            \"id\": \"66220d4d1374adcbde428988\",\n            \"imgSrc\": null,\n            \"role\": null,\n            \"startDate\": \"2020-06-01T00:00:00.000Z\",\n            \"title\": \"New Experience Title\",\n            \"tools\": [\n                \"Vue\",\n                \"Node.js\",\n                \"GraphQL\"\n            ],\n            \"type\": \"WORK\",\n            \"url\": \"https://www.url.com\"\n        }\n    }\n}"
+						},
+						{
+							"id": "dbc853fe-90af-4f91-ad03-4546f13292b1",
+							"name": "400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "9dcaecdf-e32d-4519-9169-5b750cd81a61"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "3bf16ffb-d9ad-4967-bd48-2a61f614aa1c"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "2d63c71e-cd3d-46ab-b23e-aee8b7214134"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "2f3b9dd2-fb5d-4fac-a566-79dcf59c35f7"
+								},
+								{
+									"key": "Content-Length",
+									"value": "606",
+									"uuid": "08756a94-5dbf-4f7c-a0be-ec9b3262bedd"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"25e-gGasd5kOdVAhLYvK9/DTgz0i5g0\"",
+									"uuid": "8eb0ceb8-9f56-460a-9fb6-1416825eed42"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 06:31:58 GMT",
+									"uuid": "beb8de8b-b109-47d0-b45f-1eb754161e6c"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "9a2f00b7-e800-4675-bb8d-bacf62cfbedb"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "82a695ec-e1bb-456b-831e-7d8920a8c0f1"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"message\": \"The requested resource was not found. Please check your arguments\",\n            \"locations\": [\n                {\n                    \"line\": 2,\n                    \"column\": 5\n                }\n            ],\n            \"path\": [\n                \"upsertExperience\"\n            ],\n            \"extensions\": {\n                \"code\": \"BAD_REQUEST\",\n                \"stacktrace\": [\n                    \"GraphQLError: The requested resource was not found. Please check your arguments\",\n                    \"    at /workspaces/tiwao-api/src/api/mutations.ts:340:17\",\n                    \"    at resolve (/workspaces/tiwao-api/src/api/mutations.ts:316:14)\",\n                    \"    at middleware (/workspaces/tiwao-api/node_modules/.pnpm/graphql-shield@7.6.5_graphql-middleware@6.1.35_graphql@16.8.1/node_modules/graphql-shield/cjs/generator.js:30:24)\"\n                ]\n            }\n        }\n    ],\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "upsertExperiences",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5a4f57c1-d147-428f-972c-7de3dea1430f",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Message is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData.errors[0].message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Message should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Locations is an array with at least one element\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.locations).to.be.an('array').and.to.have.lengthOf.at.least(1);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Code is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.errors[0].extensions.code).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "89312f12-3bb3-498c-819f-e127a9d424d3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation upsertExperiences ($experiences: [ExperienceInput!], $userId: String!) {\n    upsertExperiences (experiences: $experiences, userId: $userId) {\n        company\n        description\n        endDate\n        id\n        imgSrc\n        role\n        startDate\n        title\n        tools\n        type\n        url\n    }\n}",
+								"variables": "{\n  \"experiences\": [\n    {\n      \"startDate\": \"2019-06-01T00:00:00.000Z\",\n      \"endDate\": \"2020-06-01T00:00:00.000Z\",\n      \"title\": \"Software Me\",\n      \"company\": \"Doom Corp\",\n      \"description\": \"I worked as a software developer at Doom Corp.\",\n      \"url\": \"https://www.doomcorp.com\",\n      \"type\": \"WORK\",\n      \"tools\": [\n        \"React\",\n        \"Node.js\",\n        \"GraphQL\"\n      ],\n      \"userId\": \"6620c2c95607d97724c1ceb9\"\n    },\n    {\n      \"userId\": \"6620c2c95607d97724c1ceb9\",\n      \"startDate\": \"2019-06-01T00:00:00.000Z\",\n      \"endDate\": \"2020-06-01T00:00:00.000Z\",\n      \"title\": \"Senior Software Dmeeveloper\",\n      \"company\": \"ACME Company\",\n      \"description\": \"I worked as a senior software developer at Acme Corp.\",\n      \"url\": \"https://www.acme.com\",\n      \"type\": \"PROJECT\",\n      \"tools\": [\n        \"React\",\n        \"Node.js\",\n        \"GraphQL\"\n      ]\n    }\n  ],\n  \"userId\": \"6620c2c95607d97724c1ceb9\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upsertLocation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6707e9ca-9d1e-4bc3-b017-857d88b1f3ed",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has required fields\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"  pm.expect(responseData.data).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Errors array should not be empty\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array').that.is.not.empty;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Data is null\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.data).to.be.null;",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "8b9da371-7d85-4559-bab8-b1fe9c4b227f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation upsertLocation ($input: LocationInput!, $userId: ID!) {\n    upsertLocation (input: $input, userId: $userId) {\n        city\n        country\n        id\n        province\n    }\n}",
+								"variables": "{\n  \"input\": {\n    \"city\": \"Dublin\",\n    \"country\": \"Ireland\",\n    \"id\": \"6620c2c95607d97724c1cebf\",\n    \"province\": \"Leinster\"\n  },\n  \"userId\": \"6620c2c95607d97724c1ceb9\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "2dde59c1-1797-47af-9b8c-34a8b0b27950",
+							"name": "upsertLocation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
+									"host": [
+										"tiwao-api",
+										"azure-api",
+										"net"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "7885cad9-d52f-4c62-9044-feaee353c3a2"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "f96e9c20-6c62-43ee-8531-2b987bf640e7"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "3e90446b-f722-4b63-b8e4-c14f980d7c34"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "0ba2a713-ef74-4080-88d0-390b92970372"
+								},
+								{
+									"key": "Content-Length",
+									"value": "120",
+									"uuid": "fd5a7d65-5a56-4416-9976-71db0eed97c5"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"78-Wuj7HijHtKv7pFjEua0Aa7JWHHI\"",
+									"uuid": "9a4e5625-d650-4280-ae47-e518187dffb7"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 09:06:28 GMT",
+									"uuid": "f06144c9-b095-46a8-8d6a-e7cd476cc452"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "14ed2904-e23d-4b28-8354-fbf89667305c"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "add9b6fe-6052-4df8-af17-4b1442be2ff2"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"upsertLocation\": {\n            \"city\": \"Dublin\",\n            \"country\": \"Ireland\",\n            \"id\": \"6620c2c95607d97724c1cebf\",\n            \"province\": \"Leinster\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "upsertSocial",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "864b9b45-9d28-44f0-8fd3-31e54c28ca79",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content-Type is application/json\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has an errors array\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Errors array is not empty\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.errors).to.exist.and.to.be.an('array').that.is.not.empty;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Each error object has a message field\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData.errors).to.be.an('array').and.to.have.length.above(0);",
+									"",
+									"  responseData.errors.forEach(function (error) {",
+									"    pm.expect(error.message).to.exist.and.to.be.a('string');",
+									"  });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "2616fbf5-4b2b-4eec-80fd-62afc335047b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation upsertSocial ($social: SocialInput!, $userId: ID!) {\n    upsertSocial (social: $social, userId: $userId) {\n        id\n        platform\n        url\n    }\n}",
+								"variables": "{\n  \"social\": {\n    \"id\": \"6620c2c95607d97724c1cebd\",\n    \"platform\": \"xbook\",\n    \"url\": \"https://xbook.com/alice\"\n  },\n  \"userId\": \"6620c2c95607d97724c1ceb9\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "96c222d7-4d6b-420c-9efa-d8fe65106c5b",
+							"name": "upsertSocial",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
+									"host": [
+										"tiwao-api",
+										"azure-api",
+										"net"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "c8065ac7-fb81-4909-b32c-53458aa224a4"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "7f838a49-6d89-4e6b-931e-9c3ad3129664"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "1f1c5927-0cce-489b-b7d6-d48e24a5129a"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "ca2e73b6-c509-43c1-bdb9-91f637a5ba7d"
+								},
+								{
+									"key": "Content-Length",
+									"value": "111",
+									"uuid": "c8586007-2076-4dd6-964a-98678508ca22"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6f-5NW3r4kGredPem5PndYGTIFsiJw\"",
+									"uuid": "9202a7c5-6d5b-4d26-882b-6cdb96112bd7"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 09:31:20 GMT",
+									"uuid": "a7dfbc1e-0b4b-46d6-bb49-3d8e6dcb540c"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "7c0f4ae7-ed43-4879-9e98-5dc6c7365542"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "5663b5bb-a557-4a96-bf19-295416646bf2"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"upsertSocial\": {\n            \"id\": \"6620c2c95607d97724c1cebd\",\n            \"platform\": \"xbook\",\n            \"url\": \"https://xbook.com/alice\"\n        }\n    }\n}"
+						}
+					]
+				}
+			],
+			"id": "64922b7e-a8e9-4f35-8833-5df3b86d5b62"
+		},
+		{
+			"name": "queries",
+			"item": [
+				{
+					"name": "getEducation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "231d4085-0a01-4ed6-bb00-0d356f28ba7f",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has required fields\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist;",
+									"  pm.expect(responseData.data).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Errors field is an array and is not empty\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.errors).to.be.an('array').and.to.have.lengthOf.at.least(1, \"Errors field should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"The 'data' field is an object and not null\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.data).to.be.an('object');",
+									"  pm.expect(responseData.data).to.not.be.null;",
+									"});",
+									"",
+									"",
+									"pm.test(\"The 'data' field has the expected structure\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.data).to.exist.and.to.be.an('object');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "5abbac3f-9414-46e7-9546-4fd129166fbe",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getEducation ( $userId: ID!) {\n    getEducation (userId: $userId) {\n        description\n        endDate\n        fieldOfStudy\n        id\n        institution\n        startDate\n    }\n}",
+								"variables": "{\n  \"userId\": \"6620bd9ab8e6ce445def9943\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "e9c13d1f-25ac-4843-88fa-5bbc8755cd32",
+							"name": "getEducation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
+									"host": [
+										"tiwao-api",
+										"azure-api",
+										"net"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "6cdc1db8-8d66-4dca-8aba-ad7f00e2e77b"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "390b5536-a732-43bd-8637-38c38293e933"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "ab4d4fb6-5350-4d3f-b815-1de20a7a7c33"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "5c806100-5004-49da-855f-bdd4c5826c01"
+								},
+								{
+									"key": "Content-Length",
+									"value": "291",
+									"uuid": "67d59d1b-7657-40f4-ad59-89b0791a16d0"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"123-Bt1bycmvNqwUMLqpqt3gEl5DaRA\"",
+									"uuid": "5f5f548e-0f27-4631-b85d-72a1a7d5365e"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 18 Apr 2024 20:47:04 GMT",
+									"uuid": "cb2b7a58-4e2f-4f28-ae5e-53d9054c1a30"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "a5f3a211-6151-4e2a-a59f-6d991b608a3e"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "c2d5c438-aed2-4f5c-8086-e717312801c8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getEducation\": {\n            \"description\": \"I studied Computer Science at the University of Birmingham.\",\n            \"endDate\": \"2020-06-01T00:00:00.000Z\",\n            \"fieldOfStudy\": \"BSc Computer Science\",\n            \"id\": \"6620bd9ab8e6ce445def9944\",\n            \"institution\": \"University of Birmingham\",\n            \"startDate\": \"2017-09-01T00:00:00.000Z\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getExperience",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "80cea76f-82ce-47cf-bc6e-ced871f22a5b",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields - errors and data\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist;",
+									"  pm.expect(responseData.data).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the data object is null\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.data).to.be.null;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify Content-Type header is set to application/json\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "a30d0726-7b8d-4e70-9f54-b581c784b150",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query GetExperience($userId: ID!, $id: ID!) {\n  getExperience(userId: $userId, id: $id) {\n    company\n        description\n        endDate\n        id\n        imgSrc\n        role\n        startDate\n        title\n        tools\n        type\n        url\n  }\n}",
+								"variables": "{\n  \"id\": \"6620c2c95607d97724c1ceba\",\n  \"userId\": \"6620c2c95607d97724c1ceb9\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "b6aff342-81aa-4bcf-94f2-99984f06a849",
+							"name": "getExperience",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
+									"host": [
+										"tiwao-api",
+										"azure-api",
+										"net"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "48a5d2ca-b63f-40e2-a595-30329409a9fa"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "e64e4b89-8154-4116-9006-9198e8255f5f"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "0b451694-9eeb-4417-9722-3ee17b994be7"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "c2438ca8-b762-4a74-9f99-5c9467ba14f1"
+								},
+								{
+									"key": "Content-Length",
+									"value": "360",
+									"uuid": "8c4f1362-edef-4433-bfd7-652d3e9c8fcf"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"168-AbcMwS1v2FYPJNd5JXpGBDwsRlg\"",
+									"uuid": "1f95bb45-42e0-4ecf-adce-aab783ba0be2"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 01:16:38 GMT",
+									"uuid": "9fd1842e-71ab-4c6f-8804-e6e8e3fee921"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "72986e91-6c29-40db-90f1-cb9004b2dec8"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "fea510ec-3304-4825-a02c-e15be38e68b2"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getExperience\": {\n            \"company\": null,\n            \"description\": \"A fifth law of motion designed for comedic relief\",\n            \"endDate\": \"2020-06-01T00:00:00.000Z\",\n            \"id\": \"6620c2c95607d97724c1ceba\",\n            \"imgSrc\": null,\n            \"role\": null,\n            \"startDate\": \"2019-06-01T00:00:00.000Z\",\n            \"title\": \"5th Law of Motion\",\n            \"tools\": [\n                \"React\",\n                \"Node.js\",\n                \"GraphQL\"\n            ],\n            \"type\": \"PROJECT\",\n            \"url\": \"https://www.doomcorp.com\"\n        }\n    }\n}"
+						},
+						{
+							"id": "84fd55af-a152-4e06-9c94-27e36453de0e",
+							"name": "getEmptyExperience",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "a494d38a-a181-4c30-a7e8-4de766950a60"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "47a8e212-69c9-4f8d-81bb-85a0b25a096d"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "2fccee0f-40af-4bec-82f2-b7a30d705da4"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "95a003a9-be12-4f1d-b657-2a28276a50c1"
+								},
+								{
+									"key": "Content-Length",
+									"value": "32",
+									"uuid": "e8eef8c1-cb12-4ce1-a019-745ef3457466"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"20-kLbO/v10VuSly2ZjZq13Bm/Hpw0\"",
+									"uuid": "a352d903-aa19-4ec8-9687-8030c57a3e27"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 01:17:28 GMT",
+									"uuid": "8b2d810b-9625-4448-82b7-b3c187721355"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "07dee591-08d1-4008-bcd2-dc01f397d40d"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "8444fb73-a5b3-4c27-bdc1-059313d18e33"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getExperience\": null\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getExperiences",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cb56edc7-1194-4d5d-8c59-a1c7905c0774",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content-Type is application/json\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the errors array\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the message field in the errors array is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.errors).to.be.an('array');",
+									"  ",
+									"  responseData.errors.forEach(function(error) {",
+									"    pm.expect(error.message).to.be.a('string').and.to.not.be.empty;",
+									"  });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "e068cf91-d442-4419-9116-9c896f65af2f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getExperiences ($endDate: DateTime, $experienceType: String, $startDate: DateTime, $userId: ID!) {\n    getExperiences (endDate: $endDate, experienceType: $experienceType, startDate: $startDate, userId: $userId) {\n        company\n        description\n        endDate\n        id\n        imgSrc\n        role\n        startDate\n        title\n        tools\n        type\n        url\n    }\n}",
+								"variables": "{\n  \"startDate\": \"2019-06-01T00:00:00Z\",\n  \"experienceType\": \"PROJECT\",\n  \"endDate\": \"2020-06-01T00:00:00Z\",\n  \"userId\": \"662d4f578b089ad69dc6f6a6\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "a52c7617-1f53-4946-b134-32d836f4157e",
+							"name": "FilterStartDate",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
+									"host": [
+										"tiwao-api",
+										"azure-api",
+										"net"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "ea638942-c296-4e26-ac2d-e4e9d733ca3f"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "15a5e4db-49d0-483c-98c6-27b4803d4094"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "325ea75a-64b0-437f-85ed-a42769e07acc"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "738a7003-f906-4dca-8157-a98c82b4bb4d"
+								},
+								{
+									"key": "Content-Length",
+									"value": "696",
+									"uuid": "6244d455-ced1-4b04-87cb-9e9f19543ed5"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2b8-bBHnOtPxl+T4tK6gC/x2WXi0wCM\"",
+									"uuid": "034a853f-3088-4a53-8350-77fcb6912e1d"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 06:36:33 GMT",
+									"uuid": "ccbdf6a7-b0bf-4e11-b419-7d1b422f1d96"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "08a19756-9f2a-4e70-8837-34d37f407fcf"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "61ec0c74-a095-4832-a479-2b25a2d3b8d4"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getExperiences\": [\n            {\n                \"company\": \"Acme Corp.\",\n                \"description\": \"A fifth law of motion designed for comedic relief\",\n                \"endDate\": \"2021-06-01T00:00:00.000Z\",\n                \"id\": \"6620c2c95607d97724c1ceba\",\n                \"imgSrc\": null,\n                \"role\": null,\n                \"startDate\": \"2020-06-01T00:00:00.000Z\",\n                \"title\": \"Experience Title\",\n                \"tools\": [\n                    \"Vue\",\n                    \"Node.js\",\n                    \"GraphQL\"\n                ],\n                \"type\": \"WORK\",\n                \"url\": \"https://www.url.com\"\n            },\n            {\n                \"company\": \"Acme Corp.\",\n                \"description\": \"This experience will be created as it doesn't exist\",\n                \"endDate\": \"2021-06-01T00:00:00.000Z\",\n                \"id\": \"66220d4d1374adcbde428988\",\n                \"imgSrc\": null,\n                \"role\": null,\n                \"startDate\": \"2020-06-01T00:00:00.000Z\",\n                \"title\": \"New Experience Title\",\n                \"tools\": [\n                    \"Vue\",\n                    \"Node.js\",\n                    \"GraphQL\"\n                ],\n                \"type\": \"WORK\",\n                \"url\": \"https://www.url.com\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"id": "2a752841-accb-4dea-a0a8-caae39cf80c3",
+							"name": "FilterProjectType",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "ae59cb29-4aa9-4d3e-8e9f-2008f5eac9bf"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "1cff8486-f9c3-4e1b-b43d-2ee810e865b5"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "e70ff5c4-df78-45f6-980d-eb3a3426e427"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "011f4808-c2e4-4f70-a387-92424495563e"
+								},
+								{
+									"key": "Content-Length",
+									"value": "355",
+									"uuid": "cb26dbcf-8481-4659-94bc-fa8df6c6704c"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"163-IGBMrjWxkFrK1z+MtEsFecQv7G8\"",
+									"uuid": "8017c103-82b5-422c-9be6-4f610ace8f3d"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 06:40:06 GMT",
+									"uuid": "e5a4782d-8edb-49d1-b123-7689eac99320"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "0e61a619-af5b-489f-b4d0-94fd6d4cc28e"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "9ca1f0ae-f1a0-4872-8078-6bc5b0737140"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getExperiences\": [\n            {\n                \"company\": null,\n                \"description\": \"A fifth law of motion designed for comedic relief\",\n                \"endDate\": \"2021-06-01T00:00:00.000Z\",\n                \"id\": \"6620c2c95607d97724c1ceba\",\n                \"imgSrc\": null,\n                \"role\": null,\n                \"startDate\": \"2020-06-01T00:00:00.000Z\",\n                \"title\": \"Experience Title\",\n                \"tools\": [\n                    \"Vue\",\n                    \"Node.js\",\n                    \"GraphQL\"\n                ],\n                \"type\": \"PROJECT\",\n                \"url\": \"https://www.url.com\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getLocation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9c002d68-0595-4fc3-b9dc-2993135eb9aa",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the correct Content-Type header\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'errors' array is present and contains at least one error object\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"    pm.expect(responseData.errors).to.have.lengthOf.at.least(1, \"There should be at least one error object in the 'errors' array\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'data' field is null\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData.data).to.be.null;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the error object has a non-empty 'message' field\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.errors).to.exist;",
+									"    pm.expect(responseData.errors).to.be.an('array');",
+									"    responseData.errors.forEach(function(error) {",
+									"        pm.expect(error.message).to.exist.and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "4b710af9-2fb0-42e5-b992-02032777df2f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getLocations ($userId: ID!, $country: String, $city: String, $locationId: ID) {\n    getLocation (userId: $userId, country: $country, city: $city, id: $locationId) {\n        city\n        country\n        id\n        province\n    }\n}",
+								"variables": "{\n  \"userId\": \"6620c2c95607d97724c1ceb9\",\n  \"country\": \"United Kingdom\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "7504bcc3-a849-4ace-881e-d9e94577eef2",
+							"name": "getLocation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
+									"host": [
+										"tiwao-api",
+										"azure-api",
+										"net"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "ddeeda40-b5d9-4355-a4d0-7e2c32e0596d"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "587f9537-1445-4a7d-969a-4777aa434482"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "3c8887c6-7bd1-4b85-9fb9-7ba2bdada3d5"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "6bd1738a-8bcf-4dcb-a903-b20e3838612f"
+								},
+								{
+									"key": "Content-Length",
+									"value": "133",
+									"uuid": "272fb26a-a516-4e75-ba1f-2e61a47864a1"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"85-fyjx8hnjEXEV0S4Nj0DyQVgFv0Q\"",
+									"uuid": "180fe9a7-4c3c-4b9d-8e6d-2c80aa328773"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 06:58:10 GMT",
+									"uuid": "983424d9-7597-40fe-be23-0212fa4137c4"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "4fed5958-b1b5-4f4a-ad50-426d14953466"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "a15b3610-6b0a-4edc-8544-faa9abc68e39"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getLocation\": {\n            \"city\": \"Birmingham\",\n            \"country\": \"United Kingdom\",\n            \"id\": \"6620c2c95607d97724c1cebf\",\n            \"province\": \"West Midlands\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getSkills",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2458f5c2-98a8-488f-9dc5-fcd727f6b78a",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required field - data\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.data).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify the presence and length of the 'getSkills' array\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.data.getSkills).to.exist.and.to.be.an('array');",
+									"    pm.expect(responseData.data.getSkills).to.have.lengthOf(1);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate that the 'getSkills' array contains non-empty strings\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.data.getSkills).to.be.an('array').that.is.not.empty;",
+									"    responseData.data.getSkills.forEach(function(skill) {",
+									"        pm.expect(skill).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content-Type header is set to application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "4dfcd8aa-180d-4071-8346-a45cb7e399ef",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getSkills ($userId: ID!) {\n    getSkills (userId: $userId) \n}",
+								"variables": "{\n  \"userId\": \"662e030493928238837a1085\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "This HTTP POST request is used to retrieve skills data. The request body should be included in the payload, but the specific structure and parameters are not defined. The response will be in JSON format with a status code of 200. The response will contain a \"data\" object with a \"getSkills\" array, which may include the retrieved skills. Here is an example of the response:\n\n``` json\n{\"data\":{\"getSkills\":[\"\"]}}\n\n ```"
+					},
+					"response": [
+						{
+							"id": "80fbbc3b-a1e9-4e3f-b763-61a89484587c",
+							"name": "getSkills",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
+									"host": [
+										"tiwao-api",
+										"azure-api",
+										"net"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "011bc680-8df3-42a2-8b02-53dbe809d150"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "243db24e-14df-499d-99f6-c297cb5058fb"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "7f95d2da-bf29-4afe-b6ea-02b02cbe899f"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "91e76bb4-b490-46fa-9241-29b278e6429e"
+								},
+								{
+									"key": "Content-Length",
+									"value": "107",
+									"uuid": "c7674bea-a2af-4238-bc41-635ae705ea71"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6b-zV+Wizbr5rBao0s0UAwcHvgpdKw\"",
+									"uuid": "89eff94a-82dd-4609-a975-bbdf5adcb801"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 18 Apr 2024 06:57:04 GMT",
+									"uuid": "3841c300-0651-4aea-a0d2-7037bb2b2bd0"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "1d0ef211-974d-4316-a9dd-19a8e1c0fcaf"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "4412cbeb-7ba4-44ad-9556-c874f17dd9f7"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getSkills\": [\n            \"JavaScript\",\n            \"TypeScript\",\n            \"GraphQL\",\n            \"React\",\n            \"Node.js\",\n            \"Docker\",\n            \"Kubernetes\",\n            \"AWS\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getSocial",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "77d5258d-6145-4d8b-9080-42591002c0b0",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields - errors and data\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"  pm.expect(responseData.data).to.exist.and.to.be.an('object');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify the presence of the errors array\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"  pm.expect(responseData.errors).to.have.lengthOf.at.least(1);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'data' object is present and not null\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.data).to.exist.and.to.not.be.null;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate that the message field in the first error object is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.errors).to.be.an('array').and.to.have.lengthOf.at.least(1, \"There should be at least one error object\");",
+									"  pm.expect(responseData.errors[0].message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"The message field should be a non-empty string\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "bdeeeb19-5d29-45bf-b451-77fa28fae1dd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getSocial ($id: ID, $userId: ID!, $platform: String) {\n    getSocial (id: $id, userId: $userId,platform: $platform) {\n        id\n        platform\n        url\n    }\n}",
+								"variables": "{\n  \"platform\": \"xbook\",\n  \"userId\": \"6620c2c95607d97724c1ceb9\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "cb12327d-8bc2-400b-9c95-41e12ca7fbeb",
+							"name": "getSocial",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
+									"host": [
+										"tiwao-api",
+										"azure-api",
+										"net"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "9a144b3c-963e-444a-b301-f25324fc5f31"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "33ed0969-b3a6-431c-9d2d-980985256840"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "81f22b94-c605-4830-a3ea-dc49892fc90f"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "154e331d-45a8-461a-a1e8-0382dcb8e87f"
+								},
+								{
+									"key": "Content-Length",
+									"value": "106",
+									"uuid": "30cca847-cf7a-4802-bb67-5cb4225dbbf9"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6a-mfTznKsvH30EBNhJq5bAk8k3Q8U\"",
+									"uuid": "be0a24e1-257d-4589-b7bf-60ac2d3db84c"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 07:37:44 GMT",
+									"uuid": "f38b2ef9-28c8-4598-af93-7e8f7b037324"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "3163b05d-8db7-4c6e-a024-9b53535b5b8a"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "b5282657-3d3a-435e-8772-30fe0660d6b8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getSocial\": {\n            \"id\": \"6620c2c95607d97724c1cebd\",\n            \"platform\": \"xbook\",\n            \"url\": \"https://xbook.com/bob\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getSocials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "30526a7c-a657-4c46-813e-0933f8ea9b28",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content-Type header is set to application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields - errors and data\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.errors).to.exist;",
+									"    pm.expect(responseData.data).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Errors field is an array and is not empty\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData.errors).to.be.an('array');",
+									"    pm.expect(responseData.errors).to.have.length.above(0, \"Errors array should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Data field should be null\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.data).to.be.null;",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "4f4d7646-f15e-4629-b34f-91921d7fffcd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getSocials ($userId: ID!, $platform: String, $url: String) {\n    getSocials (userId: $userId, platform: $platform, url: $url) {\n        id\n        platform\n        url\n    }\n}",
+								"variables": "{\n  \"userId\": \"6620c2c95607d97724c1ceb9\",\n  \"platform\": \"xbook\",\n  \"id\": \"6620c2c95607d97724c1cebd\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "c92b23ca-efce-4d39-803d-9e08fecf5924",
+							"name": "getSocials",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
+									"host": [
+										"tiwao-api",
+										"azure-api",
+										"net"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "693e0062-8915-417a-b3cc-69095c16ecdc"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "545d1a38-e8d1-4f48-89ba-c999aad8853b"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "42b90391-d605-4400-934a-08ca8640d9bb"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "74182f9f-0e3e-445a-abf5-3cdabf9813fd"
+								},
+								{
+									"key": "Content-Length",
+									"value": "109",
+									"uuid": "cdc78cbb-54ce-4996-9a7c-f9105189b7ae"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6d-8TgbqmsQLAS1bPfIqqoysPfCX6Q\"",
+									"uuid": "4043e51d-c1f0-484e-8e0b-9dd6599a99bf"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 07:19:29 GMT",
+									"uuid": "68adf321-7dc3-4878-8c0f-f3fa979692b2"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "ea5aa174-e601-47f0-828b-9ebb64f3fa77"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "4d9ae618-886a-48a4-a0f8-c5dea2c244fb"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getSocials\": [\n            {\n                \"id\": \"6620c2c95607d97724c1cebd\",\n                \"platform\": \"xbook\",\n                \"url\": \"https://xbook.com/bob\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4e6883e9-e017-4386-bd2b-9ffff71c45ce",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the expected Content-Type header\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.equal(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the 'errors' array in the response\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData).to.have.property('errors').that.is.an('array').and.to.have.lengthOf.at.least(1, \"The 'errors' array should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the 'data' object in the response\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.data).to.exist.and.to.be.an('object');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'getUser' field in the 'data' object is null\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData.data).to.be.an('object');",
+									"  pm.expect(responseData.data.getUser).to.be.null;",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "0bc375fa-ca12-412e-9370-a97fa5c0b688",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getUser ($id: ID!) {\n    getUser (id: $id) {\n        about\n        email\n        firstName\n        id\n        lastName\n        skills\n        title\n    }\n}",
+								"variables": "{\n  \"id\": \"6620c2c95607d97724c1ceb9\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "a7b187a6-682c-4310-af36-0a3be68e187b",
+							"name": "getUser",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
+									"host": [
+										"tiwao-api",
+										"azure-api",
+										"net"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "a2e969b2-37a2-4257-826e-56fb6b2353f8"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "4fcd5cef-ecc3-4620-b9f0-8b1aa67650f3"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "8f8ac16d-be60-4a17-98b5-fb21c3da6d91"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "e7094ef5-fefc-41d1-a3a1-d0e6da5347b3"
+								},
+								{
+									"key": "Content-Length",
+									"value": "271",
+									"uuid": "1ca36658-a11b-42a8-830e-e16ef607fbb9"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"10f-kuv66YheUEzQaKP3k/wGmIYOVOA\"",
+									"uuid": "d8b2cff8-33f3-462a-acd7-bab6552fff5f"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 07:41:18 GMT",
+									"uuid": "2cede66a-fa97-46d4-938d-d3c23e77185a"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "4d7ebcd1-e72f-4694-81ea-34c3d975e63d"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "6e89bcdc-aa06-4bb7-beeb-03a931bf1412"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getUser\": {\n            \"about\": \"I am a software boomer.\",\n            \"email\": \"sara@example.com\",\n            \"firstName\": \"Sara\",\n            \"id\": \"6620c2c95607d97724c1ceb9\",\n            \"lastName\": \"Reynolds\",\n            \"skills\": [\n                \"Java\",\n                \"Google Cloud\",\n                \"Python\",\n                \"React\",\n                \"Node.js\",\n                \"Docker\",\n                \"Kubernetes\",\n                \"AWS\"\n            ],\n            \"title\": \"Software Boomer\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getUserByEmail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b99cfdfc-6443-449d-9e22-ed5474854677",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response content type is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the structure of the response\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.be.an('array');",
+									"  pm.expect(responseData.data).to.be.an('object');",
+									"  pm.expect(responseData.data.getUserByEmail).to.be.null;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'errors' array is present and contains at least one error object\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"  pm.expect(responseData.errors.length).to.be.at.least(1, \"There should be at least one error object in the 'errors' array\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate that the 'message' field of the error object is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData.errors).to.be.an('array').and.to.have.lengthOf.at.least(1);",
+									"    responseData.errors.forEach(function (error) {",
+									"        pm.expect(error.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "7ead072e-c066-41eb-b568-d54a22b10db2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getUserByEmail ($email: String!) {\n    getUserByEmail (email: $email) {\n        about\n        email\n        firstName\n        id\n        lastName\n        skills\n        title\n    }\n}",
+								"variables": "{\n  \"email\": \"sara@example.com\"\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "99c2d6ab-a709-4b57-8e7e-d2c610fcc6ce",
+							"name": "getUserByEmail",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
+									"host": [
+										"tiwao-api",
+										"azure-api",
+										"net"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "e8a0436b-dd7d-41b7-a668-082372253bb1"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "b6aafa87-7290-45d7-bf8f-1cca293d54e1"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "c5f832a7-66df-4d67-93e2-cbb26d873d57"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "07819ffc-dee9-4f93-afc8-c4f04683753c"
+								},
+								{
+									"key": "Content-Length",
+									"value": "278",
+									"uuid": "8bc2bd40-0150-4aac-9497-d949e336b1f7"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"116-uvG2gjmU1r5YK/lYIqG4RHHW138\"",
+									"uuid": "696fdadb-5617-4dec-b78e-e49bd33b12da"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 07:52:50 GMT",
+									"uuid": "18d28017-8431-42a8-97fb-fd6ac8e3135e"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "c14ea919-fdd6-49be-947b-45198ae5bdaf"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "075b676d-90d5-46d6-8531-ea3298ee8293"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getUserByEmail\": {\n            \"about\": \"I am a software boomer.\",\n            \"email\": \"sara@example.com\",\n            \"firstName\": \"Sara\",\n            \"id\": \"6620c2c95607d97724c1ceb9\",\n            \"lastName\": \"Reynolds\",\n            \"skills\": [\n                \"Java\",\n                \"Google Cloud\",\n                \"Python\",\n                \"React\",\n                \"Node.js\",\n                \"Docker\",\n                \"Kubernetes\",\n                \"AWS\"\n            ],\n            \"title\": \"Software Boomer\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getUsers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7e2a1bf9-75d6-4c0f-9abf-9967ae261ce5",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the expected Content-Type header of 'application/json'\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response contains the 'errors' field\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Errors field is an array and is not empty\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.be.an('array').and.to.have.lengthOf.at.least(1, \"Errors field should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"The 'data' field should be null\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData.data).to.be.null;",
+									"});",
+									"",
+									"pm.test(\"Response time is within an acceptable range\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the expected Content-Type header of 'application/json'\", function () {",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Errors field is an array and not empty\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.errors).to.be.an('array').and.to.have.lengthOf.at.least(1, \"Errors array should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Data field should be null\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.data).to.be.null;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "acc5fd5f-0ee7-4546-8028-de87f68ce499",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getUsers {\n    getUsers {\n        about\n        email\n        firstName\n        id\n        lastName\n        skills\n        title\n    }\n}",
+								"variables": "{}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "### Create User Data\n\nThis endpoint allows you to create user data.\n\n#### Request Body\n\n- The request body should be of graphql mutation type.\n    \n\n#### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n  \"data\": {\n    \"getUsers\": [\n      {\n        \"about\": \"string\",\n        \"email\": \"string\",\n        \"firstName\": \"string\",\n        \"id\": \"string\",\n        \"lastName\": \"string\",\n        \"skills\": [\"string\"],\n        \"title\": \"string\"\n      }\n    ]\n  }\n}\n\n ```"
+					},
+					"response": [
+						{
+							"id": "59171fdd-d5b5-49d9-9133-849a6c8fc63f",
+							"name": "getUsers",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
+									"host": [
+										"tiwao-api",
+										"azure-api",
+										"net"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "1c0a1c7c-273c-48fb-82c0-af39e21e43fd"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "99c6298d-bf34-4bc7-b6ef-48727df47e14"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "01c11363-c984-47d7-b5b1-c4a288ab6985"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "14370083-8fa6-4b76-b85a-4cf529cc93a8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "516",
+									"uuid": "216d2bab-e319-4bdf-bd86-237c7611b01c"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"204-HmUclUVpWwGTCqaVzdwI29cibDk\"",
+									"uuid": "ebaf1ae0-10bd-42cf-a404-c00841460fd4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 18 Apr 2024 06:49:37 GMT",
+									"uuid": "6dc15402-cda8-45b7-8d41-216f47b4d5d3"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "762b088d-c03f-4d3e-9f71-4b5825ece45d"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "1b9e2f59-217f-417a-b16f-5d9eb2fae48d"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getUsers\": [\n            {\n                \"about\": null,\n                \"email\": \"alice@example.com\",\n                \"firstName\": \"Alice\",\n                \"id\": \"6620bd9ab8e6ce445def9943\",\n                \"lastName\": \"Smith\",\n                \"skills\": [\n                    \"JavaScript\",\n                    \"TypeScript\",\n                    \"GraphQL\",\n                    \"React\",\n                    \"Node.js\",\n                    \"Docker\",\n                    \"Kubernetes\",\n                    \"AWS\"\n                ],\n                \"title\": \"Software Engineer\"\n            },\n            {\n                \"about\": \"If I were a spice, I'd be flour\",\n                \"email\": \"bob@burger.com\",\n                \"firstName\": \"Bob\",\n                \"id\": \"6620bd9bb8e6ce445def9947\",\n                \"lastName\": \"Belcher\",\n                \"skills\": [\n                    \"Java\",\n                    \"Google Cloud\",\n                    \"Python\",\n                    \"React\",\n                    \"Node.js\",\n                    \"Docker\",\n                    \"Kubernetes\",\n                    \"AWS\"\n                ],\n                \"title\": \"Software Developer\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getUsersByRole",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b39ec9fd-1e5c-433e-9313-6d2ca2bbb917",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the expected Content-Type header of 'application/json'\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response contains the 'errors' field\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Errors field is an array and is not empty\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.be.an('array').and.to.have.lengthOf.at.least(1, \"Errors field should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"The 'data' field should be null\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData.data).to.be.null;",
+									"});",
+									"",
+									"pm.test(\"Response time is within an acceptable range\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Request body contains required fields - about, email, firstName, lastName, and skills\", function () {",
+									"  const requestData = pm.request.json();",
+									"  ",
+									"  pm.expect(requestData).to.be.an('object');",
+									"  pm.expect(requestData.data.getUsers).to.be.an('array');",
+									"  ",
+									"  requestData.data.getUsers.forEach(user => {",
+									"    pm.expect(user.about).to.exist;",
+									"    pm.expect(user.email).to.exist;",
+									"    pm.expect(user.firstName).to.exist;",
+									"    pm.expect(user.lastName).to.exist;",
+									"    pm.expect(user.skills).to.exist;",
+									"  });",
+									"});",
+									"",
+									"pm.test(\"Response body should contain the required fields\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.data.getUsers).to.be.an('array');",
+									"  ",
+									"  responseData.data.getUsers.forEach(user => {",
+									"    pm.expect(user.about).to.exist;",
+									"    pm.expect(user.email).to.exist;",
+									"    pm.expect(user.firstName).to.exist;",
+									"    pm.expect(user.lastName).to.exist;",
+									"    pm.expect(user.skills).to.exist;",
+									"  });",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "8d5ec83d-62f9-4bf9-8439-a147ea8b4c3c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query GetUsersByRole($role: String!) {\n  getUsersByRole(role: $role) {\n    id\n    email\n  }\n}",
+								"variables": "{\r\n  \"role\": \"GUEST\"\r\n}"
+							}
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "### Request Description\n\nThis endpoint makes an HTTP POST request to {{url}} to send a payload with a graphql request body type and variables as its arguments.\n\n### Request Body\n\n- The request body for this endpoint is of a graphql mutation type.\n    \n\n### Response\n\nThe response for this request is a JSON object with a \"data\" key. The \"data\" object contains a \"getUsers\" array, where each element is an object with keys such as \"about\", \"email\", \"firstName\", \"id\", \"lastName\", \"skills\", and \"title\". The \"about\", \"email\", \"firstName\", \"id\", and \"lastName\" fields are of type string, while the \"skills\" field is an array of strings.\n\n### JSON Schema\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"data\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"getUsers\": {\n          \"type\": \"array\",\n          \"items\": {\n            \"type\": \"object\",\n            \"properties\": {\n              \"about\": { \"type\": \"string\" },\n              \"email\": { \"type\": \"string\" },\n              \"firstName\": { \"type\": \"string\" },\n              \"id\": { \"type\": \"string\" },\n              \"lastName\": { \"type\": \"string\" },\n              \"skills\": {\n                \"type\": \"array\",\n                \"items\": { \"type\": \"string\" }\n              },\n              \"title\": { \"type\": \"string\" }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n\n ```"
+					},
+					"response": []
+				}
+			],
+			"id": "469d178c-b57e-4e66-bd69-b03d2690cdd9"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "34860197-90d5-47b0-b5c1-0ea4b51904f8",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.environment.get(\"variable_key\");"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c9700b49-7fa8-412a-964d-0ca3df5052d1",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "783ec270-f3dd-411a-a323-b2cc2894b236",
+			"key": "userId",
+			"value": "6620bd9ab8e6ce445def9943",
+			"type": "string"
+		}
+	]
+}
