@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "8167e3b3-4d32-475c-8860-255e4f3a8b6b",
+		"_postman_id": "2a4e3fad-6f35-48f1-aeba-8552bc7e8fa4",
 		"name": "Portfolio API",
 		"description": "## Mutations\n\n---\n\nThe following http endpoints are perform `write operations`. They will mostly return `Unauthorized` errors if used as only the api author is expected to use them.\n\n## Queries\n\n---\n\nThe following graphql endpoints are for performing `read operations`. They can be interacted with. Use the following mock user info in the users section below for testing.\n\n### Users\n\n``` json\n{\n      \"firstName\": \"Bob\",\n      \"lastName\": \"Belcher\",\n      \"email\": \"bob@burger.com\"\n}\n{\n      \"firstName\": \"Alice\",\n      \"lastName\": \"Smith\",\n      \"email\": \"alice@example.com\"\n}\n\n ```",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_uid": "33741736-8167e3b3-4d32-475c-8860-255e4f3a8b6b"
+		"_uid": "33741736-2a4e3fad-6f35-48f1-aeba-8552bc7e8fa4"
 	},
 	"item": [
 		{
@@ -55,11 +55,12 @@
 									"    });",
 									"});"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"id": "fb792bfc-4cb4-47db-b20a-29dbfd7e4275"
 							}
 						}
 					],
-					"id": "c2ee7076-f049-4e30-b1be-03d9169d4c14",
+					"id": "086cdcde-538a-4e09-9993-21e9b0ebba37",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -67,7 +68,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation createUser ($input: UserInput!) {\n    createUser (input: $input) {\n        about\n        email\n        firstName\n        id\n        lastName\n        skills\n        title\n    }\n}",
+								"variables": "{\n  \"input\": {\n    \"firstName\": \"Sara\",\n    \"lastName\": \"Reynolds\",\n    \"email\": \"sara@example.com\",\n    \"title\": \"Software Boomer\",\n    \"about\": \"I am a software boomer.\",\n    \"experiences\": [\n      {\n        \"startDate\": \"2019-06-01T00:00:00.000Z\",\n        \"endDate\": \"2020-06-01T00:00:00.000Z\",\n        \"title\": \"5th Law of Motion\",\n        \"description\": \"A fifth law of motion designed for comedic relief\",\n        \"url\": \"https://www.doomcorp.com\",\n        \"type\": \"PROJECT\",\n        \"tools\": [\n          \"React\",\n          \"Node.js\",\n          \"GraphQL\"\n        ]\n      },\n      {\n        \"startDate\": \"2019-06-01T00:00:00.000Z\",\n        \"endDate\": \"2020-06-01T00:00:00.000Z\",\n        \"title\": \"Senior Software Dmeeveloper\",\n        \"company\": \"\",\n        \"description\": \"I worked as a senior software developer at Acme Corp., contributing to the ACME Physics Engine used by high value clients\",\n        \"url\": \"https://www.acme.com\",\n        \"type\": \"WORK\",\n        \"tools\": [\n          \"React\",\n          \"Node.js\",\n          \"GraphQL\"\n        ]\n      }\n    ],\n    \"education\": {\n      \"fieldOfStudy\": \"BSc Computer Science\",\n      \"institution\": \"University of Wirstorshire\",\n      \"startDate\": \"2020-06-01T00:00:00.000Z\",\n      \"endDate\": \"2021-06-01T00:00:00.000Z\",\n      \"description\": \"I studied Computer Science at the University of Birmingham.\"\n    },\n    \"socials\": [\n      {\n        \"platform\": \"xbook\",\n        \"url\": \"https://xbook.com/bob\"\n      },\n      {\n        \"platform\": \"InstagramX\",\n        \"url\": \"https://ig.com/bob\"\n      }\n    ],\n    \"location\": {\n      \"city\": \"Birmingham\",\n      \"province\": \"West Midlands\",\n      \"country\": \"United Kingdom\"\n    },\n    \"skills\": [\n      \"Java\",\n      \"Google Cloud\",\n      \"Python\",\n      \"React\",\n      \"Node.js\",\n      \"Docker\",\n      \"Kubernetes\",\n      \"AWS\"\n    ]\n  }\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -78,7 +83,7 @@
 					},
 					"response": [
 						{
-							"id": "e76b4ccf-382d-4345-ba62-065092667d64",
+							"id": "d9d9ebb1-c8ab-4dda-9c11-6d27b13b3b1a",
 							"name": "createUser",
 							"originalRequest": {
 								"method": "POST",
@@ -100,47 +105,47 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "e5bff1ea-c7ca-490b-a954-19a16c26db06"
+									"uuid": "2881942c-4575-440a-890b-cbcbabb56355"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "096a5c9c-b45b-4dcf-a593-90314614b89e"
+									"uuid": "8a29d675-e6b8-4f6c-a6ab-d5383484420b"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "963469f7-e20d-4abb-a94f-c2e7f07e9b01"
+									"uuid": "cd3c0952-e2a0-4aa7-bf92-8327ab525cb6"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "c256764a-2013-42f2-817d-4a88c292120a"
+									"uuid": "941c8b19-5d2e-499d-8e47-d3df35dc4206"
 								},
 								{
 									"key": "Content-Length",
 									"value": "274",
-									"uuid": "e0b65bdc-042c-4c1c-bbbf-bbaa8690e17b"
+									"uuid": "f926eb98-9145-442e-8256-d6cb23ab9e55"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"112-/gz6L2VTDXRAZtBRAj/Fm9N4pd0\"",
-									"uuid": "a2fd6270-3bc6-417a-add8-abf38d00e32e"
+									"uuid": "a386c87c-354d-4e97-8b8d-2a686e6b2c5e"
 								},
 								{
 									"key": "Date",
 									"value": "Thu, 18 Apr 2024 06:50:49 GMT",
-									"uuid": "f77c33dc-acec-477d-bfcd-eb70c6255c7f"
+									"uuid": "6e11c9ff-f1c7-4f1c-ad59-2e7f90b2b095"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "ecc7bdb0-50e9-4446-9bcf-713b5e4bd014"
+									"uuid": "26a6a594-5788-4fb2-9396-32a580ccf342"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "6fb80529-a83e-4e64-929a-5079d9e03385"
+									"uuid": "3e5202ee-9bd0-4dcb-864b-17ed35e64808"
 								}
 							],
 							"cookie": [],
@@ -154,7 +159,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2bf5e506-2e33-469a-8a61-ea6ab9943789",
+								"id": "5fb90b37-d305-4fb5-866d-7f25d009db17",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"  pm.response.to.have.status(200);",
@@ -186,7 +191,7 @@
 							}
 						}
 					],
-					"id": "d2855a29-54e8-44fd-83a5-d99444177cd8",
+					"id": "aab97cfd-3cde-4c22-b63a-40815afe6179",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -194,7 +199,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation deleteExperience ($id: ID!) {\n    deleteExperience (id: $id)\n}",
+								"variables": "{\n  \"id\": \"66220d4d1374adcbde428988\"\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -205,7 +214,7 @@
 					},
 					"response": [
 						{
-							"id": "ef6f306f-b4fc-4392-8288-54ecb4a8bb3f",
+							"id": "b416bfd4-dd59-409d-9c0a-5acfd5eaa2e5",
 							"name": "deleteExperience",
 							"originalRequest": {
 								"method": "POST",
@@ -227,47 +236,47 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "bb58401c-9a26-4a79-a727-87196de8b196"
+									"uuid": "74923d08-c831-4b3d-8535-98ffc084786b"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "f31e5c83-e77f-427b-a405-9340dbbb8cb7"
+									"uuid": "4350a6ba-0782-4b47-9ed8-9821ec2b0f3a"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "3e389bea-e125-4266-bf43-9c73c455d05f"
+									"uuid": "30d01d15-9853-4c79-a9a3-55781808a1e2"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "e86ae02b-fbaf-465f-9284-2fb54da6ecf7"
+									"uuid": "84fe2773-f2db-4a0b-9abf-6f3042ef129b"
 								},
 								{
 									"key": "Content-Length",
 									"value": "89",
-									"uuid": "d1d1e085-e8eb-427d-be0f-f4a43d2f8924"
+									"uuid": "2f3f6f1e-bab5-40b7-82ff-9647c64f4786"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"59-MTpa1N7xcCQgzUlspOdSW9ZR2IE\"",
-									"uuid": "8ef2c640-d985-4603-b79c-1e8bc143d73e"
+									"uuid": "50f46899-77dd-4f31-9b99-e8b7ba7598c0"
 								},
 								{
 									"key": "Date",
 									"value": "Fri, 19 Apr 2024 07:59:55 GMT",
-									"uuid": "cced3422-5dfc-4d48-b42a-8cb135fe92e8"
+									"uuid": "77803f17-6613-49d2-b66b-ceb0674eac05"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "c01a18ff-c9d6-4a61-80da-201970bfe26e"
+									"uuid": "0f1372f8-7ed1-49e9-864c-435a38a22819"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "76dbbb77-7415-424d-9395-cc9635e9b0ad"
+									"uuid": "841c85e4-77bd-48f0-85fa-b86ca902b296"
 								}
 							],
 							"cookie": [],
@@ -281,7 +290,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2fb2dc20-5010-4423-b909-b39888c09d2b",
+								"id": "ab0c1872-9ec7-4c34-94c2-d87352118df4",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"  pm.expect(pm.response.code).to.equal(200);",
@@ -314,7 +323,7 @@
 							}
 						}
 					],
-					"id": "89f6b6a3-b16c-48ab-b33f-79c8351bbc2d",
+					"id": "e8f41926-3538-4b47-af3c-4aac6a5a34a6",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -322,7 +331,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation deleteSocial ($id: ID!) {\n    deleteSocial (id: $id) \n}",
+								"variables": "{\n  \"id\": \"6620c2c95607d97724c1cebe\"\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -333,7 +346,7 @@
 					},
 					"response": [
 						{
-							"id": "561dc40a-9db0-4997-838e-802bd2bf58c6",
+							"id": "1a61ba42-701f-4a30-a14a-b7e5fa4a4017",
 							"name": "deleteSocial",
 							"originalRequest": {
 								"method": "POST",
@@ -355,47 +368,47 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "4c18d01c-2a38-4dc1-86ec-10ad5e1c7425"
+									"uuid": "532fb190-7eb4-4870-b9d0-a1793845585c"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "881d2933-4a12-4ad8-a247-c2c077870fd4"
+									"uuid": "8e2a7948-1c1a-4661-9dd3-811a6cf93b69"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "e6e51de6-777d-49c6-80dd-41f43c1e8f40"
+									"uuid": "e51c33ee-b4ca-4878-b5e0-64b719b46b5e"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "300b0658-e260-4b81-a375-d8d0d598cbcc"
+									"uuid": "b11ec096-5a9b-4a6f-950a-92f4dc60f17b"
 								},
 								{
 									"key": "Content-Length",
 									"value": "85",
-									"uuid": "332dad77-8b1b-4091-88a0-58580dd95324"
+									"uuid": "e524bdf7-c065-41c2-b34e-9d8833154b26"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"55-PaJ3+iYFxUaKqI7VuEGjQxJyPno\"",
-									"uuid": "fda99419-b9b2-4232-a0db-90db82d62f7e"
+									"uuid": "53c1a9c3-237b-4e09-8b3b-f6c75cc7c069"
 								},
 								{
 									"key": "Date",
 									"value": "Fri, 19 Apr 2024 08:02:38 GMT",
-									"uuid": "654f885c-5916-4bf5-accc-34aa8458628d"
+									"uuid": "d824dc20-09f5-45b7-8a0b-0664e7efe367"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "58e0276d-288e-4a38-9b88-e823c543da24"
+									"uuid": "b52edd69-bd08-4910-b763-2d97fe9526d1"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "a486992f-9a3a-44a3-a398-89e2a41fda5d"
+									"uuid": "47086fff-ddd2-4508-be65-46cd3e588864"
 								}
 							],
 							"cookie": [],
@@ -441,11 +454,12 @@
 									"  pm.expect(responseData.data).to.exist;",
 									"});"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"id": "d539efdc-ec2d-4c51-b2f5-66ad026da679"
 							}
 						}
 					],
-					"id": "dffa6f38-85eb-41b8-a4c8-b148217c1781",
+					"id": "32354e47-3c58-4df0-8216-9bc0a9cb275d",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -453,7 +467,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation deleteUser ($id: ID!) {\n    deleteUser (id: $id) \n}",
+								"variables": "{\n  \"id\": \"6620bd9bb8e6ce445def9947\"\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -464,7 +482,7 @@
 					},
 					"response": [
 						{
-							"id": "12ad69c9-c666-4b79-a62c-1f001db2c947",
+							"id": "a99d67ed-b09a-4536-a34e-66c2fc4f0b3f",
 							"name": "deleteUser",
 							"originalRequest": {
 								"method": "POST",
@@ -486,47 +504,47 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "1a5f8fd1-4415-478b-9f37-3702a13aa72a"
+									"uuid": "586c6a28-4a0b-4aac-a1ff-7d1b3022f6cc"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "5e5769db-154d-4cb5-97bb-c2e6207335e5"
+									"uuid": "446abe01-1566-44d8-bf78-92c614dbeec5"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "db37a42d-f2bf-4c1e-9725-217fe4c6642b"
+									"uuid": "4802e029-d3d8-4890-9fcc-3fd20e074842"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "e24f7e37-df8f-4ff5-b9ee-18023c6f8fb0"
+									"uuid": "c53722e4-de9f-4aed-9518-634a285c5580"
 								},
 								{
 									"key": "Content-Length",
 									"value": "60",
-									"uuid": "5650477d-ea02-4cfc-9c0b-0e1e9ddb7056"
+									"uuid": "afcf397f-5087-4c29-a9dc-9b3b7cff74b3"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"3c-FZvl5sJWoNoHoe83ccyFDl7IFTg\"",
-									"uuid": "bb1b73f1-61b4-43f2-a23f-542399f891fd"
+									"uuid": "8fa2a10f-813d-40d6-9cf9-cef53614da56"
 								},
 								{
 									"key": "Date",
 									"value": "Thu, 18 Apr 2024 06:51:49 GMT",
-									"uuid": "dbd4608f-6296-4bd3-a9d2-71479fce0181"
+									"uuid": "9480cfec-0994-49c9-9ec7-5b428a389c3e"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "e87ff905-cacd-4db4-9b7b-ce3286398d7a"
+									"uuid": "9c6e7b34-2582-43d1-8cfd-b05d4cde5a87"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "fc28cafa-1575-4bb6-983f-5fbf743cd21c"
+									"uuid": "137e46f1-d226-40bf-8500-3bf826b0a8f5"
 								}
 							],
 							"cookie": [],
@@ -540,7 +558,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "fb781067-d1bd-422b-9c7b-d734d1cd19e4",
+								"id": "1ed2aaaa-b468-4a56-b3eb-26065852d445",
 								"exec": [
 									"// pm.collectionVariables.set(\"variable_key\", \"variable_value\");\r",
 									"// pm."
@@ -552,7 +570,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "46f21e65-baac-4c93-ab48-1051c88cae25",
+								"id": "d0b94048-2553-4089-91c5-04e6ceda4b7d",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"  pm.response.to.have.status(200);",
@@ -593,7 +611,7 @@
 							}
 						}
 					],
-					"id": "d5a5ea55-d687-4f74-8c09-d71c8169cf6a",
+					"id": "018f39e6-d3e1-4363-ba1c-07ee5ea34179",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -601,7 +619,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation getUserToken ($email: String!, $secret: ID!) {\n    getUserToken (email: $email, secret: $secret) {\n        token\n    }\n}",
+								"variables": "{\n  \"email\": \"bob@burger.com\",\n  \"secret\": \"appsecret321\"\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -618,7 +640,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "19452075-0b9d-4222-b850-0cf5da734a42",
+								"id": "31bd0d7e-fbe5-4143-baab-5945801459d7",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"  pm.response.to.have.status(200);",
@@ -644,7 +666,7 @@
 							}
 						}
 					],
-					"id": "bff81c57-b5bf-4e89-ba22-ab8045ea6a1f",
+					"id": "6c69e614-65af-4090-8a10-7abdf6b5449f",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -652,7 +674,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation updateSkills ($skills: [String!]!, $userId: String!, $resetSkills: Boolean) {\n    updateSkills (skills: $skills, userId: $userId, resetSkills: $resetSkills)\n}",
+								"variables": "{\n  \"skills\": [\n    \"Web Assembly\"\n  ],\n  \"resetSkills\": false,\n  \"userId\": \"6620c2c95607d97724c1ceb9\"\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -663,7 +689,7 @@
 					},
 					"response": [
 						{
-							"id": "e39f2206-0db4-42b3-abb3-365a50b117e8",
+							"id": "522e2861-9eca-4b07-a664-e78c50b7ac56",
 							"name": "setSkills",
 							"originalRequest": {
 								"method": "POST",
@@ -685,54 +711,54 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "2e2c7f54-be60-4605-b814-dced4dbe745f"
+									"uuid": "35ac92ad-e1e5-4c21-a5b7-6ac2cc128f5d"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "0a98500d-bca1-44c1-9b4a-8d2ede501a2b"
+									"uuid": "bc722631-c147-4fcd-8759-ab85dfd85cc4"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "9b8375a9-55dc-4efe-9905-2bb0cbfa7f84"
+									"uuid": "bb36d452-e312-4579-b7dd-20454051c2fe"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "3d6b9608-ad1c-4f52-9236-60f8706d1076"
+									"uuid": "71f40fa4-dba7-40de-8777-ed731b4ecb61"
 								},
 								{
 									"key": "Content-Length",
 									"value": "52",
-									"uuid": "d1be473a-2155-4c70-8109-9090c11db30b"
+									"uuid": "be993e89-76da-4990-bd32-f0e1b2b0c699"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"34-PUtl/F4siE0OIukY5LED3BFa5hQ\"",
-									"uuid": "bb9a9202-0e43-44cd-8c0c-325bbc242ff3"
+									"uuid": "9248dba1-20c4-4516-ad61-b644c5b70871"
 								},
 								{
 									"key": "Date",
 									"value": "Fri, 19 Apr 2024 08:20:00 GMT",
-									"uuid": "07ec7f0e-48c3-467e-be30-1ee6bbdb0aed"
+									"uuid": "c258eef6-59ce-4416-ac52-52ff6dbc0184"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "962ef84b-f3c3-443d-9cd3-e1054e10b54b"
+									"uuid": "e7392ecf-bcd3-45d5-a5ff-ec4bb272e977"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "01a4896b-e75d-4330-99c2-ee21361790e4"
+									"uuid": "8dd09b49-1d0a-40c7-8a68-329042d763f5"
 								}
 							],
 							"cookie": [],
 							"body": "{\n    \"data\": {\n        \"updateSkills\": [\n            \"Java\",\n            \"salsa\",\n            \"Python\"\n        ]\n    }\n}"
 						},
 						{
-							"id": "f6b0b33f-9341-4cf9-b14b-e20c5b3f524f",
+							"id": "a386ebdc-2472-4109-8721-dfbe59560b0c",
 							"name": "pushSkills",
 							"originalRequest": {
 								"method": "POST",
@@ -754,47 +780,47 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "2f6b9945-a528-4cf8-aa5a-f30347fc49b5"
+									"uuid": "9c28d38f-4092-4f1c-99b1-1dc9df59f2fa"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "92fbe2fd-8f27-4433-b3e6-a6d84119e3a4"
+									"uuid": "82485b4b-c517-47a8-853b-30e629467a1a"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "77793b4a-2d95-4087-8e09-4400402f0f42"
+									"uuid": "b86527f5-8d4b-485c-b774-bbec47744c70"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "7f9d96bb-8155-40e8-8829-ac2cec63d0a3"
+									"uuid": "d7f03b9e-ce86-4a65-9419-9971272c43ff"
 								},
 								{
 									"key": "Content-Length",
 									"value": "67",
-									"uuid": "97507ea4-dda3-486f-b9cc-86dc05704336"
+									"uuid": "0574fe46-b199-49fe-a2d1-26ba6df3afe0"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"43-Dx7zrexeqFFEmv2GfWSGnKr9KOI\"",
-									"uuid": "2d807c19-0d2d-4f76-9fae-ab230fa63e90"
+									"uuid": "252d44e2-066e-4f02-8955-ef2b6d66dbdc"
 								},
 								{
 									"key": "Date",
 									"value": "Fri, 19 Apr 2024 08:21:52 GMT",
-									"uuid": "9f70fb07-1c32-47df-a152-a038958e53a9"
+									"uuid": "42ca0bb3-582c-4f25-a06e-3629356fd285"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "6d739476-cef9-4163-af7f-ca300c2e4342"
+									"uuid": "25e56215-80d5-4351-849d-a6466f5ca1a7"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "2522ac2f-0b63-4f65-8219-02b35fd576d5"
+									"uuid": "aec5680f-6ee0-46a4-97bd-80a11456ea59"
 								}
 							],
 							"cookie": [],
@@ -808,7 +834,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c030847a-0161-4e0e-ad95-ecb6a5d5aba8",
+								"id": "4d3f495e-4645-40ec-a30e-d1d4ac6838aa",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"  pm.response.to.have.status(200);",
@@ -834,7 +860,7 @@
 							}
 						}
 					],
-					"id": "a87faf0d-b80d-47f7-bd66-3489a16eba58",
+					"id": "b3a4ba66-2846-4cd6-b48a-4651ab1d9dff",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -842,7 +868,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation upsertEducation ($education: EducationInput!, $userId: ID!) {\n    upsertEducation (education: $education, userId: $userId) {\n        description\n        endDate\n        fieldOfStudy\n        id\n        institution\n        startDate\n    }\n}",
+								"variables": "{\n  \"education\": {\n    \"description\": \"\",\n    \"endDate\": \"2021-06-01T00:00:00.000Z\",\n    \"fieldOfStudy\": \"BSc Computer Hardware\",\n    \"institution\": \"University of Wirstorshire\",\n    \"startDate\": \"2020-06-01T00:00:00.000Z\"\n  },\n  \"userId\": \"6620c2c95607d97724c1ceb9\"\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -853,7 +883,7 @@
 					},
 					"response": [
 						{
-							"id": "6f63271d-0cf6-4c70-ba9a-84e54164d540",
+							"id": "43ea6068-dffc-49b3-a3b5-7975b4eacb44",
 							"name": "upsertEducation",
 							"originalRequest": {
 								"method": "POST",
@@ -875,47 +905,47 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "d667d86e-c39d-470f-9d5e-6318c0ea1156"
+									"uuid": "16a39764-5f1b-414b-a19b-c5e6f591ccef"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "71ef1ed1-2306-4378-9ecb-ea234ba9fcf1"
+									"uuid": "8ccd1dc2-9c74-4a90-bf20-02ce13917d15"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "8aa54c89-35fc-4329-b171-01a7e0fbd2e1"
+									"uuid": "bced173e-c683-4be7-96a7-1ecb305e32db"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "c396c941-d108-4cec-86f2-608dbcc021dc"
+									"uuid": "58691661-5861-4bed-bdf7-9e668dde04d0"
 								},
 								{
 									"key": "Content-Length",
 									"value": "238",
-									"uuid": "43fddfa6-6bd2-4984-b1d5-dcd936312e79"
+									"uuid": "799c9799-6083-40d7-a329-4830def61ac0"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"ee-zNs90dhFKeCfYurTEqHJtA6On2s\"",
-									"uuid": "dd6b7da1-8fc1-4120-8cfe-a1db327f9c20"
+									"uuid": "356d6d5b-9ea4-431a-9524-0a967130eab3"
 								},
 								{
 									"key": "Date",
 									"value": "Fri, 19 Apr 2024 08:44:44 GMT",
-									"uuid": "5b5cc8de-2ffd-4d95-8c13-3b22c74cdcc3"
+									"uuid": "a034e493-ef96-4642-b3ea-5ce7ef316dcc"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "3e76cb2d-5bb5-4416-a381-a737c4aa47b9"
+									"uuid": "046cef8e-7d24-4b47-a494-08dd7a083b3b"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "57dc471e-3720-423d-b210-e9bb3c56aeb5"
+									"uuid": "3b10cadc-1272-43c5-8832-4042d25c648d"
 								}
 							],
 							"cookie": [],
@@ -929,7 +959,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6030bc14-f8f0-4261-b9ef-fd4bb6c3ff5a",
+								"id": "7b0029e3-178e-48c0-8e99-b4fc05e2c84b",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"  pm.response.to.have.status(200);",
@@ -953,7 +983,7 @@
 							}
 						}
 					],
-					"id": "a7248a0c-a0ca-4024-9f78-635ef7568ba0",
+					"id": "29456b5b-fb38-4238-af3c-62e9d2e2268a",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -961,7 +991,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation upsertExperience ($experience: ExperienceInput!, $experienceId: ID!) {\n    upsertExperience (experience: $experience, id: $experienceId) {\n        company\n        description\n        endDate\n        id\n        imgSrc\n        role\n        startDate\n        title\n        tools\n        type\n        url\n    }\n}",
+								"variables": "{\n  \"experience\": {\n    \"url\": \"https://www.url.com\",\n    \"userId\": \"6620c2c95607d97724c1ceb9\",\n    \"title\": \"New Experience Title\",\n    \"description\": \"This experience will be created as it doesn't exist\",\n    \"tools\": [\n      \"Vue\",\n      \"Node.js\",\n      \"GraphQL\"\n    ],\n    \"company\": \"Acme Corp.\",\n    \"type\": \"WORK\",\n    \"startDate\": \"2020-06-01T00:00:00.000Z\",\n    \"endDate\": \"2021-06-01T00:00:00.000Z\"\n  },\n  \"experienceId\": \"6620c2c95607d97724c1ceb6\"\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -972,7 +1006,7 @@
 					},
 					"response": [
 						{
-							"id": "f4aa1064-1232-40a9-9218-92a6782f83fb",
+							"id": "cbdefc4b-5948-4897-b959-79537c80d87f",
 							"name": "updateExperience",
 							"originalRequest": {
 								"method": "POST",
@@ -994,54 +1028,54 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "1d10ea99-7416-4bdd-98ee-f76f9c44efff"
+									"uuid": "570559b7-7923-4004-acbe-44b135a557b4"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "3a63a700-51e2-4e73-a9c3-1dfa9042452e"
+									"uuid": "d9f2ab88-85bc-4d10-b129-c979ec25c570"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "6afcceb6-d35b-41f9-b61e-85aeb0a9616a"
+									"uuid": "73bf65e6-fe12-4515-854e-637d02dad531"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "5be4c71d-c391-4d4c-ab8a-82750cb3a7fd"
+									"uuid": "622bcb7d-01a9-4459-bb59-34547e03242f"
 								},
 								{
 									"key": "Content-Length",
 									"value": "360",
-									"uuid": "e37583f2-a26c-4144-863b-6934862c8182"
+									"uuid": "53a31da9-b229-4ebe-a843-d28f3fa733d2"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"168-I9gRLElQgIXy3UufnJ2x37n/ZOg\"",
-									"uuid": "463c06bb-f3b8-4e4c-ac4d-dacf4b583f6f"
+									"uuid": "6e43e339-ff63-459f-a6e5-a4d0c3ca2cdd"
 								},
 								{
 									"key": "Date",
 									"value": "Fri, 19 Apr 2024 06:16:03 GMT",
-									"uuid": "668c28bf-25c6-420f-9949-a5550fa7b437"
+									"uuid": "9d32510d-0783-4411-a88c-51a8e9418430"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "7865b13c-5127-48b7-bba6-0635a7340d45"
+									"uuid": "32fabb62-edff-4373-a2ff-f1146a8dc023"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "7006d8e2-174e-46a6-804d-ab2cc8641eb2"
+									"uuid": "f77c3006-7e7f-4b27-ac14-4f652b767140"
 								}
 							],
 							"cookie": [],
 							"body": "{\n    \"data\": {\n        \"upsertExperience\": {\n            \"company\": \"Acme Corp.\",\n            \"description\": \"A fifth law of motion designed for comedic relief\",\n            \"endDate\": \"2021-06-01T00:00:00.000Z\",\n            \"id\": \"6620c2c95607d97724c1ceba\",\n            \"imgSrc\": null,\n            \"role\": null,\n            \"startDate\": \"2020-06-01T00:00:00.000Z\",\n            \"title\": \"Experience Title\",\n            \"tools\": [\n                \"Vue\",\n                \"Node.js\",\n                \"GraphQL\"\n            ],\n            \"type\": \"WORK\",\n            \"url\": \"https://www.url.com\"\n        }\n    }\n}"
 						},
 						{
-							"id": "274c0091-6426-455e-9a9e-46ff486d817f",
+							"id": "392067f4-3ccf-4d67-934d-f15e812fe4b1",
 							"name": "createExperience",
 							"originalRequest": {
 								"method": "POST",
@@ -1063,54 +1097,54 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "3a38b4cd-da6c-4fc8-b543-b24ce18250e4"
+									"uuid": "c6837148-9641-4c88-9ebf-a957a40aa32e"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "a615475d-9176-42f7-aceb-19511f9354bf"
+									"uuid": "e33ebcec-ca33-497a-b0e7-d2bffd49b8cd"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "a84c24db-de95-453f-9365-5a34fd0c32f8"
+									"uuid": "2d2f75a2-2079-46cd-a1f1-15afdf049164"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "6157fb77-f73d-4d2c-86f4-a02d9d0efb00"
+									"uuid": "35096d01-e8c0-46dd-8ce7-fa09a74a05bc"
 								},
 								{
 									"key": "Content-Length",
 									"value": "366",
-									"uuid": "a3261caa-70e9-497c-8d28-8637a6a4bcfa"
+									"uuid": "2671cfcd-7b65-492e-9b8e-b4c4c3d3061e"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"16e-CNxPb+FYS5MteuB4fjb/W9pKKhM\"",
-									"uuid": "bad62145-4765-466b-a194-60557208e4cd"
+									"uuid": "9649b52e-d4ef-468c-928c-47aa7b776726"
 								},
 								{
 									"key": "Date",
 									"value": "Fri, 19 Apr 2024 06:21:01 GMT",
-									"uuid": "1c5d1624-a0e1-44a8-b8f2-b12a8157246b"
+									"uuid": "62fd32dd-72aa-42a8-a844-bd9bdf62631b"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "7b747b8b-ccaa-4482-9e10-17512ce9946c"
+									"uuid": "ec3ef5de-67f4-4010-bfed-f78b6f4c9455"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "73b67028-a2ef-4626-a4b3-a89c98f9593a"
+									"uuid": "c5bcfa9f-11e4-4907-9031-d3d12784c1af"
 								}
 							],
 							"cookie": [],
 							"body": "{\n    \"data\": {\n        \"upsertExperience\": {\n            \"company\": \"Acme Corp.\",\n            \"description\": \"This experience will be created as it doesn't exist\",\n            \"endDate\": \"2021-06-01T00:00:00.000Z\",\n            \"id\": \"66220d4d1374adcbde428988\",\n            \"imgSrc\": null,\n            \"role\": null,\n            \"startDate\": \"2020-06-01T00:00:00.000Z\",\n            \"title\": \"New Experience Title\",\n            \"tools\": [\n                \"Vue\",\n                \"Node.js\",\n                \"GraphQL\"\n            ],\n            \"type\": \"WORK\",\n            \"url\": \"https://www.url.com\"\n        }\n    }\n}"
 						},
 						{
-							"id": "fa88542f-5a4b-4390-b097-621cef3ab035",
+							"id": "dbc853fe-90af-4f91-ad03-4546f13292b1",
 							"name": "400",
 							"originalRequest": {
 								"method": "POST",
@@ -1132,47 +1166,47 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "a077c356-4795-4ccc-94a8-421bca3dff32"
+									"uuid": "9dcaecdf-e32d-4519-9169-5b750cd81a61"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "a297a26a-dd84-42b0-b0a5-96838399e237"
+									"uuid": "3bf16ffb-d9ad-4967-bd48-2a61f614aa1c"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "3645713a-aba0-4b2e-b2d4-f0755680afe4"
+									"uuid": "2d63c71e-cd3d-46ab-b23e-aee8b7214134"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "21c41333-7ec8-449f-aeb9-8c425fd0401b"
+									"uuid": "2f3b9dd2-fb5d-4fac-a566-79dcf59c35f7"
 								},
 								{
 									"key": "Content-Length",
 									"value": "606",
-									"uuid": "5a44b920-0d3c-45d4-b4d3-d9a70b208f7c"
+									"uuid": "08756a94-5dbf-4f7c-a0be-ec9b3262bedd"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"25e-gGasd5kOdVAhLYvK9/DTgz0i5g0\"",
-									"uuid": "c749b9a3-f98d-4c5f-8586-bc8430d127d1"
+									"uuid": "8eb0ceb8-9f56-460a-9fb6-1416825eed42"
 								},
 								{
 									"key": "Date",
 									"value": "Fri, 19 Apr 2024 06:31:58 GMT",
-									"uuid": "e6fd5fbe-87d0-481a-84b8-2c9041317d27"
+									"uuid": "beb8de8b-b109-47d0-b45f-1eb754161e6c"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "5b6bfc59-6044-4efa-898c-55e870164003"
+									"uuid": "9a2f00b7-e800-4675-bb8d-bacf62cfbedb"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "532d44bc-7678-4041-9d18-9c3c1fc9f806"
+									"uuid": "82a695ec-e1bb-456b-831e-7d8920a8c0f1"
 								}
 							],
 							"cookie": [],
@@ -1186,7 +1220,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e51ab8ae-eb14-45af-a059-37fbea5353e6",
+								"id": "5a4f57c1-d147-428f-972c-7de3dea1430f",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -1218,7 +1252,7 @@
 							}
 						}
 					],
-					"id": "2cafedf8-1fe9-4597-8d42-558fd63427f2",
+					"id": "89312f12-3bb3-498c-819f-e127a9d424d3",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1226,7 +1260,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation upsertExperiences ($experiences: [ExperienceInput!], $userId: String!) {\n    upsertExperiences (experiences: $experiences, userId: $userId) {\n        company\n        description\n        endDate\n        id\n        imgSrc\n        role\n        startDate\n        title\n        tools\n        type\n        url\n    }\n}",
+								"variables": "{\n  \"experiences\": [\n    {\n      \"startDate\": \"2019-06-01T00:00:00.000Z\",\n      \"endDate\": \"2020-06-01T00:00:00.000Z\",\n      \"title\": \"Software Me\",\n      \"company\": \"Doom Corp\",\n      \"description\": \"I worked as a software developer at Doom Corp.\",\n      \"url\": \"https://www.doomcorp.com\",\n      \"type\": \"WORK\",\n      \"tools\": [\n        \"React\",\n        \"Node.js\",\n        \"GraphQL\"\n      ],\n      \"userId\": \"6620c2c95607d97724c1ceb9\"\n    },\n    {\n      \"userId\": \"6620c2c95607d97724c1ceb9\",\n      \"startDate\": \"2019-06-01T00:00:00.000Z\",\n      \"endDate\": \"2020-06-01T00:00:00.000Z\",\n      \"title\": \"Senior Software Dmeeveloper\",\n      \"company\": \"ACME Company\",\n      \"description\": \"I worked as a senior software developer at Acme Corp.\",\n      \"url\": \"https://www.acme.com\",\n      \"type\": \"PROJECT\",\n      \"tools\": [\n        \"React\",\n        \"Node.js\",\n        \"GraphQL\"\n      ]\n    }\n  ],\n  \"userId\": \"6620c2c95607d97724c1ceb9\"\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -1243,7 +1281,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d2cf8210-e888-4cbf-bd91-e7dfd2a6ec5b",
+								"id": "6707e9ca-9d1e-4bc3-b017-857d88b1f3ed",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"  pm.expect(pm.response.code).to.equal(200);",
@@ -1277,7 +1315,7 @@
 							}
 						}
 					],
-					"id": "24511356-f17e-4198-88f3-0c443c423698",
+					"id": "8b9da371-7d85-4559-bab8-b1fe9c4b227f",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1285,7 +1323,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation upsertLocation ($input: LocationInput!, $userId: ID!) {\n    upsertLocation (input: $input, userId: $userId) {\n        city\n        country\n        id\n        province\n    }\n}",
+								"variables": "{\n  \"input\": {\n    \"city\": \"Dublin\",\n    \"country\": \"Ireland\",\n    \"id\": \"6620c2c95607d97724c1cebf\",\n    \"province\": \"Leinster\"\n  },\n  \"userId\": \"6620c2c95607d97724c1ceb9\"\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -1296,7 +1338,7 @@
 					},
 					"response": [
 						{
-							"id": "1c64f628-13c1-4076-ba95-3ba39666869d",
+							"id": "2dde59c1-1797-47af-9b8c-34a8b0b27950",
 							"name": "upsertLocation",
 							"originalRequest": {
 								"method": "POST",
@@ -1318,47 +1360,47 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "de4043a4-6109-49c0-ad1e-0820ec44aaee"
+									"uuid": "7885cad9-d52f-4c62-9044-feaee353c3a2"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "552933b0-b943-46d8-a64f-63364ddfeb64"
+									"uuid": "f96e9c20-6c62-43ee-8531-2b987bf640e7"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "77b5e12c-8a32-4faa-8558-faa8b8205656"
+									"uuid": "3e90446b-f722-4b63-b8e4-c14f980d7c34"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "54ad0ce3-40fb-428e-b0ff-40217bb271fb"
+									"uuid": "0ba2a713-ef74-4080-88d0-390b92970372"
 								},
 								{
 									"key": "Content-Length",
 									"value": "120",
-									"uuid": "2879b5c9-5020-4dc8-b2b6-d971bb0402da"
+									"uuid": "fd5a7d65-5a56-4416-9976-71db0eed97c5"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"78-Wuj7HijHtKv7pFjEua0Aa7JWHHI\"",
-									"uuid": "96ca7dc5-e1bc-4f3a-a8f7-c23204e36a7d"
+									"uuid": "9a4e5625-d650-4280-ae47-e518187dffb7"
 								},
 								{
 									"key": "Date",
 									"value": "Fri, 19 Apr 2024 09:06:28 GMT",
-									"uuid": "fd9cc747-035c-42bf-8b1b-d8c1b800f5c1"
+									"uuid": "f06144c9-b095-46a8-8d6a-e7cd476cc452"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "141d6e9d-530d-4cb0-b774-6d807fcd05fa"
+									"uuid": "14ed2904-e23d-4b28-8354-fbf89667305c"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "3b208d38-757b-41a8-94a1-ea46e392f517"
+									"uuid": "add9b6fe-6052-4df8-af17-4b1442be2ff2"
 								}
 							],
 							"cookie": [],
@@ -1372,7 +1414,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "be842cdb-198f-4154-aa85-7418eda5dd4f",
+								"id": "864b9b45-9d28-44f0-8fd3-31e54c28ca79",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"  pm.expect(pm.response.code).to.equal(200);",
@@ -1413,7 +1455,7 @@
 							}
 						}
 					],
-					"id": "b81c062e-b820-425c-9fd2-63c101777569",
+					"id": "2616fbf5-4b2b-4eec-80fd-62afc335047b",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1421,7 +1463,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation upsertSocial ($social: SocialInput!, $userId: ID!) {\n    upsertSocial (social: $social, userId: $userId) {\n        id\n        platform\n        url\n    }\n}",
+								"variables": "{\n  \"social\": {\n    \"id\": \"6620c2c95607d97724c1cebd\",\n    \"platform\": \"xbook\",\n    \"url\": \"https://xbook.com/alice\"\n  },\n  \"userId\": \"6620c2c95607d97724c1ceb9\"\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -1432,7 +1478,7 @@
 					},
 					"response": [
 						{
-							"id": "8f1f0b82-9154-40b3-96c1-3f96d5913363",
+							"id": "96c222d7-4d6b-420c-9efa-d8fe65106c5b",
 							"name": "upsertSocial",
 							"originalRequest": {
 								"method": "POST",
@@ -1454,47 +1500,47 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "20eb7f1b-de44-456b-b53f-86db6245a038"
+									"uuid": "c8065ac7-fb81-4909-b32c-53458aa224a4"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "439dfb53-f11b-49a3-8404-ba11253da963"
+									"uuid": "7f838a49-6d89-4e6b-931e-9c3ad3129664"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "bd52bb4a-ffc9-4aa3-87f1-b00813b41dc4"
+									"uuid": "1f1c5927-0cce-489b-b7d6-d48e24a5129a"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "8224d477-2679-490f-ba16-7407ac3f9f90"
+									"uuid": "ca2e73b6-c509-43c1-bdb9-91f637a5ba7d"
 								},
 								{
 									"key": "Content-Length",
 									"value": "111",
-									"uuid": "cda0b1c5-fe89-4693-9838-2e2e69002401"
+									"uuid": "c8586007-2076-4dd6-964a-98678508ca22"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"6f-5NW3r4kGredPem5PndYGTIFsiJw\"",
-									"uuid": "006372ee-76f7-4424-abbe-8d99963ef47b"
+									"uuid": "9202a7c5-6d5b-4d26-882b-6cdb96112bd7"
 								},
 								{
 									"key": "Date",
 									"value": "Fri, 19 Apr 2024 09:31:20 GMT",
-									"uuid": "b14d271f-d157-4242-9ff6-498f6cac6024"
+									"uuid": "a7dfbc1e-0b4b-46d6-bb49-3d8e6dcb540c"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "3e5d5569-ca40-4f63-b687-f16ecb8a69fd"
+									"uuid": "7c0f4ae7-ed43-4879-9e98-5dc6c7365542"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "328b23c6-08c8-4125-a1e8-17d229dc3b9a"
+									"uuid": "5663b5bb-a557-4a96-bf19-295416646bf2"
 								}
 							],
 							"cookie": [],
@@ -1503,7 +1549,7 @@
 					]
 				}
 			],
-			"id": "fcc210f7-7512-4818-a4c8-d3f68e671760"
+			"id": "64922b7e-a8e9-4f35-8833-5df3b86d5b62"
 		},
 		{
 			"name": "queries",
@@ -1514,7 +1560,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "37e45189-e076-4db1-975f-418a9636a998",
+								"id": "231d4085-0a01-4ed6-bb00-0d356f28ba7f",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"  pm.response.to.have.status(200);",
@@ -1557,7 +1603,7 @@
 							}
 						}
 					],
-					"id": "7a06086c-478c-476b-b720-2a8695331a42",
+					"id": "5abbac3f-9414-46e7-9546-4fd129166fbe",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1565,7 +1611,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getEducation ( $userId: ID!) {\n    getEducation (userId: $userId) {\n        description\n        endDate\n        fieldOfStudy\n        id\n        institution\n        startDate\n    }\n}",
+								"variables": "{\n  \"userId\": \"6620bd9ab8e6ce445def9943\"\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -1576,7 +1626,7 @@
 					},
 					"response": [
 						{
-							"id": "02646b5e-fcf9-4f08-8041-b62f949c99e6",
+							"id": "e9c13d1f-25ac-4843-88fa-5bbc8755cd32",
 							"name": "getEducation",
 							"originalRequest": {
 								"method": "POST",
@@ -1598,47 +1648,47 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "84b4fe84-4ac1-4ed8-8507-3dac4a2c287e"
+									"uuid": "6cdc1db8-8d66-4dca-8aba-ad7f00e2e77b"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "f75d13e8-fc07-4ef4-99e0-b19a34288346"
+									"uuid": "390b5536-a732-43bd-8637-38c38293e933"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "03fa4fa0-e10d-4aac-abeb-d23270c524b4"
+									"uuid": "ab4d4fb6-5350-4d3f-b815-1de20a7a7c33"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "81189f17-ac02-4c67-8533-03d59df0f76a"
+									"uuid": "5c806100-5004-49da-855f-bdd4c5826c01"
 								},
 								{
 									"key": "Content-Length",
 									"value": "291",
-									"uuid": "5fde10ac-7352-413a-aa72-2b7e7aac6ac6"
+									"uuid": "67d59d1b-7657-40f4-ad59-89b0791a16d0"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"123-Bt1bycmvNqwUMLqpqt3gEl5DaRA\"",
-									"uuid": "4f30375a-7e2b-472c-882f-8cd1da50e7f6"
+									"uuid": "5f5f548e-0f27-4631-b85d-72a1a7d5365e"
 								},
 								{
 									"key": "Date",
 									"value": "Thu, 18 Apr 2024 20:47:04 GMT",
-									"uuid": "d30f6392-bdb4-43e7-acc4-599e680c3e4c"
+									"uuid": "cb2b7a58-4e2f-4f28-ae5e-53d9054c1a30"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "c5ae30e6-6877-4ef3-ac87-a6be0fe86c6d"
+									"uuid": "a5f3a211-6151-4e2a-a59f-6d991b608a3e"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "b9482a3f-6236-4c9b-9887-35aa679dabb0"
+									"uuid": "c2d5c438-aed2-4f5c-8086-e717312801c8"
 								}
 							],
 							"cookie": [],
@@ -1652,7 +1702,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e08f2937-6ab2-4635-892a-ec4cb5ac5f1b",
+								"id": "80cea76f-82ce-47cf-bc6e-ced871f22a5b",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"  pm.expect(pm.response.code).to.equal(200);",
@@ -1684,7 +1734,7 @@
 							}
 						}
 					],
-					"id": "90587ff7-8f7a-4283-906d-330cb640b3a7",
+					"id": "a30d0726-7b8d-4e70-9f54-b581c784b150",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1692,7 +1742,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "query GetExperience($userId: ID!, $id: ID!) {\n  getExperience(userId: $userId, id: $id) {\n    company\n        description\n        endDate\n        id\n        imgSrc\n        role\n        startDate\n        title\n        tools\n        type\n        url\n  }\n}",
+								"variables": "{\n  \"id\": \"6620c2c95607d97724c1ceba\",\n  \"userId\": \"6620c2c95607d97724c1ceb9\"\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -1703,7 +1757,7 @@
 					},
 					"response": [
 						{
-							"id": "17076cfa-ba7c-4803-895c-74e1fa4fc6cd",
+							"id": "b6aff342-81aa-4bcf-94f2-99984f06a849",
 							"name": "getExperience",
 							"originalRequest": {
 								"method": "POST",
@@ -1725,54 +1779,54 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "10baa98b-9a4e-4254-82f3-ddc18f46f223"
+									"uuid": "48a5d2ca-b63f-40e2-a595-30329409a9fa"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "e906c191-c2e4-4bc7-84a7-57310155c25f"
+									"uuid": "e64e4b89-8154-4116-9006-9198e8255f5f"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "de0ed79a-d733-4475-9bf8-7916c3cfa923"
+									"uuid": "0b451694-9eeb-4417-9722-3ee17b994be7"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "afc6a592-593b-4d31-a555-ddc1dfce123a"
+									"uuid": "c2438ca8-b762-4a74-9f99-5c9467ba14f1"
 								},
 								{
 									"key": "Content-Length",
 									"value": "360",
-									"uuid": "51e5d58a-e7f1-4dc6-bda4-d1d3331e89ca"
+									"uuid": "8c4f1362-edef-4433-bfd7-652d3e9c8fcf"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"168-AbcMwS1v2FYPJNd5JXpGBDwsRlg\"",
-									"uuid": "1bf7df9c-b99d-4b07-8e31-c4df90e8dc55"
+									"uuid": "1f95bb45-42e0-4ecf-adce-aab783ba0be2"
 								},
 								{
 									"key": "Date",
 									"value": "Fri, 19 Apr 2024 01:16:38 GMT",
-									"uuid": "d5776f39-302e-4fdc-b95c-71eb1338e409"
+									"uuid": "9fd1842e-71ab-4c6f-8804-e6e8e3fee921"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "381ba3f5-15b7-4a58-ab1c-c740d197b38d"
+									"uuid": "72986e91-6c29-40db-90f1-cb9004b2dec8"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "853d4330-af73-42d9-8a92-3d607fa6f304"
+									"uuid": "fea510ec-3304-4825-a02c-e15be38e68b2"
 								}
 							],
 							"cookie": [],
 							"body": "{\n    \"data\": {\n        \"getExperience\": {\n            \"company\": null,\n            \"description\": \"A fifth law of motion designed for comedic relief\",\n            \"endDate\": \"2020-06-01T00:00:00.000Z\",\n            \"id\": \"6620c2c95607d97724c1ceba\",\n            \"imgSrc\": null,\n            \"role\": null,\n            \"startDate\": \"2019-06-01T00:00:00.000Z\",\n            \"title\": \"5th Law of Motion\",\n            \"tools\": [\n                \"React\",\n                \"Node.js\",\n                \"GraphQL\"\n            ],\n            \"type\": \"PROJECT\",\n            \"url\": \"https://www.doomcorp.com\"\n        }\n    }\n}"
 						},
 						{
-							"id": "51cb69f3-de68-4969-a080-a117e08e0ba8",
+							"id": "84fd55af-a152-4e06-9c94-27e36453de0e",
 							"name": "getEmptyExperience",
 							"originalRequest": {
 								"method": "POST",
@@ -1794,47 +1848,47 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "ed2fc811-9307-47a1-a387-44bd44ca538a"
+									"uuid": "a494d38a-a181-4c30-a7e8-4de766950a60"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "801437b0-dae6-4df5-ac55-615d017563d6"
+									"uuid": "47a8e212-69c9-4f8d-81bb-85a0b25a096d"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "22f47ffe-ed51-47b9-a7b3-1c152eb23cc4"
+									"uuid": "2fccee0f-40af-4bec-82f2-b7a30d705da4"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "cf1d7557-5935-4190-be71-0e07dabf2407"
+									"uuid": "95a003a9-be12-4f1d-b657-2a28276a50c1"
 								},
 								{
 									"key": "Content-Length",
 									"value": "32",
-									"uuid": "a24b32be-6fd8-4f13-91d4-a6e032f2bbae"
+									"uuid": "e8eef8c1-cb12-4ce1-a019-745ef3457466"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"20-kLbO/v10VuSly2ZjZq13Bm/Hpw0\"",
-									"uuid": "a95b2f8b-794b-4bd8-b51e-ef7b8b88e532"
+									"uuid": "a352d903-aa19-4ec8-9687-8030c57a3e27"
 								},
 								{
 									"key": "Date",
 									"value": "Fri, 19 Apr 2024 01:17:28 GMT",
-									"uuid": "fb4b893f-8023-4ee6-913b-82f5a4ed3b7d"
+									"uuid": "8b2d810b-9625-4448-82b7-b3c187721355"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "f807931a-b523-469e-b471-4582af147fd6"
+									"uuid": "07dee591-08d1-4008-bcd2-dc01f397d40d"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "77e3d3ff-b6e4-40e8-87b5-73f1ea89b578"
+									"uuid": "8444fb73-a5b3-4c27-bdc1-059313d18e33"
 								}
 							],
 							"cookie": [],
@@ -1848,7 +1902,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "62f1b800-cd15-47f5-8758-753bf6117256",
+								"id": "cb56edc7-1194-4d5d-8c59-a1c7905c0774",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"  pm.response.to.have.status(200);",
@@ -1883,7 +1937,7 @@
 							}
 						}
 					],
-					"id": "41ae72d0-cd7a-4f7d-9efa-c77920eb9f70",
+					"id": "e068cf91-d442-4419-9116-9c896f65af2f",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1891,7 +1945,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getExperiences ($endDate: DateTime, $experienceType: String, $startDate: DateTime, $userId: ID!) {\n    getExperiences (endDate: $endDate, experienceType: $experienceType, startDate: $startDate, userId: $userId) {\n        company\n        description\n        endDate\n        id\n        imgSrc\n        role\n        startDate\n        title\n        tools\n        type\n        url\n    }\n}",
+								"variables": "{\n  \"startDate\": \"2019-06-01T00:00:00Z\",\n  \"experienceType\": \"PROJECT\",\n  \"endDate\": \"2020-06-01T00:00:00Z\",\n  \"userId\": \"662d4f578b089ad69dc6f6a6\"\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -1902,7 +1960,7 @@
 					},
 					"response": [
 						{
-							"id": "78220a67-ffbb-492d-ae54-0b9ab0b64789",
+							"id": "a52c7617-1f53-4946-b134-32d836f4157e",
 							"name": "FilterStartDate",
 							"originalRequest": {
 								"method": "POST",
@@ -1924,54 +1982,54 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "d901d806-3b14-466a-b0fb-837fc31bf76d"
+									"uuid": "ea638942-c296-4e26-ac2d-e4e9d733ca3f"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "a8b24ff0-7c3d-4ba1-b403-d47323588c30"
+									"uuid": "15a5e4db-49d0-483c-98c6-27b4803d4094"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "7e0fe7c7-5d79-45f6-85b2-168de99b1877"
+									"uuid": "325ea75a-64b0-437f-85ed-a42769e07acc"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "d32f8fc7-e8e2-4268-9a3d-352c37215c70"
+									"uuid": "738a7003-f906-4dca-8157-a98c82b4bb4d"
 								},
 								{
 									"key": "Content-Length",
 									"value": "696",
-									"uuid": "4fdcce14-2026-41fd-8ba0-2039a410076a"
+									"uuid": "6244d455-ced1-4b04-87cb-9e9f19543ed5"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"2b8-bBHnOtPxl+T4tK6gC/x2WXi0wCM\"",
-									"uuid": "e55f70d7-ce21-4cbc-9645-8e2c38adf1fc"
+									"uuid": "034a853f-3088-4a53-8350-77fcb6912e1d"
 								},
 								{
 									"key": "Date",
 									"value": "Fri, 19 Apr 2024 06:36:33 GMT",
-									"uuid": "c55119f2-4606-41a9-9f26-0e0494e54285"
+									"uuid": "ccbdf6a7-b0bf-4e11-b419-7d1b422f1d96"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "aabff422-a6ad-43a6-bf5c-850e8891663b"
+									"uuid": "08a19756-9f2a-4e70-8837-34d37f407fcf"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "c13b1db3-b26d-4b35-9768-14c0cf5089df"
+									"uuid": "61ec0c74-a095-4832-a479-2b25a2d3b8d4"
 								}
 							],
 							"cookie": [],
 							"body": "{\n    \"data\": {\n        \"getExperiences\": [\n            {\n                \"company\": \"Acme Corp.\",\n                \"description\": \"A fifth law of motion designed for comedic relief\",\n                \"endDate\": \"2021-06-01T00:00:00.000Z\",\n                \"id\": \"6620c2c95607d97724c1ceba\",\n                \"imgSrc\": null,\n                \"role\": null,\n                \"startDate\": \"2020-06-01T00:00:00.000Z\",\n                \"title\": \"Experience Title\",\n                \"tools\": [\n                    \"Vue\",\n                    \"Node.js\",\n                    \"GraphQL\"\n                ],\n                \"type\": \"WORK\",\n                \"url\": \"https://www.url.com\"\n            },\n            {\n                \"company\": \"Acme Corp.\",\n                \"description\": \"This experience will be created as it doesn't exist\",\n                \"endDate\": \"2021-06-01T00:00:00.000Z\",\n                \"id\": \"66220d4d1374adcbde428988\",\n                \"imgSrc\": null,\n                \"role\": null,\n                \"startDate\": \"2020-06-01T00:00:00.000Z\",\n                \"title\": \"New Experience Title\",\n                \"tools\": [\n                    \"Vue\",\n                    \"Node.js\",\n                    \"GraphQL\"\n                ],\n                \"type\": \"WORK\",\n                \"url\": \"https://www.url.com\"\n            }\n        ]\n    }\n}"
 						},
 						{
-							"id": "9632c93b-9591-4975-a271-cabcc7cdf745",
+							"id": "2a752841-accb-4dea-a0a8-caae39cf80c3",
 							"name": "FilterProjectType",
 							"originalRequest": {
 								"method": "POST",
@@ -1993,47 +2051,47 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "105406a9-75f8-4883-9cd7-5906280fcbd0"
+									"uuid": "ae59cb29-4aa9-4d3e-8e9f-2008f5eac9bf"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "87784483-1c6c-4907-a3a5-81c9bd05198c"
+									"uuid": "1cff8486-f9c3-4e1b-b43d-2ee810e865b5"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "79f0e700-cb39-48d3-9b78-8fcc8f1e0087"
+									"uuid": "e70ff5c4-df78-45f6-980d-eb3a3426e427"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "8814e280-9653-4d62-b8ea-d10ea194e393"
+									"uuid": "011f4808-c2e4-4f70-a387-92424495563e"
 								},
 								{
 									"key": "Content-Length",
 									"value": "355",
-									"uuid": "a67e2951-27a4-49ce-b0ac-d7d729d3a6fc"
+									"uuid": "cb26dbcf-8481-4659-94bc-fa8df6c6704c"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"163-IGBMrjWxkFrK1z+MtEsFecQv7G8\"",
-									"uuid": "1ac051e6-b6b7-4a5f-a90b-8388bc0c95fe"
+									"uuid": "8017c103-82b5-422c-9be6-4f610ace8f3d"
 								},
 								{
 									"key": "Date",
 									"value": "Fri, 19 Apr 2024 06:40:06 GMT",
-									"uuid": "aa03f8b2-a7c3-4376-abc7-240aef61afc1"
+									"uuid": "e5a4782d-8edb-49d1-b123-7689eac99320"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "f4036a66-e404-44ed-871d-77416fb72794"
+									"uuid": "0e61a619-af5b-489f-b4d0-94fd6d4cc28e"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "e0e01250-c74e-4526-af69-1ec352cadf0b"
+									"uuid": "9ca1f0ae-f1a0-4872-8078-6bc5b0737140"
 								}
 							],
 							"cookie": [],
@@ -2047,7 +2105,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0851cef5-5d80-4bc1-b792-df90ddef1c71",
+								"id": "9c002d68-0595-4fc3-b9dc-2993135eb9aa",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"  pm.expect(pm.response.code).to.equal(200);",
@@ -2089,7 +2147,7 @@
 							}
 						}
 					],
-					"id": "b1c05cc7-0eef-407d-8e55-1c26f01b6eab",
+					"id": "4b710af9-2fb0-42e5-b992-02032777df2f",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2097,7 +2155,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getLocations ($userId: ID!, $country: String, $city: String, $locationId: ID) {\n    getLocation (userId: $userId, country: $country, city: $city, id: $locationId) {\n        city\n        country\n        id\n        province\n    }\n}",
+								"variables": "{\n  \"userId\": \"6620c2c95607d97724c1ceb9\",\n  \"country\": \"United Kingdom\"\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -2108,7 +2170,7 @@
 					},
 					"response": [
 						{
-							"id": "27ded337-dcf7-46c8-b5f1-766ad1138876",
+							"id": "7504bcc3-a849-4ace-881e-d9e94577eef2",
 							"name": "getLocation",
 							"originalRequest": {
 								"method": "POST",
@@ -2130,47 +2192,47 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "df4127e2-b729-4a4e-9a19-d160b5f3e4ec"
+									"uuid": "ddeeda40-b5d9-4355-a4d0-7e2c32e0596d"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "270bf5c2-0c2a-46ba-925f-5a68160c87dd"
+									"uuid": "587f9537-1445-4a7d-969a-4777aa434482"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "642bf620-d2e4-4281-ad84-6e8015200954"
+									"uuid": "3c8887c6-7bd1-4b85-9fb9-7ba2bdada3d5"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "038788c1-3cd2-4e99-9707-e0c515053ef2"
+									"uuid": "6bd1738a-8bcf-4dcb-a903-b20e3838612f"
 								},
 								{
 									"key": "Content-Length",
 									"value": "133",
-									"uuid": "f5d91e3e-c0c8-41fa-948c-106a5c40bab1"
+									"uuid": "272fb26a-a516-4e75-ba1f-2e61a47864a1"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"85-fyjx8hnjEXEV0S4Nj0DyQVgFv0Q\"",
-									"uuid": "87c95f00-2074-40cd-bba2-57a85a937b50"
+									"uuid": "180fe9a7-4c3c-4b9d-8e6d-2c80aa328773"
 								},
 								{
 									"key": "Date",
 									"value": "Fri, 19 Apr 2024 06:58:10 GMT",
-									"uuid": "cad553c5-9d6f-48a2-8768-8d0090e64d40"
+									"uuid": "983424d9-7597-40fe-be23-0212fa4137c4"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "45f918d3-eead-4166-b382-ec4b6df3364e"
+									"uuid": "4fed5958-b1b5-4f4a-ad50-426d14953466"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "60df8bf3-fb54-4037-a7eb-c3cf93c2aec2"
+									"uuid": "a15b3610-6b0a-4edc-8544-faa9abc68e39"
 								}
 							],
 							"cookie": [],
@@ -2184,7 +2246,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "390b5bfa-106e-479b-a371-ee64a959791d",
+								"id": "2458f5c2-98a8-488f-9dc5-fcd727f6b78a",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"  pm.response.to.have.status(200);",
@@ -2226,7 +2288,7 @@
 							}
 						}
 					],
-					"id": "257110d6-a5a6-421c-9458-d41fc801f38b",
+					"id": "4dfcd8aa-180d-4071-8346-a45cb7e399ef",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2234,7 +2296,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getSkills ($userId: ID!) {\n    getSkills (userId: $userId) \n}",
+								"variables": "{\n  \"userId\": \"662e030493928238837a1085\"\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -2246,7 +2312,7 @@
 					},
 					"response": [
 						{
-							"id": "188507bb-1495-4b88-805c-350bb30aa11a",
+							"id": "80fbbc3b-a1e9-4e3f-b763-61a89484587c",
 							"name": "getSkills",
 							"originalRequest": {
 								"method": "POST",
@@ -2259,8 +2325,7 @@
 									"host": [
 										"{{url}}"
 									]
-								},
-								"description": "This HTTP POST request is used to retrieve skills data. The request body should be included in the payload, but the specific structure and parameters are not defined. The response will be in JSON format with a status code of 200. The response will contain a \"data\" object with a \"getSkills\" array, which may include the retrieved skills. Here is an example of the response:\n\n``` json\n{\"data\":{\"getSkills\":[\"\"]}}\n\n ```"
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -2269,47 +2334,47 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "7cd42fa9-e396-480d-ae35-18464259bd09"
+									"uuid": "011bc680-8df3-42a2-8b02-53dbe809d150"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "307ae36b-4dbd-4ed6-9bfd-4e4254b2d408"
+									"uuid": "243db24e-14df-499d-99f6-c297cb5058fb"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "f1493392-8f0b-4940-bfdb-d9fc2cb71d5d"
+									"uuid": "7f95d2da-bf29-4afe-b6ea-02b02cbe899f"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "8353f3a3-fa7f-450e-a2bb-1da511cb05cc"
+									"uuid": "91e76bb4-b490-46fa-9241-29b278e6429e"
 								},
 								{
 									"key": "Content-Length",
 									"value": "107",
-									"uuid": "87a37595-91eb-4ed3-be30-850bac11c88e"
+									"uuid": "c7674bea-a2af-4238-bc41-635ae705ea71"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"6b-zV+Wizbr5rBao0s0UAwcHvgpdKw\"",
-									"uuid": "852d9390-1356-4cf9-ade3-bd9acfae2bc7"
+									"uuid": "89eff94a-82dd-4609-a975-bbdf5adcb801"
 								},
 								{
 									"key": "Date",
 									"value": "Thu, 18 Apr 2024 06:57:04 GMT",
-									"uuid": "1c2f15ee-7704-44fc-af9e-c816db179bfa"
+									"uuid": "3841c300-0651-4aea-a0d2-7037bb2b2bd0"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "fda7b340-ccf9-4dfb-bc6c-a24e5887334d"
+									"uuid": "1d0ef211-974d-4316-a9dd-19a8e1c0fcaf"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "40005682-6088-4a9f-929b-a8c38b0fe0eb"
+									"uuid": "4412cbeb-7ba4-44ad-9556-c874f17dd9f7"
 								}
 							],
 							"cookie": [],
@@ -2323,7 +2388,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0cac0759-2e5c-4e61-b632-ace9084162f5",
+								"id": "77d5258d-6145-4d8b-9080-42591002c0b0",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -2367,7 +2432,7 @@
 							}
 						}
 					],
-					"id": "a4a52211-6d45-48ea-8903-c3a21505a80a",
+					"id": "bdeeeb19-5d29-45bf-b451-77fa28fae1dd",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2375,7 +2440,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getSocial ($id: ID, $userId: ID!, $platform: String) {\n    getSocial (id: $id, userId: $userId,platform: $platform) {\n        id\n        platform\n        url\n    }\n}",
+								"variables": "{\n  \"platform\": \"xbook\",\n  \"userId\": \"6620c2c95607d97724c1ceb9\"\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -2386,7 +2455,7 @@
 					},
 					"response": [
 						{
-							"id": "1177cede-0b6e-4b46-9608-2499c45ba38e",
+							"id": "cb12327d-8bc2-400b-9c95-41e12ca7fbeb",
 							"name": "getSocial",
 							"originalRequest": {
 								"method": "POST",
@@ -2408,47 +2477,47 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "886967b3-a78f-4362-a87b-aab3e51c192a"
+									"uuid": "9a144b3c-963e-444a-b301-f25324fc5f31"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "73375866-1322-4489-9bc6-77cff54d0b6c"
+									"uuid": "33ed0969-b3a6-431c-9d2d-980985256840"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "7903e8c5-838c-432f-931b-55edf15a50f9"
+									"uuid": "81f22b94-c605-4830-a3ea-dc49892fc90f"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "f14b5a38-ec10-4f16-a97e-93e82401b200"
+									"uuid": "154e331d-45a8-461a-a1e8-0382dcb8e87f"
 								},
 								{
 									"key": "Content-Length",
 									"value": "106",
-									"uuid": "2728987f-8fff-41ba-8f8f-f50989a3fda1"
+									"uuid": "30cca847-cf7a-4802-bb67-5cb4225dbbf9"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"6a-mfTznKsvH30EBNhJq5bAk8k3Q8U\"",
-									"uuid": "4a8464a7-91dd-470a-b7eb-880681b347ea"
+									"uuid": "be0a24e1-257d-4589-b7bf-60ac2d3db84c"
 								},
 								{
 									"key": "Date",
 									"value": "Fri, 19 Apr 2024 07:37:44 GMT",
-									"uuid": "bcc22ace-8207-437c-ab08-7457e5b4d82f"
+									"uuid": "f38b2ef9-28c8-4598-af93-7e8f7b037324"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "8a9f2d9c-7fc3-47da-bbdf-633319aca3c0"
+									"uuid": "3163b05d-8db7-4c6e-a024-9b53535b5b8a"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "4c44068b-9c02-4642-b40c-b04ac3cb653a"
+									"uuid": "b5282657-3d3a-435e-8772-30fe0660d6b8"
 								}
 							],
 							"cookie": [],
@@ -2462,7 +2531,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8274ad26-27a2-4f24-a25d-1e699e1f4f90",
+								"id": "30526a7c-a657-4c46-813e-0933f8ea9b28",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"  pm.response.to.have.status(200);",
@@ -2502,7 +2571,7 @@
 							}
 						}
 					],
-					"id": "c17c92bd-f639-4fc6-ba86-765082d012bd",
+					"id": "4f4d7646-f15e-4629-b34f-91921d7fffcd",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2510,7 +2579,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getSocials ($userId: ID!, $platform: String, $url: String) {\n    getSocials (userId: $userId, platform: $platform, url: $url) {\n        id\n        platform\n        url\n    }\n}",
+								"variables": "{\n  \"userId\": \"6620c2c95607d97724c1ceb9\",\n  \"platform\": \"xbook\",\n  \"id\": \"6620c2c95607d97724c1cebd\"\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -2521,7 +2594,7 @@
 					},
 					"response": [
 						{
-							"id": "82f73b64-2fce-406f-bef2-c8b1d5737bcb",
+							"id": "c92b23ca-efce-4d39-803d-9e08fecf5924",
 							"name": "getSocials",
 							"originalRequest": {
 								"method": "POST",
@@ -2543,47 +2616,47 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "e904b3c0-e386-4d63-a10f-92eb1d5bb4df"
+									"uuid": "693e0062-8915-417a-b3cc-69095c16ecdc"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "9c58c9ae-7f37-46b9-a3cc-9ecbf2d6c5d5"
+									"uuid": "545d1a38-e8d1-4f48-89ba-c999aad8853b"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "3056ed32-5825-4a2c-b6dd-4da9c2660adc"
+									"uuid": "42b90391-d605-4400-934a-08ca8640d9bb"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "32674fd6-7e5d-465e-8572-03ea93bb2740"
+									"uuid": "74182f9f-0e3e-445a-abf5-3cdabf9813fd"
 								},
 								{
 									"key": "Content-Length",
 									"value": "109",
-									"uuid": "3d1307dd-2b11-4905-841d-9e055fc645a1"
+									"uuid": "cdc78cbb-54ce-4996-9a7c-f9105189b7ae"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"6d-8TgbqmsQLAS1bPfIqqoysPfCX6Q\"",
-									"uuid": "8aab7006-e027-4d08-b74f-acb5c7d462c3"
+									"uuid": "4043e51d-c1f0-484e-8e0b-9dd6599a99bf"
 								},
 								{
 									"key": "Date",
 									"value": "Fri, 19 Apr 2024 07:19:29 GMT",
-									"uuid": "7db79c82-0e6f-470d-9604-ce1cff95a08d"
+									"uuid": "68adf321-7dc3-4878-8c0f-f3fa979692b2"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "bc32a5df-c662-4b70-99f2-7c91316e342b"
+									"uuid": "ea5aa174-e601-47f0-828b-9ebb64f3fa77"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "f647ca9c-022a-4fa8-8660-26732ad0b70d"
+									"uuid": "4d9ae618-886a-48a4-a0f8-c5dea2c244fb"
 								}
 							],
 							"cookie": [],
@@ -2597,7 +2670,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b512edca-95b3-405c-9d4d-bc33c6faabae",
+								"id": "4e6883e9-e017-4386-bd2b-9ffff71c45ce",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"  pm.response.to.have.status(200);",
@@ -2635,7 +2708,7 @@
 							}
 						}
 					],
-					"id": "c4d6e115-e1f2-4ee4-92f4-dd1612217020",
+					"id": "0bc375fa-ca12-412e-9370-a97fa5c0b688",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2643,7 +2716,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getUser ($id: ID!) {\n    getUser (id: $id) {\n        about\n        email\n        firstName\n        id\n        lastName\n        skills\n        title\n    }\n}",
+								"variables": "{\n  \"id\": \"6620c2c95607d97724c1ceb9\"\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -2654,7 +2731,7 @@
 					},
 					"response": [
 						{
-							"id": "12ad0e4c-aa39-4414-8f09-3614ce21a65c",
+							"id": "a7b187a6-682c-4310-af36-0a3be68e187b",
 							"name": "getUser",
 							"originalRequest": {
 								"method": "POST",
@@ -2676,47 +2753,47 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "56d57ce8-c4c5-4191-89b7-f16c1a9629a3"
+									"uuid": "a2e969b2-37a2-4257-826e-56fb6b2353f8"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "b606740c-1792-4be8-9394-95c505fd27f0"
+									"uuid": "4fcd5cef-ecc3-4620-b9f0-8b1aa67650f3"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "6fe2871e-6db0-4888-b1c2-7001c61b1828"
+									"uuid": "8f8ac16d-be60-4a17-98b5-fb21c3da6d91"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "c51ff804-98a8-4b5b-aee5-1491b1199c45"
+									"uuid": "e7094ef5-fefc-41d1-a3a1-d0e6da5347b3"
 								},
 								{
 									"key": "Content-Length",
 									"value": "271",
-									"uuid": "b176c1a6-90ee-41ff-b463-5549f0e1d919"
+									"uuid": "1ca36658-a11b-42a8-830e-e16ef607fbb9"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"10f-kuv66YheUEzQaKP3k/wGmIYOVOA\"",
-									"uuid": "de9dd878-600e-43cb-bb24-1a6d56495f3b"
+									"uuid": "d8b2cff8-33f3-462a-acd7-bab6552fff5f"
 								},
 								{
 									"key": "Date",
 									"value": "Fri, 19 Apr 2024 07:41:18 GMT",
-									"uuid": "5124ad1d-0738-4e9a-8188-decdd573638a"
+									"uuid": "2cede66a-fa97-46d4-938d-d3c23e77185a"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "d45ada0c-21b8-44f6-a288-b491fd006101"
+									"uuid": "4d7ebcd1-e72f-4694-81ea-34c3d975e63d"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "74d65aec-6d96-456c-8e58-b12d495ce72a"
+									"uuid": "6e89bcdc-aa06-4bb7-beeb-03a931bf1412"
 								}
 							],
 							"cookie": [],
@@ -2730,7 +2807,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6aa9e0cf-13b8-4dfd-b8df-a81f94976344",
+								"id": "b99cfdfc-6443-449d-9e22-ed5474854677",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"  pm.expect(pm.response.code).to.equal(200);",
@@ -2774,7 +2851,7 @@
 							}
 						}
 					],
-					"id": "d68b2d58-ccb9-4c50-8d41-569f7b8709c6",
+					"id": "7ead072e-c066-41eb-b568-d54a22b10db2",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2782,7 +2859,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getUserByEmail ($email: String!) {\n    getUserByEmail (email: $email) {\n        about\n        email\n        firstName\n        id\n        lastName\n        skills\n        title\n    }\n}",
+								"variables": "{\n  \"email\": \"sara@example.com\"\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -2793,7 +2874,7 @@
 					},
 					"response": [
 						{
-							"id": "eed68a64-2edd-41a9-ae38-5a76b6d933b6",
+							"id": "99c2d6ab-a709-4b57-8e7e-d2c610fcc6ce",
 							"name": "getUserByEmail",
 							"originalRequest": {
 								"method": "POST",
@@ -2815,47 +2896,47 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "7d71ab4b-fb20-4303-9c54-c28444bf0d6e"
+									"uuid": "e8a0436b-dd7d-41b7-a668-082372253bb1"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "1228abaf-9e67-4fd0-84bb-63a059f6965c"
+									"uuid": "b6aafa87-7290-45d7-bf8f-1cca293d54e1"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "f6262d08-4cff-4ad1-9bfa-3bb9331c2cfc"
+									"uuid": "c5f832a7-66df-4d67-93e2-cbb26d873d57"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "82c139b3-a4d4-43f9-9551-84ca3800a156"
+									"uuid": "07819ffc-dee9-4f93-afc8-c4f04683753c"
 								},
 								{
 									"key": "Content-Length",
 									"value": "278",
-									"uuid": "0f5f91c2-db3d-45d7-9a61-665d410c79f4"
+									"uuid": "8bc2bd40-0150-4aac-9497-d949e336b1f7"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"116-uvG2gjmU1r5YK/lYIqG4RHHW138\"",
-									"uuid": "060d1fec-27d0-4e78-a602-d1ff95d8a6f2"
+									"uuid": "696fdadb-5617-4dec-b78e-e49bd33b12da"
 								},
 								{
 									"key": "Date",
 									"value": "Fri, 19 Apr 2024 07:52:50 GMT",
-									"uuid": "9e641a79-6ccf-40b0-92ce-477f6948b100"
+									"uuid": "18d28017-8431-42a8-97fb-fd6ac8e3135e"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "d6dc7618-e13a-4a4c-8888-3300a0a4ca84"
+									"uuid": "c14ea919-fdd6-49be-947b-45198ae5bdaf"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "6edb6413-1624-4f0a-b045-fc0f883e77ed"
+									"uuid": "075b676d-90d5-46d6-8531-ea3298ee8293"
 								}
 							],
 							"cookie": [],
@@ -2869,7 +2950,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e235554f-78e1-4ce5-8148-88aa9b1ce08f",
+								"id": "7e2a1bf9-75d6-4c0f-9abf-9967ae261ce5",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"  pm.response.to.have.status(200);",
@@ -2938,7 +3019,7 @@
 							}
 						}
 					],
-					"id": "be5b8e79-893d-4f54-b50a-77a0b074169e",
+					"id": "acc5fd5f-0ee7-4546-8028-de87f68ce499",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2946,7 +3027,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "query getUsers {\n    getUsers {\n        about\n        email\n        firstName\n        id\n        lastName\n        skills\n        title\n    }\n}",
+								"variables": "{}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -2958,7 +3043,7 @@
 					},
 					"response": [
 						{
-							"id": "12ca943b-25e7-45ce-adf7-006e85f2e586",
+							"id": "59171fdd-d5b5-49d9-9133-849a6c8fc63f",
 							"name": "getUsers",
 							"originalRequest": {
 								"method": "POST",
@@ -2971,8 +3056,7 @@
 									"host": [
 										"{{url}}"
 									]
-								},
-								"description": "### Create User Data\n\nThis endpoint allows you to create user data.\n\n#### Request Body\n\n- The request body should be of type \"undefined\".\n    \n\n#### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n  \"data\": {\n    \"getUsers\": [\n      {\n        \"about\": \"string\",\n        \"email\": \"string\",\n        \"firstName\": \"string\",\n        \"id\": \"string\",\n        \"lastName\": \"string\",\n        \"skills\": [\"string\"],\n        \"title\": \"string\"\n      }\n    ]\n  }\n}\n\n ```"
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -2981,47 +3065,47 @@
 								{
 									"key": "X-Powered-By",
 									"value": "Express",
-									"uuid": "d24beeb3-7fa9-45c9-a6b8-0a65dad3e7a5"
+									"uuid": "1c0a1c7c-273c-48fb-82c0-af39e21e43fd"
 								},
 								{
 									"key": "Access-Control-Allow-Origin",
 									"value": "*",
-									"uuid": "5617f100-196d-4476-a54a-eeac2c1eaf6b"
+									"uuid": "99c6298d-bf34-4bc7-b6ef-48727df47e14"
 								},
 								{
 									"key": "cache-control",
 									"value": "no-store",
-									"uuid": "49e8bc4b-c60b-482d-b6fa-fcea2cf4902e"
+									"uuid": "01c11363-c984-47d7-b5b1-c4a288ab6985"
 								},
 								{
 									"key": "Content-Type",
 									"value": "application/json; charset=utf-8",
-									"uuid": "f1334745-8c71-459c-97d0-fedb571031ad"
+									"uuid": "14370083-8fa6-4b76-b85a-4cf529cc93a8"
 								},
 								{
 									"key": "Content-Length",
 									"value": "516",
-									"uuid": "c17d00ac-5403-4060-82cc-86173196ec09"
+									"uuid": "216d2bab-e319-4bdf-bd86-237c7611b01c"
 								},
 								{
 									"key": "ETag",
 									"value": "W/\"204-HmUclUVpWwGTCqaVzdwI29cibDk\"",
-									"uuid": "10c0fb3d-0782-4194-8068-0f4abdad789c"
+									"uuid": "ebaf1ae0-10bd-42cf-a404-c00841460fd4"
 								},
 								{
 									"key": "Date",
 									"value": "Thu, 18 Apr 2024 06:49:37 GMT",
-									"uuid": "0bae5933-23f7-4bac-86a4-44728b65f5d6"
+									"uuid": "6dc15402-cda8-45b7-8d41-216f47b4d5d3"
 								},
 								{
 									"key": "Connection",
 									"value": "keep-alive",
-									"uuid": "65f1221b-bf1f-4050-8389-0defdac82261"
+									"uuid": "762b088d-c03f-4d3e-9f71-4b5825ece45d"
 								},
 								{
 									"key": "Keep-Alive",
 									"value": "timeout=5",
-									"uuid": "84c2b74e-a633-4569-9498-2f954edc57d8"
+									"uuid": "1b9e2f59-217f-417a-b16f-5d9eb2fae48d"
 								}
 							],
 							"cookie": [],
@@ -3035,7 +3119,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a8b8979a-8a42-4dc1-bc7a-d3e4ab7ee5bf",
+								"id": "b39ec9fd-1e5c-433e-9313-6d2ca2bbb917",
 								"exec": [
 									"pm.test(\"Response status code is 200\", function () {",
 									"  pm.response.to.have.status(200);",
@@ -3111,7 +3195,7 @@
 							}
 						}
 					],
-					"id": "c227d37a-283d-4663-b266-58df7411c423",
+					"id": "8d5ec83d-62f9-4bf9-8439-a147ea8b4c3c",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -3119,7 +3203,11 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "graphql"
+							"mode": "graphql",
+							"graphql": {
+								"query": "query GetUsersByRole($role: String!) {\n  getUsersByRole(role: $role) {\n    id\n    email\n  }\n}",
+								"variables": "{\r\n  \"role\": \"GUEST\"\r\n}"
+							}
 						},
 						"url": {
 							"raw": "{{url}}",
@@ -3132,7 +3220,7 @@
 					"response": []
 				}
 			],
-			"id": "bf8bda33-35d6-4e08-b1d3-cab334a665ec"
+			"id": "469d178c-b57e-4e66-bd69-b03d2690cdd9"
 		}
 	],
 	"auth": {
@@ -3149,7 +3237,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "2af51540-4100-48f2-8441-4ba8c683cc78",
+				"id": "34860197-90d5-47b0-b5c1-0ea4b51904f8",
 				"type": "text/javascript",
 				"packages": {},
 				"exec": [
@@ -3160,7 +3248,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "854e1c96-5d53-46a0-b79a-4b4ee67eec85",
+				"id": "c9700b49-7fa8-412a-964d-0ca3df5052d1",
 				"type": "text/javascript",
 				"packages": {},
 				"exec": [
@@ -3171,7 +3259,7 @@
 	],
 	"variable": [
 		{
-			"id": "9edf98b0-4865-46ac-926a-f972ea2b7086",
+			"id": "783ec270-f3dd-411a-a323-b2cc2894b236",
 			"key": "userId",
 			"value": "6620bd9ab8e6ce445def9943",
 			"type": "string"
