@@ -92,9 +92,12 @@
 									"mode": "graphql"
 								},
 								"url": {
-									"raw": "{{url}}",
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"tiwao-api",
+										"azure-api",
+										"net"
 									]
 								}
 							},
@@ -223,9 +226,12 @@
 									"mode": "graphql"
 								},
 								"url": {
-									"raw": "{{url}}",
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"tiwao-api",
+										"azure-api",
+										"net"
 									]
 								}
 							},
@@ -355,9 +361,12 @@
 									"mode": "graphql"
 								},
 								"url": {
-									"raw": "{{url}}",
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"tiwao-api",
+										"azure-api",
+										"net"
 									]
 								}
 							},
@@ -491,9 +500,12 @@
 									"mode": "graphql"
 								},
 								"url": {
-									"raw": "{{url}}",
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"tiwao-api",
+										"azure-api",
+										"net"
 									]
 								}
 							},
@@ -698,9 +710,12 @@
 									"mode": "graphql"
 								},
 								"url": {
-									"raw": "{{url}}",
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"tiwao-api",
+										"azure-api",
+										"net"
 									]
 								}
 							},
@@ -892,9 +907,12 @@
 									"mode": "graphql"
 								},
 								"url": {
-									"raw": "{{url}}",
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"tiwao-api",
+										"azure-api",
+										"net"
 									]
 								}
 							},
@@ -1015,9 +1033,12 @@
 									"mode": "graphql"
 								},
 								"url": {
-									"raw": "{{url}}",
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"tiwao-api",
+										"azure-api",
+										"net"
 									]
 								}
 							},
@@ -1347,9 +1368,12 @@
 									"mode": "graphql"
 								},
 								"url": {
-									"raw": "{{url}}",
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"tiwao-api",
+										"azure-api",
+										"net"
 									]
 								}
 							},
@@ -1487,9 +1511,12 @@
 									"mode": "graphql"
 								},
 								"url": {
-									"raw": "{{url}}",
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"tiwao-api",
+										"azure-api",
+										"net"
 									]
 								}
 							},
@@ -1635,9 +1662,12 @@
 									"mode": "graphql"
 								},
 								"url": {
-									"raw": "{{url}}",
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"tiwao-api",
+										"azure-api",
+										"net"
 									]
 								}
 							},
@@ -1766,9 +1796,12 @@
 									"mode": "graphql"
 								},
 								"url": {
-									"raw": "{{url}}",
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"tiwao-api",
+										"azure-api",
+										"net"
 									]
 								}
 							},
@@ -1969,9 +2002,12 @@
 									"mode": "graphql"
 								},
 								"url": {
-									"raw": "{{url}}",
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"tiwao-api",
+										"azure-api",
+										"net"
 									]
 								}
 							},
@@ -2179,9 +2215,12 @@
 									"mode": "graphql"
 								},
 								"url": {
-									"raw": "{{url}}",
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"tiwao-api",
+										"azure-api",
+										"net"
 									]
 								}
 							},
@@ -2321,9 +2360,12 @@
 									"mode": "graphql"
 								},
 								"url": {
-									"raw": "{{url}}",
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"tiwao-api",
+										"azure-api",
+										"net"
 									]
 								}
 							},
@@ -2464,9 +2506,12 @@
 									"mode": "graphql"
 								},
 								"url": {
-									"raw": "{{url}}",
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"tiwao-api",
+										"azure-api",
+										"net"
 									]
 								}
 							},
@@ -2603,9 +2648,12 @@
 									"mode": "graphql"
 								},
 								"url": {
-									"raw": "{{url}}",
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"tiwao-api",
+										"azure-api",
+										"net"
 									]
 								}
 							},
@@ -2740,9 +2788,12 @@
 									"mode": "graphql"
 								},
 								"url": {
-									"raw": "{{url}}",
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"tiwao-api",
+										"azure-api",
+										"net"
 									]
 								}
 							},
@@ -2883,9 +2934,12 @@
 									"mode": "graphql"
 								},
 								"url": {
-									"raw": "{{url}}",
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"tiwao-api",
+										"azure-api",
+										"net"
 									]
 								}
 							},
@@ -3039,7 +3093,7 @@
 								"{{url}}"
 							]
 						},
-						"description": "### Create User Data\n\nThis endpoint allows you to create user data.\n\n#### Request Body\n\n- The request body should be of type \"undefined\".\n    \n\n#### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n  \"data\": {\n    \"getUsers\": [\n      {\n        \"about\": \"string\",\n        \"email\": \"string\",\n        \"firstName\": \"string\",\n        \"id\": \"string\",\n        \"lastName\": \"string\",\n        \"skills\": [\"string\"],\n        \"title\": \"string\"\n      }\n    ]\n  }\n}\n\n ```"
+						"description": "### Create User Data\n\nThis endpoint allows you to create user data.\n\n#### Request Body\n\n- The request body should be of graphql mutation type.\n    \n\n#### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n  \"data\": {\n    \"getUsers\": [\n      {\n        \"about\": \"string\",\n        \"email\": \"string\",\n        \"firstName\": \"string\",\n        \"id\": \"string\",\n        \"lastName\": \"string\",\n        \"skills\": [\"string\"],\n        \"title\": \"string\"\n      }\n    ]\n  }\n}\n\n ```"
 					},
 					"response": [
 						{
@@ -3052,9 +3106,12 @@
 									"mode": "graphql"
 								},
 								"url": {
-									"raw": "{{url}}",
+									"raw": "https://tiwao-api.azure-api.net",
+									"protocol": "https",
 									"host": [
-										"{{url}}"
+										"tiwao-api",
+										"azure-api",
+										"net"
 									]
 								}
 							},
