@@ -1,0 +1,3180 @@
+{
+	"info": {
+		"_postman_id": "8167e3b3-4d32-475c-8860-255e4f3a8b6b",
+		"name": "Portfolio API",
+		"description": "## Mutations\n\n---\n\nThe following http endpoints are perform `write operations`. They will mostly return `Unauthorized` errors if used as only the api author is expected to use them.\n\n## Queries\n\n---\n\nThe following graphql endpoints are for performing `read operations`. They can be interacted with. Use the following mock user info in the users section below for testing.\n\n### Users\n\n``` json\n{\n      \"firstName\": \"Bob\",\n      \"lastName\": \"Belcher\",\n      \"email\": \"bob@burger.com\"\n}\n{\n      \"firstName\": \"Alice\",\n      \"lastName\": \"Smith\",\n      \"email\": \"alice@example.com\"\n}\n\n ```",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "33741736-8167e3b3-4d32-475c-8860-255e4f3a8b6b"
+	},
+	"item": [
+		{
+			"name": "mutations",
+			"item": [
+				{
+					"name": "createUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the correct Content-Type header\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.equal(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response body contains an 'errors' array\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Errors array is not empty\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array').with.lengthOf.at.least(1, \"Errors array should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"The 'errors' array contains objects with required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.errors).to.be.an('array').that.is.not.empty;",
+									"    ",
+									"    responseData.errors.forEach(function(error) {",
+									"        pm.expect(error).to.be.an('object');",
+									"        pm.expect(error.message).to.exist.and.to.be.a('string');",
+									"        pm.expect(error.locations).to.exist.and.to.be.an('array');",
+									"        pm.expect(error.extensions).to.exist.and.to.be.an('object');",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "c2ee7076-f049-4e30-b1be-03d9169d4c14",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "e76b4ccf-382d-4345-ba62-065092667d64",
+							"name": "createUser",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "e5bff1ea-c7ca-490b-a954-19a16c26db06"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "096a5c9c-b45b-4dcf-a593-90314614b89e"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "963469f7-e20d-4abb-a94f-c2e7f07e9b01"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "c256764a-2013-42f2-817d-4a88c292120a"
+								},
+								{
+									"key": "Content-Length",
+									"value": "274",
+									"uuid": "e0b65bdc-042c-4c1c-bbbf-bbaa8690e17b"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"112-/gz6L2VTDXRAZtBRAj/Fm9N4pd0\"",
+									"uuid": "a2fd6270-3bc6-417a-add8-abf38d00e32e"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 18 Apr 2024 06:50:49 GMT",
+									"uuid": "f77c33dc-acec-477d-bfcd-eb70c6255c7f"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "ecc7bdb0-50e9-4446-9bcf-713b5e4bd014"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "6fb80529-a83e-4e64-929a-5079d9e03385"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"createUser\": {\n            \"about\": \"I am a software boomer.\",\n            \"email\": \"sara@example.com\",\n            \"firstName\": \"Sara\",\n            \"id\": \"6620c2c95607d97724c1ceb9\",\n            \"lastName\": \"Reynolds\",\n            \"skills\": [\n                \"Java\",\n                \"Google Cloud\",\n                \"Python\",\n                \"React\",\n                \"Node.js\",\n                \"Docker\",\n                \"Kubernetes\",\n                \"AWS\"\n            ],\n            \"title\": \"Software Boomer\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "deleteExperience",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2bf5e506-2e33-469a-8a61-ea6ab9943789",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"  pm.expect(responseData.data).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Errors array is not empty\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData.errors).to.be.an('array').and.to.have.lengthOf.at.least(1, \"Errors array should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content type is application/json\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "d2855a29-54e8-44fd-83a5-d99444177cd8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "ef6f306f-b4fc-4392-8288-54ecb4a8bb3f",
+							"name": "deleteExperience",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "bb58401c-9a26-4a79-a727-87196de8b196"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "f31e5c83-e77f-427b-a405-9340dbbb8cb7"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "3e389bea-e125-4266-bf43-9c73c455d05f"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "e86ae02b-fbaf-465f-9284-2fb54da6ecf7"
+								},
+								{
+									"key": "Content-Length",
+									"value": "89",
+									"uuid": "d1d1e085-e8eb-427d-be0f-f4a43d2f8924"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"59-MTpa1N7xcCQgzUlspOdSW9ZR2IE\"",
+									"uuid": "8ef2c640-d985-4603-b79c-1e8bc143d73e"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 07:59:55 GMT",
+									"uuid": "cced3422-5dfc-4d48-b42a-8cb135fe92e8"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "c01a18ff-c9d6-4a61-80da-201970bfe26e"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "76dbbb77-7415-424d-9395-cc9635e9b0ad"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"deleteExperience\": \"WORK experience of New Experience Title has been deleted\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "deleteSocial",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2fb2dc20-5010-4423-b909-b39888c09d2b",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields - errors and data\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"  pm.expect(responseData.data).to.exist.and.to.be.an('object');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the data object\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.data).to.exist.and.to.be.an('object');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content-Type header is set to application/json\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.equal(\"application/json\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "89f6b6a3-b16c-48ab-b33f-79c8351bbc2d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "561dc40a-9db0-4997-838e-802bd2bf58c6",
+							"name": "deleteSocial",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "4c18d01c-2a38-4dc1-86ec-10ad5e1c7425"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "881d2933-4a12-4ad8-a247-c2c077870fd4"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "e6e51de6-777d-49c6-80dd-41f43c1e8f40"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "300b0658-e260-4b81-a375-d8d0d598cbcc"
+								},
+								{
+									"key": "Content-Length",
+									"value": "85",
+									"uuid": "332dad77-8b1b-4091-88a0-58580dd95324"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"55-PaJ3+iYFxUaKqI7VuEGjQxJyPno\"",
+									"uuid": "fda99419-b9b2-4232-a0db-90db82d62f7e"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 08:02:38 GMT",
+									"uuid": "654f885c-5916-4bf5-accc-34aa8458628d"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "58e0276d-288e-4a38-9b88-e823c543da24"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "a486992f-9a3a-44a3-a398-89e2a41fda5d"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"deleteSocial\": \"InstagramX social of https://ig.com/bob has been deleted\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "deleteUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the expected Content-Type header\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the 'errors' array is present in the response\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'message' field in the first error object is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array').with.lengthOf.at.least(1);",
+									"  pm.expect(responseData.errors[0].message).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'data' object is present in the response\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.data).to.exist;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "dffa6f38-85eb-41b8-a4c8-b148217c1781",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "12ad69c9-c666-4b79-a62c-1f001db2c947",
+							"name": "deleteUser",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "1a5f8fd1-4415-478b-9f37-3702a13aa72a"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "5e5769db-154d-4cb5-97bb-c2e6207335e5"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "db37a42d-f2bf-4c1e-9725-217fe4c6642b"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "e24f7e37-df8f-4ff5-b9ee-18023c6f8fb0"
+								},
+								{
+									"key": "Content-Length",
+									"value": "60",
+									"uuid": "5650477d-ea02-4cfc-9c0b-0e1e9ddb7056"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3c-FZvl5sJWoNoHoe83ccyFDl7IFTg\"",
+									"uuid": "bb1b73f1-61b4-43f2-a23f-542399f891fd"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 18 Apr 2024 06:51:49 GMT",
+									"uuid": "dbd4608f-6296-4bd3-a9d2-71479fce0181"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "e87ff905-cacd-4db4-9b7b-ce3286398d7a"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "fc28cafa-1575-4bb6-983f-5fbf743cd21c"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"deleteUser\": \"User Bob Belcher has been deleted\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getUserToken",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fb781067-d1bd-422b-9c7b-d734d1cd19e4",
+								"exec": [
+									"// pm.collectionVariables.set(\"variable_key\", \"variable_value\");\r",
+									"// pm."
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "46f21e65-baac-4c93-ab48-1051c88cae25",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields - token and expiry\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.data).to.exist.and.to.be.an('object');",
+									"    pm.expect(responseData.data.getUserToken).to.exist.and.to.be.an('object');",
+									"    pm.expect(responseData.data.getUserToken.token).to.exist.and.to.be.a('string');",
+									"    pm.expect(responseData.data.getUserToken.expiry).to.exist.and.to.be.a('string');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Token is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.data.getUserToken.token).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Token should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Expiry is a valid date format\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.data.getUserToken.expiry).to.match(/^\\d{4}-\\d{2}-\\d{2}$/);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response content type is application/json\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "d5a5ea55-d687-4f74-8c09-d71c8169cf6a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSkills",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "19452075-0b9d-4222-b850-0cf5da734a42",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the correct Content-Type header\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'message' field in the 'errors' array is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.errors).to.be.an('array');",
+									"    responseData.errors.forEach(function(error) {",
+									"        pm.expect(error.message).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "bff81c57-b5bf-4e89-ba22-ab8045ea6a1f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "e39f2206-0db4-42b3-abb3-365a50b117e8",
+							"name": "setSkills",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "2e2c7f54-be60-4605-b814-dced4dbe745f"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "0a98500d-bca1-44c1-9b4a-8d2ede501a2b"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "9b8375a9-55dc-4efe-9905-2bb0cbfa7f84"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "3d6b9608-ad1c-4f52-9236-60f8706d1076"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52",
+									"uuid": "d1be473a-2155-4c70-8109-9090c11db30b"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"34-PUtl/F4siE0OIukY5LED3BFa5hQ\"",
+									"uuid": "bb9a9202-0e43-44cd-8c0c-325bbc242ff3"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 08:20:00 GMT",
+									"uuid": "07ec7f0e-48c3-467e-be30-1ee6bbdb0aed"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "962ef84b-f3c3-443d-9cd3-e1054e10b54b"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "01a4896b-e75d-4330-99c2-ee21361790e4"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"updateSkills\": [\n            \"Java\",\n            \"salsa\",\n            \"Python\"\n        ]\n    }\n}"
+						},
+						{
+							"id": "f6b0b33f-9341-4cf9-b14b-e20c5b3f524f",
+							"name": "pushSkills",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "2f6b9945-a528-4cf8-aa5a-f30347fc49b5"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "92fbe2fd-8f27-4433-b3e6-a6d84119e3a4"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "77793b4a-2d95-4087-8e09-4400402f0f42"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "7f9d96bb-8155-40e8-8829-ac2cec63d0a3"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67",
+									"uuid": "97507ea4-dda3-486f-b9cc-86dc05704336"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-Dx7zrexeqFFEmv2GfWSGnKr9KOI\"",
+									"uuid": "2d807c19-0d2d-4f76-9fae-ab230fa63e90"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 08:21:52 GMT",
+									"uuid": "9f70fb07-1c32-47df-a152-a038958e53a9"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "6d739476-cef9-4163-af7f-ca300c2e4342"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "2522ac2f-0b63-4f65-8219-02b35fd576d5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"updateSkills\": [\n            \"Java\",\n            \"salsa\",\n            \"Python\",\n            \"Web Assembly\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "upsertEducation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c030847a-0161-4e0e-ad95-ecb6a5d5aba8",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the correct Content-Type header\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.equal(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'message' field in the 'errors' array is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.errors).to.be.an('array');",
+									"    responseData.errors.forEach(function(error) {",
+									"        pm.expect(error.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "a87faf0d-b80d-47f7-bd66-3489a16eba58",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "6f63271d-0cf6-4c70-ba9a-84e54164d540",
+							"name": "upsertEducation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "d667d86e-c39d-470f-9d5e-6318c0ea1156"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "71ef1ed1-2306-4378-9ecb-ea234ba9fcf1"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "8aa54c89-35fc-4329-b171-01a7e0fbd2e1"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "c396c941-d108-4cec-86f2-608dbcc021dc"
+								},
+								{
+									"key": "Content-Length",
+									"value": "238",
+									"uuid": "43fddfa6-6bd2-4984-b1d5-dcd936312e79"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ee-zNs90dhFKeCfYurTEqHJtA6On2s\"",
+									"uuid": "dd6b7da1-8fc1-4120-8cfe-a1db327f9c20"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 08:44:44 GMT",
+									"uuid": "5b5cc8de-2ffd-4d95-8c13-3b22c74cdcc3"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "3e76cb2d-5bb5-4416-a381-a737c4aa47b9"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "57dc471e-3720-423d-b210-e9bb3c56aeb5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"upsertEducation\": {\n            \"description\": \"\",\n            \"endDate\": \"2021-06-01T00:00:00.000Z\",\n            \"fieldOfStudy\": \"BSc Computer Hardware\",\n            \"id\": \"6620c2c95607d97724c1cebc\",\n            \"institution\": \"University of Wirstorshire\",\n            \"startDate\": \"2020-06-01T00:00:00.000Z\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "upsertExperience",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6030bc14-f8f0-4261-b9ef-fd4bb6c3ff5a",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the expected Content-Type header of 'application/json'\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.equal(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'message' field in the first error object is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.errors).to.be.an('array').with.lengthOf.at.least(1);",
+									"  pm.expect(responseData.errors[0].message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "a7248a0c-a0ca-4024-9f78-635ef7568ba0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "f4aa1064-1232-40a9-9218-92a6782f83fb",
+							"name": "updateExperience",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "1d10ea99-7416-4bdd-98ee-f76f9c44efff"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "3a63a700-51e2-4e73-a9c3-1dfa9042452e"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "6afcceb6-d35b-41f9-b61e-85aeb0a9616a"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "5be4c71d-c391-4d4c-ab8a-82750cb3a7fd"
+								},
+								{
+									"key": "Content-Length",
+									"value": "360",
+									"uuid": "e37583f2-a26c-4144-863b-6934862c8182"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"168-I9gRLElQgIXy3UufnJ2x37n/ZOg\"",
+									"uuid": "463c06bb-f3b8-4e4c-ac4d-dacf4b583f6f"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 06:16:03 GMT",
+									"uuid": "668c28bf-25c6-420f-9949-a5550fa7b437"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "7865b13c-5127-48b7-bba6-0635a7340d45"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "7006d8e2-174e-46a6-804d-ab2cc8641eb2"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"upsertExperience\": {\n            \"company\": \"Acme Corp.\",\n            \"description\": \"A fifth law of motion designed for comedic relief\",\n            \"endDate\": \"2021-06-01T00:00:00.000Z\",\n            \"id\": \"6620c2c95607d97724c1ceba\",\n            \"imgSrc\": null,\n            \"role\": null,\n            \"startDate\": \"2020-06-01T00:00:00.000Z\",\n            \"title\": \"Experience Title\",\n            \"tools\": [\n                \"Vue\",\n                \"Node.js\",\n                \"GraphQL\"\n            ],\n            \"type\": \"WORK\",\n            \"url\": \"https://www.url.com\"\n        }\n    }\n}"
+						},
+						{
+							"id": "274c0091-6426-455e-9a9e-46ff486d817f",
+							"name": "createExperience",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "3a38b4cd-da6c-4fc8-b543-b24ce18250e4"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "a615475d-9176-42f7-aceb-19511f9354bf"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "a84c24db-de95-453f-9365-5a34fd0c32f8"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "6157fb77-f73d-4d2c-86f4-a02d9d0efb00"
+								},
+								{
+									"key": "Content-Length",
+									"value": "366",
+									"uuid": "a3261caa-70e9-497c-8d28-8637a6a4bcfa"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"16e-CNxPb+FYS5MteuB4fjb/W9pKKhM\"",
+									"uuid": "bad62145-4765-466b-a194-60557208e4cd"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 06:21:01 GMT",
+									"uuid": "1c5d1624-a0e1-44a8-b8f2-b12a8157246b"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "7b747b8b-ccaa-4482-9e10-17512ce9946c"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "73b67028-a2ef-4626-a4b3-a89c98f9593a"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"upsertExperience\": {\n            \"company\": \"Acme Corp.\",\n            \"description\": \"This experience will be created as it doesn't exist\",\n            \"endDate\": \"2021-06-01T00:00:00.000Z\",\n            \"id\": \"66220d4d1374adcbde428988\",\n            \"imgSrc\": null,\n            \"role\": null,\n            \"startDate\": \"2020-06-01T00:00:00.000Z\",\n            \"title\": \"New Experience Title\",\n            \"tools\": [\n                \"Vue\",\n                \"Node.js\",\n                \"GraphQL\"\n            ],\n            \"type\": \"WORK\",\n            \"url\": \"https://www.url.com\"\n        }\n    }\n}"
+						},
+						{
+							"id": "fa88542f-5a4b-4390-b097-621cef3ab035",
+							"name": "400",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "a077c356-4795-4ccc-94a8-421bca3dff32"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "a297a26a-dd84-42b0-b0a5-96838399e237"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "3645713a-aba0-4b2e-b2d4-f0755680afe4"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "21c41333-7ec8-449f-aeb9-8c425fd0401b"
+								},
+								{
+									"key": "Content-Length",
+									"value": "606",
+									"uuid": "5a44b920-0d3c-45d4-b4d3-d9a70b208f7c"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"25e-gGasd5kOdVAhLYvK9/DTgz0i5g0\"",
+									"uuid": "c749b9a3-f98d-4c5f-8586-bc8430d127d1"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 06:31:58 GMT",
+									"uuid": "e6fd5fbe-87d0-481a-84b8-2c9041317d27"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "5b6bfc59-6044-4efa-898c-55e870164003"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "532d44bc-7678-4041-9d18-9c3c1fc9f806"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"errors\": [\n        {\n            \"message\": \"The requested resource was not found. Please check your arguments\",\n            \"locations\": [\n                {\n                    \"line\": 2,\n                    \"column\": 5\n                }\n            ],\n            \"path\": [\n                \"upsertExperience\"\n            ],\n            \"extensions\": {\n                \"code\": \"BAD_REQUEST\",\n                \"stacktrace\": [\n                    \"GraphQLError: The requested resource was not found. Please check your arguments\",\n                    \"    at /workspaces/tiwao-api/src/api/mutations.ts:340:17\",\n                    \"    at resolve (/workspaces/tiwao-api/src/api/mutations.ts:316:14)\",\n                    \"    at middleware (/workspaces/tiwao-api/node_modules/.pnpm/graphql-shield@7.6.5_graphql-middleware@6.1.35_graphql@16.8.1/node_modules/graphql-shield/cjs/generator.js:30:24)\"\n                ]\n            }\n        }\n    ],\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "upsertExperiences",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e51ab8ae-eb14-45af-a059-37fbea5353e6",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Message is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData.errors[0].message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Message should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Locations is an array with at least one element\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.locations).to.be.an('array').and.to.have.lengthOf.at.least(1);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Code is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.errors[0].extensions.code).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "2cafedf8-1fe9-4597-8d42-558fd63427f2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upsertLocation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d2cf8210-e888-4cbf-bd91-e7dfd2a6ec5b",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has required fields\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"  pm.expect(responseData.data).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Errors array should not be empty\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array').that.is.not.empty;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Data is null\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.data).to.be.null;",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "24511356-f17e-4198-88f3-0c443c423698",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "1c64f628-13c1-4076-ba95-3ba39666869d",
+							"name": "upsertLocation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "de4043a4-6109-49c0-ad1e-0820ec44aaee"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "552933b0-b943-46d8-a64f-63364ddfeb64"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "77b5e12c-8a32-4faa-8558-faa8b8205656"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "54ad0ce3-40fb-428e-b0ff-40217bb271fb"
+								},
+								{
+									"key": "Content-Length",
+									"value": "120",
+									"uuid": "2879b5c9-5020-4dc8-b2b6-d971bb0402da"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"78-Wuj7HijHtKv7pFjEua0Aa7JWHHI\"",
+									"uuid": "96ca7dc5-e1bc-4f3a-a8f7-c23204e36a7d"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 09:06:28 GMT",
+									"uuid": "fd9cc747-035c-42bf-8b1b-d8c1b800f5c1"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "141d6e9d-530d-4cb0-b774-6d807fcd05fa"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "3b208d38-757b-41a8-94a1-ea46e392f517"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"upsertLocation\": {\n            \"city\": \"Dublin\",\n            \"country\": \"Ireland\",\n            \"id\": \"6620c2c95607d97724c1cebf\",\n            \"province\": \"Leinster\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "upsertSocial",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "be842cdb-198f-4154-aa85-7418eda5dd4f",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content-Type is application/json\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has an errors array\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Errors array is not empty\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.errors).to.exist.and.to.be.an('array').that.is.not.empty;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Each error object has a message field\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData.errors).to.be.an('array').and.to.have.length.above(0);",
+									"",
+									"  responseData.errors.forEach(function (error) {",
+									"    pm.expect(error.message).to.exist.and.to.be.a('string');",
+									"  });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "b81c062e-b820-425c-9fd2-63c101777569",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "8f1f0b82-9154-40b3-96c1-3f96d5913363",
+							"name": "upsertSocial",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "20eb7f1b-de44-456b-b53f-86db6245a038"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "439dfb53-f11b-49a3-8404-ba11253da963"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "bd52bb4a-ffc9-4aa3-87f1-b00813b41dc4"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "8224d477-2679-490f-ba16-7407ac3f9f90"
+								},
+								{
+									"key": "Content-Length",
+									"value": "111",
+									"uuid": "cda0b1c5-fe89-4693-9838-2e2e69002401"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6f-5NW3r4kGredPem5PndYGTIFsiJw\"",
+									"uuid": "006372ee-76f7-4424-abbe-8d99963ef47b"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 09:31:20 GMT",
+									"uuid": "b14d271f-d157-4242-9ff6-498f6cac6024"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "3e5d5569-ca40-4f63-b687-f16ecb8a69fd"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "328b23c6-08c8-4125-a1e8-17d229dc3b9a"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"upsertSocial\": {\n            \"id\": \"6620c2c95607d97724c1cebd\",\n            \"platform\": \"xbook\",\n            \"url\": \"https://xbook.com/alice\"\n        }\n    }\n}"
+						}
+					]
+				}
+			],
+			"id": "fcc210f7-7512-4818-a4c8-d3f68e671760"
+		},
+		{
+			"name": "queries",
+			"item": [
+				{
+					"name": "getEducation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "37e45189-e076-4db1-975f-418a9636a998",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has required fields\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist;",
+									"  pm.expect(responseData.data).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Errors field is an array and is not empty\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.errors).to.be.an('array').and.to.have.lengthOf.at.least(1, \"Errors field should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"The 'data' field is an object and not null\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.data).to.be.an('object');",
+									"  pm.expect(responseData.data).to.not.be.null;",
+									"});",
+									"",
+									"",
+									"pm.test(\"The 'data' field has the expected structure\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.data).to.exist.and.to.be.an('object');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "7a06086c-478c-476b-b720-2a8695331a42",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "02646b5e-fcf9-4f08-8041-b62f949c99e6",
+							"name": "getEducation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "84b4fe84-4ac1-4ed8-8507-3dac4a2c287e"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "f75d13e8-fc07-4ef4-99e0-b19a34288346"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "03fa4fa0-e10d-4aac-abeb-d23270c524b4"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "81189f17-ac02-4c67-8533-03d59df0f76a"
+								},
+								{
+									"key": "Content-Length",
+									"value": "291",
+									"uuid": "5fde10ac-7352-413a-aa72-2b7e7aac6ac6"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"123-Bt1bycmvNqwUMLqpqt3gEl5DaRA\"",
+									"uuid": "4f30375a-7e2b-472c-882f-8cd1da50e7f6"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 18 Apr 2024 20:47:04 GMT",
+									"uuid": "d30f6392-bdb4-43e7-acc4-599e680c3e4c"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "c5ae30e6-6877-4ef3-ac87-a6be0fe86c6d"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "b9482a3f-6236-4c9b-9887-35aa679dabb0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getEducation\": {\n            \"description\": \"I studied Computer Science at the University of Birmingham.\",\n            \"endDate\": \"2020-06-01T00:00:00.000Z\",\n            \"fieldOfStudy\": \"BSc Computer Science\",\n            \"id\": \"6620bd9ab8e6ce445def9944\",\n            \"institution\": \"University of Birmingham\",\n            \"startDate\": \"2017-09-01T00:00:00.000Z\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getExperience",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e08f2937-6ab2-4635-892a-ec4cb5ac5f1b",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields - errors and data\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist;",
+									"  pm.expect(responseData.data).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the data object is null\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.data).to.be.null;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify Content-Type header is set to application/json\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "90587ff7-8f7a-4283-906d-330cb640b3a7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "17076cfa-ba7c-4803-895c-74e1fa4fc6cd",
+							"name": "getExperience",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "10baa98b-9a4e-4254-82f3-ddc18f46f223"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "e906c191-c2e4-4bc7-84a7-57310155c25f"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "de0ed79a-d733-4475-9bf8-7916c3cfa923"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "afc6a592-593b-4d31-a555-ddc1dfce123a"
+								},
+								{
+									"key": "Content-Length",
+									"value": "360",
+									"uuid": "51e5d58a-e7f1-4dc6-bda4-d1d3331e89ca"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"168-AbcMwS1v2FYPJNd5JXpGBDwsRlg\"",
+									"uuid": "1bf7df9c-b99d-4b07-8e31-c4df90e8dc55"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 01:16:38 GMT",
+									"uuid": "d5776f39-302e-4fdc-b95c-71eb1338e409"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "381ba3f5-15b7-4a58-ab1c-c740d197b38d"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "853d4330-af73-42d9-8a92-3d607fa6f304"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getExperience\": {\n            \"company\": null,\n            \"description\": \"A fifth law of motion designed for comedic relief\",\n            \"endDate\": \"2020-06-01T00:00:00.000Z\",\n            \"id\": \"6620c2c95607d97724c1ceba\",\n            \"imgSrc\": null,\n            \"role\": null,\n            \"startDate\": \"2019-06-01T00:00:00.000Z\",\n            \"title\": \"5th Law of Motion\",\n            \"tools\": [\n                \"React\",\n                \"Node.js\",\n                \"GraphQL\"\n            ],\n            \"type\": \"PROJECT\",\n            \"url\": \"https://www.doomcorp.com\"\n        }\n    }\n}"
+						},
+						{
+							"id": "51cb69f3-de68-4969-a080-a117e08e0ba8",
+							"name": "getEmptyExperience",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "ed2fc811-9307-47a1-a387-44bd44ca538a"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "801437b0-dae6-4df5-ac55-615d017563d6"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "22f47ffe-ed51-47b9-a7b3-1c152eb23cc4"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "cf1d7557-5935-4190-be71-0e07dabf2407"
+								},
+								{
+									"key": "Content-Length",
+									"value": "32",
+									"uuid": "a24b32be-6fd8-4f13-91d4-a6e032f2bbae"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"20-kLbO/v10VuSly2ZjZq13Bm/Hpw0\"",
+									"uuid": "a95b2f8b-794b-4bd8-b51e-ef7b8b88e532"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 01:17:28 GMT",
+									"uuid": "fb4b893f-8023-4ee6-913b-82f5a4ed3b7d"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "f807931a-b523-469e-b471-4582af147fd6"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "77e3d3ff-b6e4-40e8-87b5-73f1ea89b578"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getExperience\": null\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getExperiences",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "62f1b800-cd15-47f5-8758-753bf6117256",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content-Type is application/json\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the errors array\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the message field in the errors array is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.errors).to.be.an('array');",
+									"  ",
+									"  responseData.errors.forEach(function(error) {",
+									"    pm.expect(error.message).to.be.a('string').and.to.not.be.empty;",
+									"  });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "41ae72d0-cd7a-4f7d-9efa-c77920eb9f70",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "78220a67-ffbb-492d-ae54-0b9ab0b64789",
+							"name": "FilterStartDate",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "d901d806-3b14-466a-b0fb-837fc31bf76d"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "a8b24ff0-7c3d-4ba1-b403-d47323588c30"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "7e0fe7c7-5d79-45f6-85b2-168de99b1877"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "d32f8fc7-e8e2-4268-9a3d-352c37215c70"
+								},
+								{
+									"key": "Content-Length",
+									"value": "696",
+									"uuid": "4fdcce14-2026-41fd-8ba0-2039a410076a"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2b8-bBHnOtPxl+T4tK6gC/x2WXi0wCM\"",
+									"uuid": "e55f70d7-ce21-4cbc-9645-8e2c38adf1fc"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 06:36:33 GMT",
+									"uuid": "c55119f2-4606-41a9-9f26-0e0494e54285"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "aabff422-a6ad-43a6-bf5c-850e8891663b"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "c13b1db3-b26d-4b35-9768-14c0cf5089df"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getExperiences\": [\n            {\n                \"company\": \"Acme Corp.\",\n                \"description\": \"A fifth law of motion designed for comedic relief\",\n                \"endDate\": \"2021-06-01T00:00:00.000Z\",\n                \"id\": \"6620c2c95607d97724c1ceba\",\n                \"imgSrc\": null,\n                \"role\": null,\n                \"startDate\": \"2020-06-01T00:00:00.000Z\",\n                \"title\": \"Experience Title\",\n                \"tools\": [\n                    \"Vue\",\n                    \"Node.js\",\n                    \"GraphQL\"\n                ],\n                \"type\": \"WORK\",\n                \"url\": \"https://www.url.com\"\n            },\n            {\n                \"company\": \"Acme Corp.\",\n                \"description\": \"This experience will be created as it doesn't exist\",\n                \"endDate\": \"2021-06-01T00:00:00.000Z\",\n                \"id\": \"66220d4d1374adcbde428988\",\n                \"imgSrc\": null,\n                \"role\": null,\n                \"startDate\": \"2020-06-01T00:00:00.000Z\",\n                \"title\": \"New Experience Title\",\n                \"tools\": [\n                    \"Vue\",\n                    \"Node.js\",\n                    \"GraphQL\"\n                ],\n                \"type\": \"WORK\",\n                \"url\": \"https://www.url.com\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"id": "9632c93b-9591-4975-a271-cabcc7cdf745",
+							"name": "FilterProjectType",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "105406a9-75f8-4883-9cd7-5906280fcbd0"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "87784483-1c6c-4907-a3a5-81c9bd05198c"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "79f0e700-cb39-48d3-9b78-8fcc8f1e0087"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "8814e280-9653-4d62-b8ea-d10ea194e393"
+								},
+								{
+									"key": "Content-Length",
+									"value": "355",
+									"uuid": "a67e2951-27a4-49ce-b0ac-d7d729d3a6fc"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"163-IGBMrjWxkFrK1z+MtEsFecQv7G8\"",
+									"uuid": "1ac051e6-b6b7-4a5f-a90b-8388bc0c95fe"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 06:40:06 GMT",
+									"uuid": "aa03f8b2-a7c3-4376-abc7-240aef61afc1"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "f4036a66-e404-44ed-871d-77416fb72794"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "e0e01250-c74e-4526-af69-1ec352cadf0b"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getExperiences\": [\n            {\n                \"company\": null,\n                \"description\": \"A fifth law of motion designed for comedic relief\",\n                \"endDate\": \"2021-06-01T00:00:00.000Z\",\n                \"id\": \"6620c2c95607d97724c1ceba\",\n                \"imgSrc\": null,\n                \"role\": null,\n                \"startDate\": \"2020-06-01T00:00:00.000Z\",\n                \"title\": \"Experience Title\",\n                \"tools\": [\n                    \"Vue\",\n                    \"Node.js\",\n                    \"GraphQL\"\n                ],\n                \"type\": \"PROJECT\",\n                \"url\": \"https://www.url.com\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getLocation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0851cef5-5d80-4bc1-b792-df90ddef1c71",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the correct Content-Type header\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'errors' array is present and contains at least one error object\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"    pm.expect(responseData.errors).to.have.lengthOf.at.least(1, \"There should be at least one error object in the 'errors' array\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'data' field is null\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData.data).to.be.null;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the error object has a non-empty 'message' field\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.errors).to.exist;",
+									"    pm.expect(responseData.errors).to.be.an('array');",
+									"    responseData.errors.forEach(function(error) {",
+									"        pm.expect(error.message).to.exist.and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "b1c05cc7-0eef-407d-8e55-1c26f01b6eab",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "27ded337-dcf7-46c8-b5f1-766ad1138876",
+							"name": "getLocation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "df4127e2-b729-4a4e-9a19-d160b5f3e4ec"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "270bf5c2-0c2a-46ba-925f-5a68160c87dd"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "642bf620-d2e4-4281-ad84-6e8015200954"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "038788c1-3cd2-4e99-9707-e0c515053ef2"
+								},
+								{
+									"key": "Content-Length",
+									"value": "133",
+									"uuid": "f5d91e3e-c0c8-41fa-948c-106a5c40bab1"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"85-fyjx8hnjEXEV0S4Nj0DyQVgFv0Q\"",
+									"uuid": "87c95f00-2074-40cd-bba2-57a85a937b50"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 06:58:10 GMT",
+									"uuid": "cad553c5-9d6f-48a2-8768-8d0090e64d40"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "45f918d3-eead-4166-b382-ec4b6df3364e"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "60df8bf3-fb54-4037-a7eb-c3cf93c2aec2"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getLocation\": {\n            \"city\": \"Birmingham\",\n            \"country\": \"United Kingdom\",\n            \"id\": \"6620c2c95607d97724c1cebf\",\n            \"province\": \"West Midlands\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getSkills",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "390b5bfa-106e-479b-a371-ee64a959791d",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required field - data\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.data).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify the presence and length of the 'getSkills' array\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.data.getSkills).to.exist.and.to.be.an('array');",
+									"    pm.expect(responseData.data.getSkills).to.have.lengthOf(1);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate that the 'getSkills' array contains non-empty strings\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.data.getSkills).to.be.an('array').that.is.not.empty;",
+									"    responseData.data.getSkills.forEach(function(skill) {",
+									"        pm.expect(skill).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content-Type header is set to application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "257110d6-a5a6-421c-9458-d41fc801f38b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "This HTTP POST request is used to retrieve skills data. The request body should be included in the payload, but the specific structure and parameters are not defined. The response will be in JSON format with a status code of 200. The response will contain a \"data\" object with a \"getSkills\" array, which may include the retrieved skills. Here is an example of the response:\n\n``` json\n{\"data\":{\"getSkills\":[\"\"]}}\n\n ```"
+					},
+					"response": [
+						{
+							"id": "188507bb-1495-4b88-805c-350bb30aa11a",
+							"name": "getSkills",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								},
+								"description": "This HTTP POST request is used to retrieve skills data. The request body should be included in the payload, but the specific structure and parameters are not defined. The response will be in JSON format with a status code of 200. The response will contain a \"data\" object with a \"getSkills\" array, which may include the retrieved skills. Here is an example of the response:\n\n``` json\n{\"data\":{\"getSkills\":[\"\"]}}\n\n ```"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "7cd42fa9-e396-480d-ae35-18464259bd09"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "307ae36b-4dbd-4ed6-9bfd-4e4254b2d408"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "f1493392-8f0b-4940-bfdb-d9fc2cb71d5d"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "8353f3a3-fa7f-450e-a2bb-1da511cb05cc"
+								},
+								{
+									"key": "Content-Length",
+									"value": "107",
+									"uuid": "87a37595-91eb-4ed3-be30-850bac11c88e"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6b-zV+Wizbr5rBao0s0UAwcHvgpdKw\"",
+									"uuid": "852d9390-1356-4cf9-ade3-bd9acfae2bc7"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 18 Apr 2024 06:57:04 GMT",
+									"uuid": "1c2f15ee-7704-44fc-af9e-c816db179bfa"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "fda7b340-ccf9-4dfb-bc6c-a24e5887334d"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "40005682-6088-4a9f-929b-a8c38b0fe0eb"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getSkills\": [\n            \"JavaScript\",\n            \"TypeScript\",\n            \"GraphQL\",\n            \"React\",\n            \"Node.js\",\n            \"Docker\",\n            \"Kubernetes\",\n            \"AWS\"\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getSocial",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0cac0759-2e5c-4e61-b632-ace9084162f5",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields - errors and data\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"  pm.expect(responseData.data).to.exist.and.to.be.an('object');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify the presence of the errors array\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"  pm.expect(responseData.errors).to.have.lengthOf.at.least(1);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'data' object is present and not null\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.data).to.exist.and.to.not.be.null;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate that the message field in the first error object is a non-empty string\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.errors).to.be.an('array').and.to.have.lengthOf.at.least(1, \"There should be at least one error object\");",
+									"  pm.expect(responseData.errors[0].message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"The message field should be a non-empty string\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "a4a52211-6d45-48ea-8903-c3a21505a80a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "1177cede-0b6e-4b46-9608-2499c45ba38e",
+							"name": "getSocial",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "886967b3-a78f-4362-a87b-aab3e51c192a"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "73375866-1322-4489-9bc6-77cff54d0b6c"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "7903e8c5-838c-432f-931b-55edf15a50f9"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "f14b5a38-ec10-4f16-a97e-93e82401b200"
+								},
+								{
+									"key": "Content-Length",
+									"value": "106",
+									"uuid": "2728987f-8fff-41ba-8f8f-f50989a3fda1"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6a-mfTznKsvH30EBNhJq5bAk8k3Q8U\"",
+									"uuid": "4a8464a7-91dd-470a-b7eb-880681b347ea"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 07:37:44 GMT",
+									"uuid": "bcc22ace-8207-437c-ab08-7457e5b4d82f"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "8a9f2d9c-7fc3-47da-bbdf-633319aca3c0"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "4c44068b-9c02-4642-b40c-b04ac3cb653a"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getSocial\": {\n            \"id\": \"6620c2c95607d97724c1cebd\",\n            \"platform\": \"xbook\",\n            \"url\": \"https://xbook.com/bob\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getSocials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8274ad26-27a2-4f24-a25d-1e699e1f4f90",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content-Type header is set to application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields - errors and data\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.errors).to.exist;",
+									"    pm.expect(responseData.data).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Errors field is an array and is not empty\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData.errors).to.be.an('array');",
+									"    pm.expect(responseData.errors).to.have.length.above(0, \"Errors array should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Data field should be null\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.data).to.be.null;",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "c17c92bd-f639-4fc6-ba86-765082d012bd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "82f73b64-2fce-406f-bef2-c8b1d5737bcb",
+							"name": "getSocials",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "e904b3c0-e386-4d63-a10f-92eb1d5bb4df"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "9c58c9ae-7f37-46b9-a3cc-9ecbf2d6c5d5"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "3056ed32-5825-4a2c-b6dd-4da9c2660adc"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "32674fd6-7e5d-465e-8572-03ea93bb2740"
+								},
+								{
+									"key": "Content-Length",
+									"value": "109",
+									"uuid": "3d1307dd-2b11-4905-841d-9e055fc645a1"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6d-8TgbqmsQLAS1bPfIqqoysPfCX6Q\"",
+									"uuid": "8aab7006-e027-4d08-b74f-acb5c7d462c3"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 07:19:29 GMT",
+									"uuid": "7db79c82-0e6f-470d-9604-ce1cff95a08d"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "bc32a5df-c662-4b70-99f2-7c91316e342b"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "f647ca9c-022a-4fa8-8660-26732ad0b70d"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getSocials\": [\n            {\n                \"id\": \"6620c2c95607d97724c1cebd\",\n                \"platform\": \"xbook\",\n                \"url\": \"https://xbook.com/bob\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b512edca-95b3-405c-9d4d-bc33c6faabae",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the expected Content-Type header\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.equal(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the 'errors' array in the response\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData).to.have.property('errors').that.is.an('array').and.to.have.lengthOf.at.least(1, \"The 'errors' array should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the 'data' object in the response\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.data).to.exist.and.to.be.an('object');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'getUser' field in the 'data' object is null\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData.data).to.be.an('object');",
+									"  pm.expect(responseData.data.getUser).to.be.null;",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "c4d6e115-e1f2-4ee4-92f4-dd1612217020",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "12ad0e4c-aa39-4414-8f09-3614ce21a65c",
+							"name": "getUser",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "56d57ce8-c4c5-4191-89b7-f16c1a9629a3"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "b606740c-1792-4be8-9394-95c505fd27f0"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "6fe2871e-6db0-4888-b1c2-7001c61b1828"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "c51ff804-98a8-4b5b-aee5-1491b1199c45"
+								},
+								{
+									"key": "Content-Length",
+									"value": "271",
+									"uuid": "b176c1a6-90ee-41ff-b463-5549f0e1d919"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"10f-kuv66YheUEzQaKP3k/wGmIYOVOA\"",
+									"uuid": "de9dd878-600e-43cb-bb24-1a6d56495f3b"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 07:41:18 GMT",
+									"uuid": "5124ad1d-0738-4e9a-8188-decdd573638a"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "d45ada0c-21b8-44f6-a288-b491fd006101"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "74d65aec-6d96-456c-8e58-b12d495ce72a"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getUser\": {\n            \"about\": \"I am a software boomer.\",\n            \"email\": \"sara@example.com\",\n            \"firstName\": \"Sara\",\n            \"id\": \"6620c2c95607d97724c1ceb9\",\n            \"lastName\": \"Reynolds\",\n            \"skills\": [\n                \"Java\",\n                \"Google Cloud\",\n                \"Python\",\n                \"React\",\n                \"Node.js\",\n                \"Docker\",\n                \"Kubernetes\",\n                \"AWS\"\n            ],\n            \"title\": \"Software Boomer\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getUserByEmail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6aa9e0cf-13b8-4dfd-b8df-a81f94976344",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response content type is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the structure of the response\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.be.an('array');",
+									"  pm.expect(responseData.data).to.be.an('object');",
+									"  pm.expect(responseData.data.getUserByEmail).to.be.null;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify that the 'errors' array is present and contains at least one error object\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData.errors).to.exist.and.to.be.an('array');",
+									"  pm.expect(responseData.errors.length).to.be.at.least(1, \"There should be at least one error object in the 'errors' array\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate that the 'message' field of the error object is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData.errors).to.be.an('array').and.to.have.lengthOf.at.least(1);",
+									"    responseData.errors.forEach(function (error) {",
+									"        pm.expect(error.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "d68b2d58-ccb9-4c50-8d41-569f7b8709c6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "eed68a64-2edd-41a9-ae38-5a76b6d933b6",
+							"name": "getUserByEmail",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "7d71ab4b-fb20-4303-9c54-c28444bf0d6e"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "1228abaf-9e67-4fd0-84bb-63a059f6965c"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "f6262d08-4cff-4ad1-9bfa-3bb9331c2cfc"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "82c139b3-a4d4-43f9-9551-84ca3800a156"
+								},
+								{
+									"key": "Content-Length",
+									"value": "278",
+									"uuid": "0f5f91c2-db3d-45d7-9a61-665d410c79f4"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"116-uvG2gjmU1r5YK/lYIqG4RHHW138\"",
+									"uuid": "060d1fec-27d0-4e78-a602-d1ff95d8a6f2"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 19 Apr 2024 07:52:50 GMT",
+									"uuid": "9e641a79-6ccf-40b0-92ce-477f6948b100"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "d6dc7618-e13a-4a4c-8888-3300a0a4ca84"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "6edb6413-1624-4f0a-b045-fc0f883e77ed"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getUserByEmail\": {\n            \"about\": \"I am a software boomer.\",\n            \"email\": \"sara@example.com\",\n            \"firstName\": \"Sara\",\n            \"id\": \"6620c2c95607d97724c1ceb9\",\n            \"lastName\": \"Reynolds\",\n            \"skills\": [\n                \"Java\",\n                \"Google Cloud\",\n                \"Python\",\n                \"React\",\n                \"Node.js\",\n                \"Docker\",\n                \"Kubernetes\",\n                \"AWS\"\n            ],\n            \"title\": \"Software Boomer\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getUsers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e235554f-78e1-4ce5-8148-88aa9b1ce08f",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the expected Content-Type header of 'application/json'\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response contains the 'errors' field\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Errors field is an array and is not empty\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.be.an('array').and.to.have.lengthOf.at.least(1, \"Errors field should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"The 'data' field should be null\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData.data).to.be.null;",
+									"});",
+									"",
+									"pm.test(\"Response time is within an acceptable range\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the expected Content-Type header of 'application/json'\", function () {",
+									"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Errors field is an array and not empty\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.errors).to.be.an('array').and.to.have.lengthOf.at.least(1, \"Errors array should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Data field should be null\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.data).to.be.null;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "be5b8e79-893d-4f54-b50a-77a0b074169e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "### Create User Data\n\nThis endpoint allows you to create user data.\n\n#### Request Body\n\n- The request body should be of type \"undefined\".\n    \n\n#### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n  \"data\": {\n    \"getUsers\": [\n      {\n        \"about\": \"string\",\n        \"email\": \"string\",\n        \"firstName\": \"string\",\n        \"id\": \"string\",\n        \"lastName\": \"string\",\n        \"skills\": [\"string\"],\n        \"title\": \"string\"\n      }\n    ]\n  }\n}\n\n ```"
+					},
+					"response": [
+						{
+							"id": "12ca943b-25e7-45ce-adf7-006e85f2e586",
+							"name": "getUsers",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								},
+								"description": "### Create User Data\n\nThis endpoint allows you to create user data.\n\n#### Request Body\n\n- The request body should be of type \"undefined\".\n    \n\n#### Response\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n  \"data\": {\n    \"getUsers\": [\n      {\n        \"about\": \"string\",\n        \"email\": \"string\",\n        \"firstName\": \"string\",\n        \"id\": \"string\",\n        \"lastName\": \"string\",\n        \"skills\": [\"string\"],\n        \"title\": \"string\"\n      }\n    ]\n  }\n}\n\n ```"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express",
+									"uuid": "d24beeb3-7fa9-45c9-a6b8-0a65dad3e7a5"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"uuid": "5617f100-196d-4476-a54a-eeac2c1eaf6b"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-store",
+									"uuid": "49e8bc4b-c60b-482d-b6fa-fcea2cf4902e"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"uuid": "f1334745-8c71-459c-97d0-fedb571031ad"
+								},
+								{
+									"key": "Content-Length",
+									"value": "516",
+									"uuid": "c17d00ac-5403-4060-82cc-86173196ec09"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"204-HmUclUVpWwGTCqaVzdwI29cibDk\"",
+									"uuid": "10c0fb3d-0782-4194-8068-0f4abdad789c"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 18 Apr 2024 06:49:37 GMT",
+									"uuid": "0bae5933-23f7-4bac-86a4-44728b65f5d6"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"uuid": "65f1221b-bf1f-4050-8389-0defdac82261"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5",
+									"uuid": "84c2b74e-a633-4569-9498-2f954edc57d8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getUsers\": [\n            {\n                \"about\": null,\n                \"email\": \"alice@example.com\",\n                \"firstName\": \"Alice\",\n                \"id\": \"6620bd9ab8e6ce445def9943\",\n                \"lastName\": \"Smith\",\n                \"skills\": [\n                    \"JavaScript\",\n                    \"TypeScript\",\n                    \"GraphQL\",\n                    \"React\",\n                    \"Node.js\",\n                    \"Docker\",\n                    \"Kubernetes\",\n                    \"AWS\"\n                ],\n                \"title\": \"Software Engineer\"\n            },\n            {\n                \"about\": \"If I were a spice, I'd be flour\",\n                \"email\": \"bob@burger.com\",\n                \"firstName\": \"Bob\",\n                \"id\": \"6620bd9bb8e6ce445def9947\",\n                \"lastName\": \"Belcher\",\n                \"skills\": [\n                    \"Java\",\n                    \"Google Cloud\",\n                    \"Python\",\n                    \"React\",\n                    \"Node.js\",\n                    \"Docker\",\n                    \"Kubernetes\",\n                    \"AWS\"\n                ],\n                \"title\": \"Software Developer\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getUsersByRole",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a8b8979a-8a42-4dc1-bc7a-d3e4ab7ee5bf",
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the expected Content-Type header of 'application/json'\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response contains the 'errors' field\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Errors field is an array and is not empty\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.errors).to.be.an('array').and.to.have.lengthOf.at.least(1, \"Errors field should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"The 'data' field should be null\", function () {",
+									"  const responseData = pm.response.json();",
+									"",
+									"  pm.expect(responseData.data).to.be.null;",
+									"});",
+									"",
+									"pm.test(\"Response time is within an acceptable range\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Request body contains required fields - about, email, firstName, lastName, and skills\", function () {",
+									"  const requestData = pm.request.json();",
+									"  ",
+									"  pm.expect(requestData).to.be.an('object');",
+									"  pm.expect(requestData.data.getUsers).to.be.an('array');",
+									"  ",
+									"  requestData.data.getUsers.forEach(user => {",
+									"    pm.expect(user.about).to.exist;",
+									"    pm.expect(user.email).to.exist;",
+									"    pm.expect(user.firstName).to.exist;",
+									"    pm.expect(user.lastName).to.exist;",
+									"    pm.expect(user.skills).to.exist;",
+									"  });",
+									"});",
+									"",
+									"pm.test(\"Response body should contain the required fields\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.data.getUsers).to.be.an('array');",
+									"  ",
+									"  responseData.data.getUsers.forEach(user => {",
+									"    pm.expect(user.about).to.exist;",
+									"    pm.expect(user.email).to.exist;",
+									"    pm.expect(user.firstName).to.exist;",
+									"    pm.expect(user.lastName).to.exist;",
+									"    pm.expect(user.skills).to.exist;",
+									"  });",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "c227d37a-283d-4663-b266-58df7411c423",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "### Request Description\n\nThis endpoint makes an HTTP POST request to {{url}} to send a payload with a graphql request body type and variables as its arguments.\n\n### Request Body\n\n- The request body for this endpoint is of a graphql mutation type.\n    \n\n### Response\n\nThe response for this request is a JSON object with a \"data\" key. The \"data\" object contains a \"getUsers\" array, where each element is an object with keys such as \"about\", \"email\", \"firstName\", \"id\", \"lastName\", \"skills\", and \"title\". The \"about\", \"email\", \"firstName\", \"id\", and \"lastName\" fields are of type string, while the \"skills\" field is an array of strings.\n\n### JSON Schema\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"data\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"getUsers\": {\n          \"type\": \"array\",\n          \"items\": {\n            \"type\": \"object\",\n            \"properties\": {\n              \"about\": { \"type\": \"string\" },\n              \"email\": { \"type\": \"string\" },\n              \"firstName\": { \"type\": \"string\" },\n              \"id\": { \"type\": \"string\" },\n              \"lastName\": { \"type\": \"string\" },\n              \"skills\": {\n                \"type\": \"array\",\n                \"items\": { \"type\": \"string\" }\n              },\n              \"title\": { \"type\": \"string\" }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n\n ```"
+					},
+					"response": []
+				}
+			],
+			"id": "bf8bda33-35d6-4e08-b1d3-cab334a665ec"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2af51540-4100-48f2-8441-4ba8c683cc78",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.environment.get(\"variable_key\");"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "854e1c96-5d53-46a0-b79a-4b4ee67eec85",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "9edf98b0-4865-46ac-926a-f972ea2b7086",
+			"key": "userId",
+			"value": "6620bd9ab8e6ce445def9943",
+			"type": "string"
+		}
+	]
+}
