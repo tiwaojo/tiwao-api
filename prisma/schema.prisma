@@ -1,0 +1,136 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../src/generated/client"
+  // binaryTargets = ["native", "debian-openssl-1.1.x", "debian-openssl-3.0.x"]
+}
+
+generator pothos {
+  provider = "prisma-pothos-types"
+  // output = "../src/generated/pothos"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+/// Represents a user of the application
+model User {
+  /// `userId`: The id of the user to whom the experience belongs. This is a one to many relationship using the `userId` field as a foreign key
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  /// `firstName`: The first name of the user
+  firstName   String       @unique
+  /// `lastName`: The last name of the user
+  lastName    String       @unique
+  /// `title`: The title of the user. This can be a job title, a role, or a position
+  title       String       @unique
+  /// `email`: The email of the user
+  email       String       @unique
+  /// `role`: The role of the user. This can be either `PROMETHUS` or `GUEST`
+  role        Role         @default(GUEST)
+  /// `about`(optional): A brief description of the user
+  about       String?
+  /// `location`(optional): The location of the user. This can be a city, a country, or a province
+  location    Location?
+  /// `socials`(optional): A list of socials through which the user can be reached. This can be a list of social media platforms, websites, etc.
+  socials     Social[] // One to many relationship with socials
+  /// `skills`(optional): A general list of skills the user has. This can be a list of programming languages, frameworks, libraries, etc.
+  skills      String[]
+  /// `education`(optional): Represents the highest level of education achieved by the user.
+  education   Education? // One to one relationship with education
+  /// `experiences`(optional): A list of experiences the user has had in their career. This can be a list of work experiences, projects, etc.
+  experiences Experience[]
+  // @@map("users") // This is how you can map a model to an existing collection/table in the db
+  // name String @map("username") // This is how you can map a field to an existing field in the db
+}
+
+/// Represents the socials through which a user can be reached
+model Social {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  platform String
+  url      String
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String @db.ObjectId
+}
+
+/// Represents the highest level of education achieved by a user
+model Education {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  institution  String ///@unique
+  fieldOfStudy String
+  startDate    DateTime @default(now())
+  endDate      DateTime @default(now())
+  description  String?
+  user         User     @relation(fields: [userId], references: [id]) // One to one relationship with user
+  userId       String   @unique @db.ObjectId
+}
+
+/// Represents the experiences a user has had in their career
+model Experience {
+  /// `id`: The id of the experience. This is a one to many relationship using the `experienceId` field as a foreign key
+  id          String         @id @default(auto()) @map("_id") @db.ObjectId
+  /// `type`: The type of experience. This can be either `WORK` or `PROJECT`
+  type        ExperienceType @default(PROJECT)
+  /// `title`: The title/name of the experience
+  title       String
+  /// `startDate`: The start date of the experience.
+  startDate   DateTime       @default(now())
+  /// `endDate`: The end date of the experience.
+  endDate     DateTime       @default(now())
+  /// `description`(optional): A brief description of the experience
+  description String?
+  /// `url`: The url of the experience. This can be the url of the project or the company the user worked at
+  url         String
+  /// `imgSrc`(optional): The image source of the experience. This can be the logo of the company or the project
+  imgSrc      String?
+  /// `tools`(optional): A list of tools through which the experience was gained. This can be a list of programming languages, frameworks, libraries, etc.
+  tools       String[]
+  /// `company`(optional): Represents the company the user was employed at in the experience. Pertains only to experience type `WORK`
+  company     String? /// Represents the company the user was employed at in the experience. Pertains only to experience type `WORK`
+  /// `role`(optional): Represents the role of the user in the experience. Pertains only to experience type `WORK`
+  role        String? /// Represents the role of the user in the experience. Pertains only to experience type `WORK`
+  /// `user`: The user to whom the experience belongs. This is a one to many relationship
+  user        User           @relation(fields: [userId], references: [id])
+  /// `userId`: The id of the user to whom the experience belongs. This is a one to many relationship using the `userId` field as a foreign key
+  userId      String         @db.ObjectId
+
+  @@index([url, title]) // for faster searching and filtering of experiences. @unique does thes same. see https://www.prisma.io/docs/orm/prisma-schema/data-model/indexes
+}
+
+model Location {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  city     String
+  country  String
+  province String
+  user     User   @relation(fields: [userId], references: [id]) // One to one relationship with user
+  userId   String @unique @db.ObjectId
+}
+
+/// @deprecated Use the `String` scalar type instead
+/// A unit of measurement for the level of expertise in a skill
+/// `title`: The name of the skill
+/// `level`(optional): The level of expertise in the skill. This can be a number between 1 and 10.
+type Skill {
+  title String
+  level Int? /// Represents the number of years and assumed usage of skill in experience
+}
+
+enum ExperienceType {
+  WORK
+  PROJECT
+}
+
+/// Represents the roles a user can have in the application
+/// `PROMETHUS`: Represents the role of a prometheus user. This user has full access to the application
+/// `GUEST`: Represents the role of a guest user. This user has limited access to the application
+/// TODO: Implement in the future
+enum Role {
+  PROMETHUS
+  GUEST
+}

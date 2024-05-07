@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "lib": ["esnext"],
+    "strict": true,
+    "rootDir": ".",
+    "outDir": "dist",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    // "strictNullChecks": false,
+    "typeRoots": [
+      "./src/resolvers/generated/nexus"
+    ]
+  },
+  "include": ["src/**/*.ts", "prisma/seed.ts", "graphql/**/*.ts"],
+  "exclude": ["node_modules","src/test/*.test.ts"]
+}
