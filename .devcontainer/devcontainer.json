@@ -22,7 +22,8 @@
         "ms-azuretools.vscode-azurefunctions",
         "Azurite.azurite",
         "ms-azuretools.vscode-cosmosdb",
-        "ms-vscode.azurecli"
+        "ms-vscode.azurecli",
+        "ms-azuretools.vscode-azureappservice"
       ]
     }
   },

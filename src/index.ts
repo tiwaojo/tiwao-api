@@ -93,7 +93,7 @@ export const server = new ApolloServer<GraphQLContext>({
   },
   // A cache store for previously parsed queries. This can improve performance by skipping parsing and validating the operation
   documentStore: new KeyvAdapter<DocumentNode>(
-    new Keyv(process.env.REDIS_URL + '/1' || "redis://redis:6379", {
+    new Keyv(process.env.REDIS_URL + '/0' || "redis://redis:6379", {
       ttl: 300,
     })
   ),

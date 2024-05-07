@@ -210,13 +210,13 @@ type Query {
   """Get all experiences of a user"""
   getExperiences(
     """The end date of the experience"""
-    endDate: DateTime = "2024-05-06T08:23:27.833Z"
+    endDate: DateTime = "2024-05-07T21:15:08.756Z"
 
     """The type of the experience"""
     experienceType: String = "PROJECT"
 
     """The start date of the experience"""
-    startDate: DateTime = "2024-05-06T08:23:27.833Z"
+    startDate: DateTime = "2024-05-07T21:15:08.756Z"
 
     """The user id of the experience"""
     userId: ID!
