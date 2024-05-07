@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "2a4e3fad-6f35-48f1-aeba-8552bc7e8fa4",
 		"name": "Portfolio API",
-		"description": "## Mutations\n\n---\n\nThe following http endpoints are perform `write operations`. They will mostly return `Unauthorized` errors if used as only the api author is expected to use them.\n\n## Queries\n\n---\n\nThe following graphql endpoints are for performing `read operations`. They can be interacted with. Use the following mock user info in the users section below for testing.\n\n### Users\n\n``` json\n{\n      \"firstName\": \"Bob\",\n      \"lastName\": \"Belcher\",\n      \"email\": \"bob@burger.com\"\n}\n{\n      \"firstName\": \"Alice\",\n      \"lastName\": \"Smith\",\n      \"email\": \"alice@example.com\"\n}\n\n ```",
+		"description": "## Mutations\n\n---\n\nThe following http endpoints are perform `write operations`. They will mostly return `Unauthorized` errors if used as only the api author is expected to use them.\n\n## Queries\n\n---\n\nThe following graphql endpoints are for performing `read operations`. They can be interacted with. Use the following mock user info in the users section below for testing.\n\n### Users\n\n``` json\n{\n      \"firstName\": \"Bob\",\n      \"lastName\": \"Belcher\",\n      \"email\": \"bob@burger.com\",\n      \"role\": \"GUEST\"\n}\n{\n      \"firstName\": \"Alice\",\n      \"lastName\": \"Smith\",\n      \"email\": \"alice@example.com\",\n      \"role\": \"GUEST\"\n}\n\n ```",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_uid": "33741736-2a4e3fad-6f35-48f1-aeba-8552bc7e8fa4"
 	},
