@@ -3294,7 +3294,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "34860197-90d5-47b0-b5c1-0ea4b51904f8",
+				"id": "2797f52e-41f3-49b3-a77b-1b2fc3b55a2b",
 				"type": "text/javascript",
 				"packages": {},
 				"exec": [
@@ -3305,7 +3305,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "c9700b49-7fa8-412a-964d-0ca3df5052d1",
+				"id": "71b643f0-c9ee-4b19-90a7-2f390a06d4b4",
 				"type": "text/javascript",
 				"packages": {},
 				"exec": [
@@ -3316,9 +3316,9 @@
 	],
 	"variable": [
 		{
-			"id": "783ec270-f3dd-411a-a323-b2cc2894b236",
-			"key": "userId",
-			"value": "6620bd9ab8e6ce445def9943",
+			"id": "d5694151-69b7-46b8-a775-5fb67d06837b",
+			"key": "url",
+			"value": "https://tiwao-api.azure-api.net",
 			"type": "string"
 		}
 	]
