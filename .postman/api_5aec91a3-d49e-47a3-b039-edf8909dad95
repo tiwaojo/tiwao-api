@@ -14,6 +14,8 @@ files[] = {"id":"33741736-2a4e3fad-6f35-48f1-aeba-8552bc7e8fa4","path":"Portfoli
 [config.relations.collections.metaData]
 
 [config.relations.apiDefinition]
+files[] = {"path":"pothos-schema.graphql","metaData":{}}
 
 [config.relations.apiDefinition.metaData]
 type = graphql
+rootFiles[] = pothos-schema.graphql
