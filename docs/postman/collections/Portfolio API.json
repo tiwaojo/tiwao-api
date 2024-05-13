@@ -3274,7 +3274,76 @@
 						},
 						"description": "### Request Description\n\nThis endpoint makes an HTTP POST request to {{url}} to send a payload with a graphql request body type and variables as its arguments.\n\n### Request Body\n\n- The request body for this endpoint is of a graphql mutation type.\n    \n\n### Response\n\nThe response for this request is a JSON object with a \"data\" key. The \"data\" object contains a \"getUsers\" array, where each element is an object with keys such as \"about\", \"email\", \"firstName\", \"id\", \"lastName\", \"skills\", and \"title\". The \"about\", \"email\", \"firstName\", \"id\", and \"lastName\" fields are of type string, while the \"skills\" field is an array of strings.\n\n### JSON Schema\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"data\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"getUsers\": {\n          \"type\": \"array\",\n          \"items\": {\n            \"type\": \"object\",\n            \"properties\": {\n              \"about\": { \"type\": \"string\" },\n              \"email\": { \"type\": \"string\" },\n              \"firstName\": { \"type\": \"string\" },\n              \"id\": { \"type\": \"string\" },\n              \"lastName\": { \"type\": \"string\" },\n              \"skills\": {\n                \"type\": \"array\",\n                \"items\": { \"type\": \"string\" }\n              },\n              \"title\": { \"type\": \"string\" }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n\n ```"
 					},
-					"response": []
+					"response": [
+						{
+							"id": "8ebfaaf5-4e2c-43eb-a2cf-7d79bf986b85",
+							"name": "getUsersByRole",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql"
+								},
+								"url": {
+									"raw": "{{url}}",
+									"host": [
+										"{{url}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 May 2024 05:08:51 GMT"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "max-age=60, private"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"97-p9M5+tjSyZ1j5iA16IoZV3n94Cc\""
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "x-response-time",
+									"value": "291ms"
+								},
+								{
+									"key": "x-response-size",
+									"value": "428b"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"getUsersByRole\": [\n            {\n                \"id\": \"663ab08e5869c956c01304e6\",\n                \"email\": \"alice@example.com\"\n            },\n            {\n                \"id\": \"663ab0905869c956c01304ea\",\n                \"email\": \"bob@burger.com\"\n            }\n        ]\n    }\n}"
+						}
+					]
 				}
 			],
 			"id": "469d178c-b57e-4e66-bd69-b03d2690cdd9"
