@@ -17,10 +17,13 @@ steps:
     versionSpec: '10.x'
     checkLatest: true
   displayName: 'Install Node.js'
-  
+- task: Npm@1
+  inputs:
+    command: 'install'
 - script: |
-    npm install
-    npm run prisma:generate
+    npm install -g pnpm
+    pnpm install
+    pnpm run prisma:generate
     tsc -p ./tsconfig.json
     pnpm run codegen --if-present
   displayName: 'npm install and build'
