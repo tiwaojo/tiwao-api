@@ -38,6 +38,6 @@ steps:
     azureSubscription: 'promethus-dev(0b76229a-7e52-48ca-bb6d-faa570ac1a5b)'
     appType: 'webAppLinux'
     WebAppName: 'tiwao-api'
-    packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)/**/*.zip'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     RuntimeStack: 'NODE|18-lts'
     StartupCommand: 'node dist/src/index.js'
