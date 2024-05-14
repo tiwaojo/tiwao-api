@@ -17,9 +17,7 @@ steps:
     versionSpec: '10.x'
     checkLatest: true
   displayName: 'Install Node.js'
-- task: Npm@1
-  inputs:
-    command: 'install'
+
 - script: |
     npm install -g pnpm
     pnpm install
