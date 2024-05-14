@@ -1,5 +1,7 @@
 # tiwao-api
 
+[![Build and deploy Node.js app to Azure Web App - tiwao-api](https://github.com/tiwaojo/tiwao-api/actions/workflows/dev_tiwao-api.yml/badge.svg)](https://github.com/tiwaojo/tiwao-api/actions/workflows/dev_tiwao-api.yml)
+
 This is a GraphQL application that uses Pothos Graphql plugin for schema generation and the Prisma ORM to integrate with a MongoDB database. The API and MongoDB database run in separate Docker services.
 
 ## Project Structure
@@ -102,6 +104,7 @@ https://learn.microsoft.com/en-us/azure/app-service/tutorial-nodejs-mongodb-app
 - [Deploying to Azure Webapps Using local Git](https://learn.microsoft.com/en-us/azure/app-service/deploy-zip?tabs=cli)
 - [Deploying to Azure Webapps Using zip](https://learn.microsoft.com/en-us/azure/app-service/deploy-zip?tabs=cli)
 - [Azure DevOps](https://www.youtube.com/watch?v=5jOvVY1G62U)
+  - [Azure DevOps Self Hosted Pipeline](https://stackoverflow.com/a/76656218)
 - [Azure Subscription Limits and Quotas](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#api-management-limits)
 
 ### Authentication & Authorization

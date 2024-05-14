@@ -102,3 +102,6 @@ __azurite_db*__.json
 
 # prisma client
 src/generated/client
+
+# Azure DevOps Self Hosted Pipeline
+promethus-az-agent

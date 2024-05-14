@@ -6,6 +6,7 @@
     "ms-azuretools.vscode-cosmosdb",
     "azurite.azurite",
     "ms-azuretools.vscode-azureresourcegroups",
-    "cweijan.vscode-redis-client"
+    "cweijan.vscode-redis-client",
+    "me-dutour-mathieu.vscode-github-actions"
   ]
 }

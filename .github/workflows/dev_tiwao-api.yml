@@ -5,8 +5,10 @@ name: Build and deploy Node.js app to Azure Web App - tiwao-api
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - "v*"
+    # branches:
+      # - main
   workflow_dispatch:
 
 jobs:
