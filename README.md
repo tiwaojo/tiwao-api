@@ -4,6 +4,11 @@
 
 This is a GraphQL application that uses Pothos Graphql plugin for schema generation and the Prisma ORM to integrate with a MongoDB database. The API and MongoDB database run in separate Docker services.
 
+## Deployment
+- [Azure Web App](https://tiwao-api.azurewebsites.net/)
+- [Azure API Management](https://tiwao-api.azure-api.net/)
+- [Postman API Documentation](https://www.postman.com/promethus-team/workspace/team-workspace/api/5aec91a3-d49e-47a3-b039-edf8909dad95?action=share&creator=33741736)
+
 ## Project Structure
 
 - `src/index.ts`: Entry point of the application.
