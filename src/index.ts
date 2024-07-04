@@ -19,6 +19,7 @@ import { createContext, GraphQLContext } from "./context";
 import plugin from "./plugin";
 import logger from "./logging";
 import { DocumentNode } from "graphql";
+import "@keyv/redis"
 
 // Create an instance of ApolloServer
 // More options can be found here: https://www.apollographql.com/docs/apollo-server/api/apollo-server/#options
