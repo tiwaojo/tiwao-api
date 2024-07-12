@@ -105,3 +105,4 @@ src/generated/client
 
 # Azure DevOps Self Hosted Pipeline
 promethus-az-agent
+.vercel

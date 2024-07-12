@@ -12,7 +12,7 @@ builder.queryField("getUsers", (t) =>
     resolve: async (query, _, __, ___, info) => {
       // resource: https://www.apollographql.com/docs/apollo-server/api/plugin/cache-control/
       const cacheControl = cacheControlFromInfo(info);
-      cacheControl.setCacheHint({ maxAge: 60, scope: "PRIVATE" });
+      cacheControl.setCacheHint({ maxAge: 3600, scope: "PRIVATE" });
       // cacheControl.cacheHint.policyIfCacheable();
       return await prisma.user.findMany({ ...query, orderBy: { id: "asc" } });
     },
@@ -381,8 +381,8 @@ builder.queryField(
         }),
       },
       resolve: async (query, { userId }, _, info) => {
-        cacheControlFromInfo(info).cacheHint.policyIfCacheable();
-        cacheControlFromInfo(info).setCacheHint({ maxAge: 60, scope: "PUBLIC" });
+        cacheControlFromInfo(info);//.cacheHint.policyIfCacheable();
+        cacheControlFromInfo(info).setCacheHint({ maxAge: 3600, scope: "PRIVATE" });
         return await prisma.user
           .findUnique({
             ...query,

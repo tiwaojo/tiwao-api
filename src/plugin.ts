@@ -86,9 +86,10 @@ export default {
       async willSendResponse({ response, overallCachePolicy }) {
         // resource: https://www.apollographql.com/docs/apollo-server/performance/caching/#caching-with-a-cdn
         const policyIfCacheable = overallCachePolicy.policyIfCacheable();
-
+        
+        // If the response is cacheable, set the cache headers. for use with a CDN
         if (policyIfCacheable && !response.http.headers && response.http) {
-          console.log("Setting cache headers");
+          requestContext.logger.info("Setting cache headers");
           response.http.headers = new HeaderMap().set(
             "cache-control",
             // ... or the values your CDN recommends
@@ -96,6 +97,13 @@ export default {
               overallCachePolicy.maxAge
             }, ${policyIfCacheable.scope.toLowerCase()}`
           );
+        }else{
+          requestContext.logger.info("No cache headers set");
+          // response.http.headers = new HeaderMap().set(
+          //   "cache-control",
+          //   // ... or the values your CDN recommends
+          //   `no-cache, no-store, must-revalidate, max-age=0, s-maxage=0, proxy-revalidate, private, stale-while-revalidate=0, stale-if-error=0`
+          // );
         }
 
         const elapsed = Date.now() - start;
