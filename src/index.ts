@@ -18,7 +18,8 @@ import { schema } from "./schema";
 import { createContext, GraphQLContext } from "./context";
 import plugin from "./plugin";
 import logger from "./logging";
-import { DocumentNode } from "graphql";
+import { DocumentNode, OperationTypeNode } from "graphql";
+import "@keyv/redis"
 
 // Create an instance of ApolloServer
 // More options can be found here: https://www.apollographql.com/docs/apollo-server/api/apollo-server/#options
@@ -28,15 +29,16 @@ export const server = new ApolloServer<GraphQLContext>({
   includeStacktraceInErrorResponses: process.env.NODE_ENV === "development",
   // resource: https://www.apollographql.com/docs/apollo-server/performance/cache-backends
   cache: new KeyvAdapter(
-    new Keyv(process.env.REDIS_URL || "redis://redis:6379", {
-      ttl: 30,
+    new Keyv(process.env.KV_URL || "redis://redis:6379", {
+      ttl: 300,
+      namespace: "cache",
       adapter: "redis",
       deserialize(data) {
         console.log('deserialize: ', data);
         
         return JSON.parse(data);
       },
-      // compression: new KeyvGzip(),
+      compression: new KeyvGzip(),
     })
   ),
   plugins: [
@@ -48,21 +50,25 @@ export const server = new ApolloServer<GraphQLContext>({
       return requestContext.request.http?.headers.get('session-id') || null;
     },
     async shouldReadFromCache(requestContext) {
-      console.log('shouldReadFromCache', requestContext.request.http?.method);
+      requestContext.logger.info(`shouldReadFromCache: ${requestContext.request.http?.method}`);
       
       return requestContext.request.http?.headers.has("cache-control") ? true : false;
     },
-    // async shouldWriteToCache(requestContext) {
-    //   console.log('shouldWriteToCache', requestContext.request.http?.method);
+    async shouldWriteToCache(requestContext) {
       
-    //   return requestContext.request.http?.method === 'POST' ? true : false;
-    // }
+      // TODO: Investigate why this isn't working as expected
+      if (!requestContext.metrics.responseCacheHit || requestContext.operation?.operation === OperationTypeNode.MUTATION) {
+        requestContext.logger.info(`Writing request to cache... ${requestContext.request.operationName}`);
+        return true;
+      }
+      return false;
+    }
     }),
     ApolloServerPluginCacheControl({
       // Allows us to set caching policy at the resolvers or schema level via directives. 
       // The plugin will automatically calculate the max age of the response based on the cache control directives.
       // resource: https://www.apollographql.com/docs/apollo-server/api/plugin/cache-control
-      defaultMaxAge: 10, // 10 seconds
+      defaultMaxAge: 60, // 60 seconds
       // calculateHttpHeaders: true,
     }),
     process.env.NODE_ENV === "development"
@@ -74,8 +80,9 @@ export const server = new ApolloServer<GraphQLContext>({
   // resource: https://www.apollographql.com/docs/apollo-server/performance/apq
   persistedQueries: {
     cache: new KeyvAdapter(
-      new Keyv(process.env.REDIS_URL+ "/0" || "redis://redis:6379", {
+      new Keyv(process.env.KV_URL || "redis://redis:6379", {
         ttl: 300,
+        namespace: "persistedQueries",
         deserialize(data) {
           console.log('deserialize: ', data);
           
@@ -83,18 +90,20 @@ export const server = new ApolloServer<GraphQLContext>({
         },
         serialize(data) {
           console.log('serialize: ', data);
+          this.logger.info('serialize: ', data);
           
           return JSON.stringify(data);
         },
-        // adapter: "redis",
-        // compression: new KeyvGzip(),
+        adapter: "redis",
+        compression: new KeyvGzip(),
       })
     ),
   },
   // A cache store for previously parsed queries. This can improve performance by skipping parsing and validating the operation
   documentStore: new KeyvAdapter<DocumentNode>(
-    new Keyv(process.env.REDIS_URL + '/0' || "redis://redis:6379", {
+    new Keyv(process.env.KV_URL + '/0' || "redis://redis:6379", {
       ttl: 300,
+      namespace: "documentStore",
     })
   ),
   formatError: (formattedError, error) => {
@@ -145,4 +154,4 @@ async function startApolloServer() {
 // appInsights.loadAppInsights();
 // appInsights.trackPageView();
 
-startApolloServer();
+// startApolloServer();

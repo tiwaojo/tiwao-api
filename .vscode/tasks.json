@@ -43,13 +43,14 @@
       "dependsOn": "pnpm build (functions)",
       "options": {
         "env": {
-          "DATABASE_URL":"mongodb://tiwao:password@mongodb:27017/tiwao_db?retryWrites=true&w=majority",
-          "MONGODB_ROOT_PASSWORD":"root_password",
-"MONGODB_USERNAME":"tiwao",
-"MONGODB_PASSWORD":"password",
-"MONGODB_DATABASE":"tiwao_db",
-"MONGODB_ENABLE_JOURNAL":"true",
-"MONGODB_REPLICA_SET_MODE":"primary",
+          "DATABASE_URL": "mongodb://tiwao:password@mongodb:27017/tiwao_db?retryWrites=true&w=majority",
+          "MONGODB_ROOT_PASSWORD": "root_password",
+          "MONGODB_USERNAME": "tiwao",
+          "MONGODB_PASSWORD": "password",
+          "MONGODB_DATABASE": "tiwao_db",
+          "MONGODB_ENABLE_JOURNAL": "true",
+          "MONGODB_REPLICA_SET_MODE": "primary",
+          "KV_URL": "redis://:redis_password@redis:6379"
         }
       }
     }

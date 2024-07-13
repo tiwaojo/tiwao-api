@@ -1,6 +1,13 @@
 # tiwao-api
 
+[![Build and deploy Node.js app to Azure Web App - tiwao-api](https://github.com/tiwaojo/tiwao-api/actions/workflows/dev_tiwao-api.yml/badge.svg)](https://github.com/tiwaojo/tiwao-api/actions/workflows/dev_tiwao-api.yml)
+
 This is a GraphQL application that uses Pothos Graphql plugin for schema generation and the Prisma ORM to integrate with a MongoDB database. The API and MongoDB database run in separate Docker services.
+
+## Deployment
+- [Azure Web App](https://tiwao-api.azurewebsites.net/)
+- [Azure API Management](https://tiwao-api.azure-api.net/)
+- [Postman API Documentation](https://www.postman.com/promethus-team/workspace/team-workspace/api/5aec91a3-d49e-47a3-b039-edf8909dad95?action=share&creator=33741736)
 
 ## Project Structure
 
@@ -20,11 +27,23 @@ This is a GraphQL application that uses Pothos Graphql plugin for schema generat
 
 1. Start the Docker services: `docker-compose up -d`
 2. Install dependencies: `pnpm install`
-3. Generate the Prisma client: `npx prisma generate`
-4. Run migrations: `npx prisma migrate dev`
-5. Start the application: `pnpm dev` or `pnpm start`(requires recompliation)
+3. Generate the Prisma client: `pnpm run prisma:generate`
+4. Run migrations: `pnpm run prisma:migrate`
+5. Add seed data: `npx prisma db seed`
+6. Add environment variables to `.env.dev` file:
+   ```.env
+    DATABASE_URL="mongodb://tiwao:password@mongodb:27017/tiwao_db?retryWrites=true&w=majority"
+    MONGODB_ROOT_PASSWORD="root_password"
+    MONGODB_USERNAME="tiwao"
+    MONGODB_PASSWORD="password"
+    MONGODB_DATABASE="tiwao_db"
+    MONGODB_ENABLE_JOURNAL="true"
+    MONGODB_REPLICA_SET_MODE="primary"
+    KV_URL="redis://:redis_password@redis:6379"
+   ```
+7. Start the application: `pnpm dev` or `pnpm start`(requires recompliation)
    1. Alternatively, you can run the application using azure functions: `pnpm run dev:func` and debug using VSCode Debugger. [Resource](https://www.apollographql.com/docs/apollo-server/v3/deployment/azure-functions/) or [video](https://youtu.be/unUeFApHeT0)
-6. Open the Apollo Graphql Playground: `http://localhost:8080`  
+8. Open the Apollo Graphql Playground: `http://localhost:8080` and `http://localhost:7071/graphql` for azure functions.
 
 ## Usage
 
@@ -102,6 +121,7 @@ https://learn.microsoft.com/en-us/azure/app-service/tutorial-nodejs-mongodb-app
 - [Deploying to Azure Webapps Using local Git](https://learn.microsoft.com/en-us/azure/app-service/deploy-zip?tabs=cli)
 - [Deploying to Azure Webapps Using zip](https://learn.microsoft.com/en-us/azure/app-service/deploy-zip?tabs=cli)
 - [Azure DevOps](https://www.youtube.com/watch?v=5jOvVY1G62U)
+  - [Azure DevOps Self Hosted Pipeline](https://stackoverflow.com/a/76656218)
 - [Azure Subscription Limits and Quotas](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#api-management-limits)
 
 ### Authentication & Authorization

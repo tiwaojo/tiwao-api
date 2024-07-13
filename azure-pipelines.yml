@@ -14,19 +14,20 @@ steps:
 
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
+    versionSpec: '20.x'
     checkLatest: true
   displayName: 'Install Node.js'
-  
+
 - script: |
-    npm install
-    npm run prisma:generate
+    npm install -g pnpm
+    pnpm install
+    pnpm run prisma:generate
     tsc -p ./tsconfig.json
     pnpm run codegen --if-present
   displayName: 'npm install and build'
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.BinariesDirectory)'
+    rootFolderOrFile: './'
     includeRootFolder: true
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
@@ -37,6 +38,6 @@ steps:
     azureSubscription: 'promethus-dev(0b76229a-7e52-48ca-bb6d-faa570ac1a5b)'
     appType: 'webAppLinux'
     WebAppName: 'tiwao-api'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     RuntimeStack: 'NODE|18-lts'
     StartupCommand: 'node dist/src/index.js'

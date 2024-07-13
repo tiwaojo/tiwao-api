@@ -2,6 +2,7 @@ import { JwtPayload, verify } from "jsonwebtoken";
 import { GraphQLContext, prisma } from "./context";
 import { hash } from "bcryptjs";
 import { GraphQLError } from "graphql";
+import { HttpRequest } from "@azure/functions";
 
 export const APP_SECRET = process.env.APP_SECRET as string;
 export const HASHED_APP_SECRET = async () => await hash(APP_SECRET, 10);
@@ -14,7 +15,8 @@ interface Token {
 // get the user id and email from the token
 // if the token is valid, return the user so it may be added to the context
 export async function verifyToken(ctx: GraphQLContext) {
-  const authToken = ctx.req?.headers["authorization"];
+  const authToken = (ctx.req as HttpRequest).headers.get("authorization") ?? "";
+  // const authToken = ctx.req?.headers["authorization"];
 
   if (authToken) {
     const verifiedToken: Token = {
