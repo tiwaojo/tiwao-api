@@ -154,4 +154,4 @@ async function startApolloServer() {
 // appInsights.loadAppInsights();
 // appInsights.trackPageView();
 
-startApolloServer();
+// startApolloServer();

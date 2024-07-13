@@ -27,11 +27,23 @@ This is a GraphQL application that uses Pothos Graphql plugin for schema generat
 
 1. Start the Docker services: `docker-compose up -d`
 2. Install dependencies: `pnpm install`
-3. Generate the Prisma client: `npx prisma generate`
-4. Run migrations: `npx prisma migrate dev`
-5. Start the application: `pnpm dev` or `pnpm start`(requires recompliation)
+3. Generate the Prisma client: `pnpm run prisma:generate`
+4. Run migrations: `pnpm run prisma:migrate`
+5. Add seed data: `npx prisma db seed`
+6. Add environment variables to `.env.dev` file:
+   ```.env
+    DATABASE_URL="mongodb://tiwao:password@mongodb:27017/tiwao_db?retryWrites=true&w=majority"
+    MONGODB_ROOT_PASSWORD="root_password"
+    MONGODB_USERNAME="tiwao"
+    MONGODB_PASSWORD="password"
+    MONGODB_DATABASE="tiwao_db"
+    MONGODB_ENABLE_JOURNAL="true"
+    MONGODB_REPLICA_SET_MODE="primary"
+    KV_URL="redis://:redis_password@redis:6379"
+   ```
+7. Start the application: `pnpm dev` or `pnpm start`(requires recompliation)
    1. Alternatively, you can run the application using azure functions: `pnpm run dev:func` and debug using VSCode Debugger. [Resource](https://www.apollographql.com/docs/apollo-server/v3/deployment/azure-functions/) or [video](https://youtu.be/unUeFApHeT0)
-6. Open the Apollo Graphql Playground: `http://localhost:8080`  
+8. Open the Apollo Graphql Playground: `http://localhost:8080` and `http://localhost:7071/graphql` for azure functions.
 
 ## Usage
 

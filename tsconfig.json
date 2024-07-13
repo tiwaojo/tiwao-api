@@ -9,10 +9,7 @@
     "sourceMap": true,
     "esModuleInterop": true,
     // "strictNullChecks": false,
-    "typeRoots": [
-      "./src/resolvers/generated/nexus"
-    ]
   },
-  "include": ["src/**/*.ts", "prisma/seed.ts", "graphql/**/*.ts"],
+  "include": ["src/**/*.ts", "prisma/seed.ts",],
   "exclude": ["node_modules","src/test/*.test.ts"]
 }

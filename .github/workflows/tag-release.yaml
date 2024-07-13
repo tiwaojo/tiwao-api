@@ -1,0 +1,31 @@
+name: Tag and Release - tiwao-api
+
+on:
+  push:
+    branches:
+    - main
+  workflow_dispatch:
+
+jobs:
+  tag-and-release:
+    permissions:
+      contents: write
+      pull-requests: read
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      # Add a lable of release:major, release:minor, or release:patch to the PR to bump the version accordingly
+      - uses: rymndhng/release-on-push-action@v0.28.0
+        with:
+          bump_version_scheme: minor
+          tag_prefix: v
+          use_github_release_notes: true
+          release_name: "Release <RELEASE_VERSION>"
+          max_commits: 20
+            
+      - name: Check Output Parameters
+        run: |
+          echo "Got tag name ${{ steps.release.outputs.tag_name }}"
+          echo "Got release version ${{ steps.release.outputs.version }}"
+          echo "Upload release artifacts to ${{ steps.release.outputs.upload_url }}"
