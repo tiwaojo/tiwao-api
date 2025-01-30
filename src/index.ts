@@ -145,13 +145,4 @@ async function startApolloServer() {
   server.logger.info(`🚀 Server ready at ${url}`);
 }
 
-// TODO: Add Application Insights. Note this is resource isn't a part of the Azure Free Services
-// Resource: https://learn.microsoft.com/en-us/azure/azure-monitor/app/javascript-sdk?tabs=npmpackage
-// const appInsights = new ApplicationInsights({ config: {
-//   connectionString: 'YOUR_CONNECTION_STRING'
-//   /* ...Other Configuration Options... */
-// } });
-// appInsights.loadAppInsights();
-// appInsights.trackPageView();
-
-// startApolloServer();
+startApolloServer();

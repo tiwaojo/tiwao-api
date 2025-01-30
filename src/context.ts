@@ -58,8 +58,8 @@ prisma.$extends({
 
 export interface GraphQLContext {
   // prisma: PrismaClient;
-  req: HttpRequest | IncomingMessage ;
-  res?: ServerResponse | object;
+  req: IncomingMessage ;
+  res?: ServerResponse;
 }
 
 // export const createContext = async (req: IncomingMessage) => ({

@@ -173,10 +173,10 @@ builder.queryField("getExperiences", (t) =>
       }),
     },
     nullable: true,
-    validate: [
-      (args) => !!args.experienceType || !!args.startDate || !!args.endDate,
-      { message: "Must provide either experience type or start/end date" },
-    ],
+    // validate: [
+    //   (args) => !!args.experienceType || !!args.startDate || !!args.endDate,
+    //   { message: "Must provide either experience type or start/end date" },
+    // ],
     resolve: async (
       query,
       _root,
@@ -198,7 +198,7 @@ builder.queryField("getExperiences", (t) =>
             },
           ],
         },
-        orderBy: { startDate: "asc",title: "asc"},
+        orderBy: [{ startDate: "asc"},{title: "asc"}],
       });
     },
   })

@@ -17,6 +17,6 @@ builder.mutationType({
 export const schema = builder.toSchema({sortSchema: true});
 const schemaAsString = printSchema(lexicographicSortSchema(schema));
 writeFileSync(
-  path.join(__dirname, "generated/pothos-schema.graphql"),
+  path.join(__dirname, "generated/schema.graphql"),
   schemaAsString
 );

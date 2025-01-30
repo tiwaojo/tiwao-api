@@ -15,8 +15,7 @@ interface Token {
 // get the user id and email from the token
 // if the token is valid, return the user so it may be added to the context
 export async function verifyToken(ctx: GraphQLContext) {
-  const authToken = (ctx.req as HttpRequest).headers.get("authorization") ?? "";
-  // const authToken = ctx.req?.headers["authorization"];
+  const authToken = ctx.req?.headers["authorization"];
 
   if (authToken) {
     const verifiedToken: Token = {

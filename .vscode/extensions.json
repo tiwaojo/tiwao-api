@@ -7,6 +7,7 @@
     "azurite.azurite",
     "ms-azuretools.vscode-azureresourcegroups",
     "cweijan.vscode-redis-client",
-    "me-dutour-mathieu.vscode-github-actions"
+    "me-dutour-mathieu.vscode-github-actions",
+    "apollographql.vscode-apollo"
   ]
 }

@@ -37,6 +37,8 @@
     "ghcr.io/devcontainers/features/azure-cli": {},
     "ghcr.io/jlaundry/devcontainer-features/azure-functions-core-tools": {},
 	"ghcr.io/devcontainers-contrib/features/vercel-cli": {},
+  "ghcr.io/dhoeric/features/act": {},
+  "ghcr.io/devcontainers/features/docker-in-docker": {"installDockerBuildx": true}
   // "ghcr.io/itsmechlark/features/redis-server": {},
 	// "ghcr.io/devcontainers-contrib/features/azurite:1": {}
   },

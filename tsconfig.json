@@ -8,6 +8,7 @@
     "outDir": "dist",
     "sourceMap": true,
     "esModuleInterop": true,
+    "skipLibCheck": true // Skip type checking of all declaration files (*.d.ts). Should be false in a real project but resolves type errors in Prisma and lru-cache(Map) via apollo-server
     // "strictNullChecks": false,
   },
   "include": ["src/**/*.ts", "prisma/seed.ts",],

@@ -9,6 +9,23 @@
       "port": 9229,
       "envFile": "${workspaceFolder}/.env.dev",
       "preLaunchTask": "func: host start"
+    },
+    {
+      "name": "Debug via pnpm run dev",
+      "program": "${workspaceFolder}/src/index.ts",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "npm: build",
+      // "profileStartup": true,
+      // "runtimeExecutable": "pnpm",
+      // "runtimeArgs": [
+      //   "run",
+      //   "dev"
+      // ],
+      "skipFiles": ["<node_internals>/**"],
+      "envFile": "${workspaceFolder}/.env.dev",
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"]
     }
   ]
 }

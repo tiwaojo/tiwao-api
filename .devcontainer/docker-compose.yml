@@ -1,10 +1,10 @@
-version: "3.8"
 name: tiwao-api
 services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ../Dockerfile
+      target: dev
     volumes:
       - ../..:/workspaces:cached
 
@@ -14,36 +14,60 @@ services:
     # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
     depends_on:
       - mongodb
-      # - db-secondary
       - redis
+    environment:
+      - DATABASE_URL=mongodb://tiwao:password@mongodb:27017/tiwao_db?retryWrites=true&w=majority
+      - KV_URL=redis://:redis_password@redis:6379
     # network_mode: service:db
     networks:
-      - app-tier
+      - app
+
+  # Not suitable as Prisma has a hard requirement for MongoDB to exist as a replica set
+  # mongodb:
+  #   image: mongodb/mongodb-community-server:7.0.8-ubi8
+  #   container_name: mongodb
+  #   hostname: mongodb
+  #   ports:
+  #     - "27017:27017"
+  #   networks:
+  #     - app
+  #   volumes:
+  #     - mongodb-data:/data/db
+  #   healthcheck:
+  #     test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+  #     interval: 1m30s
+  #     timeout: 30s
+  #     retries: 5
+  #     start_period: 30s
 
   mongodb:
     container_name: mongodb
     image: bitnami/mongodb:latest
-    restart: unless-stopped
+    hostname: mongodb
     volumes:
       - mongodb-data:/bitnami/mongodb:rw
       # - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
-    env_file:
-      - ../.env.dev
+    environment:
+      - MONGODB_ROOT_PASSWORD=root_password
+      - MONGODB_USERNAME=tiwao
+      - MONGODB_PASSWORD=password
+      - MONGODB_DATABASE=tiwao_db
+      - MONGODB_ENABLE_JOURNAL=true
+      - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_REPLICA_SET_KEY=replicasetkey123
     networks:
-      - app-tier
-    # healthcheck:
-    #   test: ["executable", "arg"]
-    #   test: echo 'db.runCommand("ping").ok' | mongo 10.10.10.60:27017/test --quiet
-    #   interval: 1m30s
-    #   timeout: 30s
-    #   retries: 5
-    #   start_period: 30s
+      - app
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
   
   db-secondary:
     container_name: db-secondary
-    restart: unless-stopped
     depends_on:
-      - mongodb # depends on name of service
+      - mongodb
     environment:
         - MONGODB_REPLICA_SET_MODE=secondary
         - MONGODB_ADVERTISED_HOSTNAME=db-secondary # omit if scalling
@@ -55,7 +79,6 @@ services:
   
   db-arbiter:
     image: 'bitnami/mongodb:latest'
-    restart: unless-stopped
     depends_on:
       - mongodb
     environment:
@@ -67,17 +90,16 @@ services:
   
   redis:
     image: redis:latest
-    env_file:
-      - ../.env.dev
-    command: redis-server --save 20 1 --loglevel warning --requirepass redis_password
+    hostname: redis
+    command: redis-server --save 60 1 --loglevel warning --requirepass redis_password
     ports:
       - 6379:6379
     networks:
-      - app-tier
+      - app
 
 volumes:
   mongodb-data:
 
 networks:
-  app-tier:
+  app:
     driver: bridge
